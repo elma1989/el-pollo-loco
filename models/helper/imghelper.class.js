@@ -78,4 +78,60 @@ export class ImgHelper {
             'assets/img/pepe/dead/D-57.png'
         ]
     }
+    static ENEMY = {
+        chick: {
+            walk: [
+                'assets/img/enemy/chick/walk/1_w.png',
+                'assets/img/enemy/chick/walk/2_w.png',
+                'assets/img/enemy/chick/walk/3_w.png',
+            ],
+            dead: 'assets/img/enemy/chick/dead.png'
+        },
+        chicken: {
+            walk: [
+                'assets/img/enemy/chicken/walk/1_w.png',
+                'assets/img/enemy/chicken/walk/2_w.png',
+                'assets/img/enemy/chicken/walk/3_w.png',
+            ],
+            dead: 'assets/img/enemy/chicken/dead.png'
+        },
+        boss: {
+            walk: [
+                'assets/img/enemy/boss/walk/G1.png',
+                'assets/img/enemy/boss/walk/G2.png',
+                'assets/img/enemy/boss/walk/G3.png',
+                'assets/img/enemy/boss/walk/G4.png'
+            ],
+            alert: [
+                'assets/img/enemy/boss/alert/G5.png',
+                'assets/img/enemy/boss/alert/G6.png',
+                'assets/img/enemy/boss/alert/G7.png',
+                'assets/img/enemy/boss/alert/G8.png',
+                'assets/img/enemy/boss/alert/G9.png',
+                'assets/img/enemy/boss/alert/G10.png',
+                'assets/img/enemy/boss/alert/G11.png',
+                'assets/img/enemy/boss/alert/G12.png'
+            ],
+            attack: [
+                'assets/img/enemy/boss/attack/G13.png',
+                'assets/img/enemy/boss/attack/G14.png',
+                'assets/img/enemy/boss/attack/G15.png',
+                'assets/img/enemy/boss/attack/G16.png',
+                'assets/img/enemy/boss/attack/G17.png',
+                'assets/img/enemy/boss/attack/G18.png',
+                'assets/img/enemy/boss/attack/G19.png',
+                'assets/img/enemy/boss/attack/G20.png'
+            ],
+            hurt: [
+                'assets/img/enemy/boss/hurt/G21.png',
+                'assets/img/enemy/boss/hurt/G22.png',
+                'assets/img/enemy/boss/hurt/G23.png'
+            ],
+            dead: [
+                'assets/img/enemy/boss/dead/G24.png',
+                'assets/img/enemy/boss/dead/G25.png',
+                'assets/img/enemy/boss/dead/G26.png'
+            ]
+        }
+    }
 }
