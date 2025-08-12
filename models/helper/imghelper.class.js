@@ -134,4 +134,24 @@ export class ImgHelper {
             ]
         }
     }
+    static COLLECTABLE = {
+        bottle: {
+            ground: 'assets/img/collectables/bottle/ground.png',
+            flip: [
+                'assets/img/collectables/bottle/flip/1.png',
+                'assets/img/collectables/bottle/flip/2.png',
+                'assets/img/collectables/bottle/flip/3.png',
+                'assets/img/collectables/bottle/flip/4.png',
+            ],
+            splash: [
+                'assets/img/collectables/bottle/splash/1.png',
+                'assets/img/collectables/bottle/splash/2.png',
+                'assets/img/collectables/bottle/splash/3.png',
+                'assets/img/collectables/bottle/splash/4.png',
+                'assets/img/collectables/bottle/splash/5.png',
+                'assets/img/collectables/bottle/splash/6.png'
+            ]
+        },
+        coin: 'assets/img/collectables/coin.png'
+    }
 }
