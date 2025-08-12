@@ -188,4 +188,9 @@ export class ImgHelper {
             full: 'assets/img/statusbar/boss/100.png'
         }
     }
+    static SCREENS = {
+        start: 'assets/img/screens/start.png',
+        lost: 'assets/img/screens/lost.png',
+        win: 'assets/img/screens/win.png'
+    }
 }
