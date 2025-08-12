@@ -154,4 +154,38 @@ export class ImgHelper {
         },
         coin: 'assets/img/collectables/coin.png'
     }
+    static STATUSBAR = {
+        helth: {
+            empty: 'assets/img/statusbar/health/0.png',
+            low: 'assets/img/statusbar/health/20.png',
+            halflow: 'assets/img/statusbar/health/40.png',
+            halfhigh: 'assets/img/statusbar/health/60.png',
+            high: 'assets/img/statusbar/health/80.png',
+            full: 'assets/img/statusbar/health/100.png'
+        },
+        bottles: {
+            empty: 'assets/img/statusbar/bottles/0.png',
+            low: 'assets/img/statusbar/bottles/20.png',
+            halflow: 'assets/img/statusbar/bottles/40.png',
+            halfhigh: 'assets/img/statusbar/bottles/60.png',
+            high: 'assets/img/statusbar/bottles/80.png',
+            full: 'assets/img/statusbar/bottles/100.png'
+        },
+        coins : {
+            empty: 'assets/img/statusbar/coins/0.png',
+            low: 'assets/img/statusbar/coins/20.png',
+            halflow: 'assets/img/statusbar/coins/40.png',
+            halfhigh: 'assets/img/statusbar/coins/60.png',
+            high: 'assets/img/statusbar/coins/80.png',
+            full: 'assets/img/statusbar/coins/100.png'
+        },
+        boss: {
+            empty: 'assets/img/statusbar/boss/0.png',
+            low: 'assets/img/statusbar/boss/20.png',
+            halflow: 'assets/img/statusbar/boss/40.png',
+            halfhigh: 'assets/img/statusbar/boss/60.png',
+            high: 'assets/img/statusbar/boss/80.png',
+            full: 'assets/img/statusbar/boss/100.png'
+        }
+    }
 }
