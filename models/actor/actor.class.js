@@ -158,3 +158,40 @@ export class AnimatedActor extends Actor {
     }
     // #endregion
 }
+
+/** An Actor. who alplies gravity. */
+export class GraviActor extends AnimatedActor {
+
+    // #region Attributes
+    groundLevel;
+    acceleration = 1;
+    speedY = 0;
+    // #endregion Attributes
+
+    /**
+     * Creates an actor with gravity.
+     * @param {number} x - X-Pos. of actor.
+     * @param {number} width - Width of actor.
+     * @param {number} height - height of actor.
+     */
+    constructor(x, width, height) {
+        super(x, 0, width, height);
+        
+    }
+    
+    /**
+     * Sets the ground Level.
+     * @param {HTMLElement} canvas - Canvas-Object, on which actor is drawn
+     */
+    ground(canvas) {
+        this.groundLevel = canvas.height - height - 30;
+    }
+
+    /**
+     * Checks, if the actor is on ground.
+     * @returns true, if actor is on ground.
+     */
+    isOnGround() {
+        return this.y <= this.groundLevel;
+    }
+}
