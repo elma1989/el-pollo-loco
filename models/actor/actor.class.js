@@ -53,4 +53,12 @@ export class Actor extends DrawableObject {
     act() {
 
     }
+
+    /**
+     * Moves an actor in horizontel direction above the canvas.
+     * @param {number} speed - Speed in pixel per draw.
+     */
+    move(speed) {
+        this.x += speed;
+    }
 }
