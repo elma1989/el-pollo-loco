@@ -30,6 +30,15 @@ export class DrawableObject {
     loadImage(path) {
         this.img.src = path;
     }
+
+    /**
+     * Scales an object.
+     * @param {number} factor - Factor to scale.
+     */
+    scale(factor) {
+        this.width *= factor;
+        this.height *= factor;
+    }
 }
 
 /** Respresents a drawable object, wiche can execute somethings. */
