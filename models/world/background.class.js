@@ -43,3 +43,31 @@ export class Air extends Background {
         Air.xPos += gap;
     }
 }
+
+/** Represents the some layers. */
+export class Desert extends Background {
+
+    static curLayer = 0;
+    static curImgIndex = 0;
+
+    constructor(canvas) {
+        super(Desert.xPos, canvas.height - 450, 450, canvas);
+        this.loadImage(ImgHelper.BACKGROUND.layers[Desert.curLayer][Desert.curImgIndex]);
+        Desert.nextXPos(canvas.width);
+    }
+
+    static nextXPos(gap) {
+        Desert.xPos += gap;
+        Desert.curImgIndex++;
+        if (Desert.curImgIndex == ImgHelper.BACKGROUND.layers[Desert.curLayer].length) Desert.nextLayer();
+    }
+
+    static nextLayer() {
+        if (Desert.curLayer < ImgHelper.BACKGROUND.layers.length - 1){
+            Desert.curLayer ++;
+        }
+
+        Desert.curImgIndex = 0;
+        Desert.xPos = 0;
+    }
+}
