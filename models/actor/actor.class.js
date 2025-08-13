@@ -2,11 +2,13 @@
 /** An object, which is drwan */
 export class DrawableObject {
     
+    // #region Attributes
     x;
     y;
     width;
     height;
     img;
+    // #endregion
 
     /**
      * Creates an object to draw.
@@ -23,6 +25,7 @@ export class DrawableObject {
         this.img = new Image();
     }
 
+    // #region Methods
     /**
      * Loads image for draw.
      * @param {string} path - Path of Image.
@@ -39,6 +42,7 @@ export class DrawableObject {
         this.width *= factor;
         this.height *= factor;
     }
+    // #endregion
 }
 
 /** Respresents a drawable object, wiche can execute somethings. */
@@ -55,6 +59,7 @@ export class Actor extends DrawableObject {
         super(x, y, width, height)
     }
 
+    // #region Methods
     /**
      * Thins to do during the run time.
      * Can modified by subclass.
@@ -70,4 +75,42 @@ export class Actor extends DrawableObject {
     move(speed) {
         this.x += speed;
     }
+    // #endregion
+}
+
+/** An Actor, who is animated */
+export class AnimatedActor extends Actor {
+    
+    // #region Attributes
+    startAninmaton = false;
+    animationCounter = 0;
+    imageCache = {};
+    // #endregion
+
+    /**
+     * Creates an animated actor.
+     * @param {number} x - X-Pos. of actor.
+     * @param {number} y - Y-Pos. of actor.
+     * @param {number} width - Width of actor.
+     * @param {number} height - Height of actor.
+     */
+    constructor(x, y, width, height) {
+        super(x, y, width, height)
+    }
+
+    // #region Methods
+    /**
+     * Loads a collection of images in cache.
+     * @param {Array.string} arr - Collection of image paths.
+     */
+    loadImages(arr) {
+        if (arr.length > 0) {
+            arr.forEach( path => {
+                const img = new Image();
+                img.src = path;
+                this.imageCache[path] = img;
+            })
+        }
+    }
+    // #endregion
 }
