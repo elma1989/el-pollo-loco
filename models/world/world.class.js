@@ -13,6 +13,7 @@ export class World {
         this.ctx = this.canvas.getContext('2d');
         this.level = new Level(this.canvas);
         this.draw();
+        // this.ctx.translate(-800,0);
     }
 
     /** Draws the world. */

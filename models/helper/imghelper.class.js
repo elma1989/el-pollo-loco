@@ -14,7 +14,7 @@ export class ImgHelper {
             ]
         ],
         clouds: {
-            samll: 'assets/img/background/clouds/small.png',
+            small: 'assets/img/background/clouds/small.png',
             medium: 'assets/img/background/clouds/medium.png',
             large: 'assets/img/background/clouds/large.png'
         }
