@@ -82,7 +82,8 @@ export class Actor extends DrawableObject {
 export class AnimatedActor extends Actor {
     
     // #region Attributes
-    startAninmaton = false;
+    animationStarted = false;
+    animationPlayed = false;
     animationCounter = 0;
     imageCache = {};
     // #endregion
@@ -122,13 +123,38 @@ export class AnimatedActor extends Actor {
     }
 
     /**
-     * Play a Collection of Animation in Loop.
-     * @param {Array.string} arr - Path to animation.
+     * Plays a Collection of Animation in Loop.
+     * @param {Array.string} arr - Paths to animation.
      */
     playAnimation(arr) {
+        this.nextAnimationImg(arr);
+        if (this.animationCounter == arr.length) this.animationCounter = 0;
+    }
+
+    /**
+     * Plays a collection of animation once only.
+     * @param {Array.string} arr - Paths to animation
+     */
+    playSingleAnimation(arr) {
+        if (!this.animationStarted && !this.animationPlayed) {
+            this.animationCounter = 0;
+            this.animationStarted = true;
+        }
+        this.nextAnimationImg(arr);
+        if (this.animationCounter == arr.length) {
+            this.animationStarted = false;
+            this.animationPlayed = true;
+            this.animationCounter = 0;
+        }
+    }
+
+    /**
+     * Changes to next image from 
+     * @param {Array.string} arr - Path to animtation
+     */
+    nextAnimationImg(arr) {
         const path = arr[this.animationCounter++];
         this.img = this.imageCache[path]
-        if (this.animationCounter == arr.length) this.animationCounter = 0;
     }
     // #endregion
 }
