@@ -112,5 +112,23 @@ export class AnimatedActor extends Actor {
             })
         }
     }
+
+    /**
+     * Executes the animation.
+     * Con modified by subclass.
+     */
+    animate() {
+
+    }
+
+    /**
+     * Play a Collection of Animation in Loop.
+     * @param {Array.string} arr - Path to animation.
+     */
+    playAnimation(arr) {
+        const path = arr[this.animationCounter++];
+        this.img = this.imageCache[path]
+        if (this.animationCounter == arr.length) this.animationCounter = 0;
+    }
     // #endregion
 }
