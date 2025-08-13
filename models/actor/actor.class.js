@@ -166,6 +166,8 @@ export class GraviActor extends AnimatedActor {
     groundLevel;
     acceleration = 1;
     speedY = 0;
+    falling = false;
+    rising = false;
     // #endregion Attributes
 
     /**
@@ -184,7 +186,7 @@ export class GraviActor extends AnimatedActor {
      * @param {HTMLElement} canvas - Canvas-Object, on which actor is drawn
      */
     ground(canvas) {
-        this.groundLevel = canvas.height - height - 30;
+        this.groundLevel = canvas.height - this.height - 30;
     }
 
     /**
@@ -192,6 +194,40 @@ export class GraviActor extends AnimatedActor {
      * @returns true, if actor is on ground.
      */
     isOnGround() {
-        return this.y <= this.groundLevel;
+        return this.y >= this.groundLevel;
+    }
+
+    /** The falling-process. */
+    fall() {
+        this.speedY += this.acceleration;
+        this.y += this.speedY;
+        this.falling = true;
+    }
+
+    /** Actor touches down on groud. */
+    land() {
+        this.speedY = 0;
+        this.y = this.groundLevel;
+        this.falling = false;
+    }
+
+    /** Makes the gravity possible. */
+    aplyGravity() {
+        if (this.speedY >= 0) this.rising = false;
+        if (this.isOnGround() && !this.rising) this.land()
+        else this.fall();
+    }
+
+    /**
+     * Moves an actor against the grabity.
+     * @param {number} speed - Intial speed for rising.
+     */
+    rise(speed) {
+        this.rising = true;
+        this.speedY = -speed;
+    }
+
+    act() {
+        this.aplyGravity();
     }
 }
