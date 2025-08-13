@@ -1,5 +1,5 @@
 import { Level } from './level.class.js'
-import { DrawableObject } from '../actor/actor.class.js';
+import { DrawableObject, Actor } from '../actor/actor.class.js';
 
 /** Represents the world. */
 export class World {
@@ -30,9 +30,8 @@ export class World {
      * @param {DrawableObject} dO - Object to draw.
      */
     drawSingleObject(dO) {
-        if (dO.img.src) {
-            this.ctx.drawImage(dO.img, dO.x, dO.y, dO.width, dO.height);
-        }
+        if (dO instanceof Actor) dO.act();
+        if (dO.img.src) this.ctx.drawImage(dO.img, dO.x, dO.y, dO.width, dO.height);
     }
 
     /**

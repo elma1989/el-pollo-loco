@@ -31,3 +31,26 @@ export class DrawableObject {
         this.img.src = path;
     }
 }
+
+/** Respresents a drawable object, wiche can execute somethings. */
+export class Actor extends DrawableObject {
+
+    /**
+     * Creates an Actor.
+     * @param {number} x - X-Pos of Actor.
+     * @param {number} y - Y-Pos of Actor.
+     * @param {number} width - Width of Actor.
+     * @param {number} height - Height of Actor.
+     */
+    constructor(x, y, width, height) {
+        super(x, y, width, height)
+    }
+
+    /**
+     * Thins to do during the run time.
+     * Can modified by subclass.
+     */
+    act() {
+
+    }
+}
