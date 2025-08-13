@@ -180,7 +180,7 @@ export class GraviActor extends AnimatedActor {
         super(x, 0, width, height);
         
     }
-    
+    // #region Methods
     /**
      * Sets the ground Level.
      * @param {HTMLElement} canvas - Canvas-Object, on which actor is drawn
@@ -229,5 +229,36 @@ export class GraviActor extends AnimatedActor {
 
     act() {
         this.aplyGravity();
+    }
+    // #endregion
+}
+
+/** An actor, who has colision */
+export class TouchingActor extends GraviActor {
+    
+    // #region Attributes
+    level;
+    offset = {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
+    }
+    rx;
+    ry;
+    rwidth;
+    rheight;
+    // #endregion
+
+    constructor(x, width, height, level) {
+        super(x, width, height);
+        this.level = level;
+    }
+
+    caldRealRram() {
+        this.rx = this.x + this.offset.left;
+        this.ry = this.y + this.offset.top;
+        this.rwidth = this.width - this.offset.left - this.offset.right;
+        this.rheight = this.height - this.offset.top - this.offset.bottom;
     }
 }
