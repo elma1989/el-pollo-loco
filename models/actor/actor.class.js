@@ -27,7 +27,7 @@ export class DrawableObject {
      * Loads image for draw.
      * @param {string} path - Path of Image.
      */
-    loedImage(path) {
+    loadImage(path) {
         this.img.src = path;
     }
 }

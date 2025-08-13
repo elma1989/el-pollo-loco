@@ -1,4 +1,5 @@
 import { DrawableObject } from '../actor/actor.class.js';
+import { ImgHelper } from '../helper/imghelper.class.js';
 
 /** Represents the backgound. */
 class Background extends DrawableObject {
@@ -22,5 +23,23 @@ class Background extends DrawableObject {
      */
     static nextXPos(gap) {
         Background.xPos += gap
+    }
+}
+
+/** Represents the deepest Background. */
+export class Air extends Background {
+
+    /**
+     * Creates an Air-Background.
+     * @param {HTMLElement} canvas - Canvas-Object, on which Background is drawn.
+     */
+    constructor(canvas) {
+        super(Air.xPos, 0, canvas.height, canvas);
+        Air.nextXPos(canvas.width);
+        this.loadImage(ImgHelper.BACKGROUND.air);
+    }
+
+    static nextXPos(gap) {
+        Air.xPos += gap;
     }
 }
