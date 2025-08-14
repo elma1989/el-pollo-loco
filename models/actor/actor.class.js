@@ -255,6 +255,7 @@ export class TouchingActor extends GraviActor {
         this.level = level;
     }
 
+    // #region Methods
     /** Calculatees the real frame. */
     calcRealFrame() {
         this.rx = this.x + this.offset.left;
@@ -284,4 +285,32 @@ export class TouchingActor extends GraviActor {
         if (arr.length == 0) return false;
         return arr.some(tA => this.isTouching(tA));
     }
+    // #endregion
+}
+
+/** An Actor, who can be collected */
+export class Collectable extends TouchingActor {
+
+    // #region Attributes
+    collected = false;
+    // #endregion
+
+    constructor(x, width, height, level) {
+        super(x, width, height, level)
+    }
+
+    // #region Method
+    /**
+     * Instructions to collect this actor.
+     * Can modified by subclass
+     */
+    collect() {
+
+    }
+
+    act() {
+        super.act();
+        this.collect();
+    }
+    // #endregion
 }
