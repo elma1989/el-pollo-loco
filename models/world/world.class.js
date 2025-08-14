@@ -1,5 +1,5 @@
 import { Level } from './level.class.js';
-import { DrawableObject, Actor, TouchingActor } from '../actor/actor.class.js';
+import { DrawableObject, Actor, TouchingActor, Collectable } from '../actor/actor.class.js';
 
 /** Represents the world. */
 export class World {
@@ -16,6 +16,8 @@ export class World {
         // this.ctx.translate(-800,0);
     }
 
+    // #region Methods
+    // #region Draw
     /** Draws the world. */
     draw() {
 
@@ -72,4 +74,17 @@ export class World {
             this.ctx.stroke();
         }
     }
+    // #endregion
+    
+    // #region Clear
+    /**
+     * Deletes all collect collecables.
+     * @param {Collectable} arr - Collecten to check
+     * @returns new Collection
+     */
+    clearCollected (arr) {
+        return arr.filter(col => !col.collected)
+    }
+    // #endregion
+    // #endregion
 }
