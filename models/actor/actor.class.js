@@ -329,4 +329,34 @@ export class MortalActor extends TouchingActor {
     constructor(x, width, height, level) {
         super(x, width, height, level);
     }
+
+    // #region Methods
+    /** Sets the dieing-flag, if empty health. */
+    emptyHelth() {
+        if (!this.died && this.health <= 0) this.dieing = true;
+    }
+
+    /**
+     * Will execurte to injure the actor.
+     * @param {number} power - Value to decrese health.
+     */
+    hit(power) {
+        if (!this.injured) {
+            this.health -= power;
+            this.injured = true;
+            this.injuredSince = Date.now();
+        }
+    }
+
+    /** Desables the injure-protection after a hit. */
+    disableInjured() {
+        if (this.injured && Date.now() - this.injuredSince >= 3000) this.injured = false;
+    }
+
+    act() {
+        super.act();
+        this.emptyHelth();
+        this.disableInjured();
+    }
+    // #endregion
 }
