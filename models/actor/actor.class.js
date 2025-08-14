@@ -233,7 +233,7 @@ export class GraviActor extends AnimatedActor {
     // #endregion
 }
 
-/** An actor, who has colision */
+/** An Actor, who has colision */
 export class TouchingActor extends GraviActor {
     
     // #region Attributes
@@ -313,4 +313,20 @@ export class Collectable extends TouchingActor {
         this.collect();
     }
     // #endregion
+}
+
+/** An Actor, who can die */
+export class MortalActor extends TouchingActor {
+
+    // #region Attributes
+    health = 100;
+    died = false;
+    dieing = false;
+    injured = false;
+    injuredSince = 0;
+    // #endregion
+
+    constructor(x, width, height, level) {
+        super(x, width, height, level);
+    }
 }
