@@ -255,10 +255,33 @@ export class TouchingActor extends GraviActor {
         this.level = level;
     }
 
-    caldRealRram() {
+    /** Calculatees the real frame. */
+    calcRealFrame() {
         this.rx = this.x + this.offset.left;
         this.ry = this.y + this.offset.top;
         this.rwidth = this.width - this.offset.left - this.offset.right;
         this.rheight = this.height - this.offset.top - this.offset.bottom;
+    }
+
+    /**
+     * Checks, if actors touches.
+     * @param {TouchingActor} tA - Reference-Object to check
+     * @returns true, if teir touches each other.
+     */
+    isTouching(tA) {
+        return this.rx + this.rwidth > tA.rx &&
+            this.ry + this.rheight > tA.ry &&
+            this.rx < tA.rx + tA.rwidth &&
+            this.ry < tA.ry + tA.rheight
+    }
+
+    /**
+     * Checks, if the actor is touching a member of collection.
+     * @param {Array.TouchingActor} arr - Collectin to check
+     * @returns true, if this actor touches a member of collectiln.
+     */
+    isTouchingOneOf(arr) {
+        if (arr.length == 0) return false;
+        return arr.some(tA => this.isTouching(tA));
     }
 }
