@@ -1,5 +1,5 @@
-import { Level } from './level.class.js'
-import { DrawableObject, Actor } from '../actor/actor.class.js';
+import { Level } from './level.class.js';
+import { DrawableObject, Actor, TouchingActor } from '../actor/actor.class.js';
 
 /** Represents the world. */
 export class World {
@@ -44,6 +44,32 @@ export class World {
             arr.forEach(dO => {
                 this.drawSingleObject(dO);
             });
+        }
+    }
+
+    /**
+     * Draws a frame around the total image.
+     * @param {DrawableObject} dO - Object for fram.
+     */
+    drawImgFrame(dO) {
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '3';
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.rect(dO.x, dO.y, dO.width, dO.height);
+        this.ctx.stroke();
+    }
+    
+    /**
+     * Draws a real frame around an image.
+     * @param {TouchingActor} tA - Object for real frame.
+     */
+    drawOffsetFrame(tA) {
+        if (tA instanceof TouchingActor) {
+            this.ctx.beginPath();
+            this.ctx.lineWidth = '3';
+            this.ctx.strokeStyle = 'red';
+            this.ctx.rect(tA.rx, tA.ry, tA.rwidth, tA.rheight);
+            this.ctx.stroke();
         }
     }
 }
