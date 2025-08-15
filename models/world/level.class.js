@@ -46,7 +46,16 @@ export class Level {
 
     createCollectables(canvas) {
         this.collectables = [
-            
+            new Coin(this, canvas),
+            new Bottle(this, canvas),
+            new Coin(this, canvas),
+            new Bottle(this, canvas),
+            new Coin(this, canvas),
+            new Bottle(this, canvas),
+            new Coin(this, canvas),
+            new Bottle(this, canvas),
+            new Coin(this, canvas),
+            new Bottle(this, canvas)
         ]
     }
 }
