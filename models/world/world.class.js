@@ -22,6 +22,7 @@ export class World {
     draw() {
 
         this.drawObjects(this.level.backgrounds);
+        this.drawObjects(this.level.collectables);
 
         requestAnimationFrame(() => {
             this.draw();
