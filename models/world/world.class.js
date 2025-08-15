@@ -1,5 +1,5 @@
 import { Level } from './level.class.js';
-import { DrawableObject, Actor, TouchingActor, Collectable } from '../actor/actor.class.js';
+import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 
 /** Represents the world. */
 export class World {
@@ -79,11 +79,20 @@ export class World {
     // #region Clear
     /**
      * Deletes all collect collecables.
-     * @param {Collectable} arr - Collecten to check
-     * @returns new Collection
+     * @param {Array.Collectable} arr - Collecten to check
+     * @returns Collection with collectables not found
      */
     clearCollected (arr) {
         return arr.filter(col => !col.collected)
+    }
+
+    /**
+     * Deleetes all enemies, who passed away.
+     * @param {Array.MortalActor} arr - Collection of enemies
+     * @returns Collection with enemies, who stayed alive.
+     */
+    clearDead (arr) {
+        return arr.filter(mA =>  !mA.died)
     }
     // #endregion
     // #endregion
