@@ -4,11 +4,17 @@ export class ImgHelper {
         layers: [
             [
                 'assets/img/background/layer-1/1.png',
+                'assets/img/background/layer-1/2.png',
+                'assets/img/background/layer-1/1.png',
                 'assets/img/background/layer-1/2.png'
             ],[
                 'assets/img/background/layer-2/1.png',
+                'assets/img/background/layer-2/2.png',
+                'assets/img/background/layer-2/1.png',
                 'assets/img/background/layer-2/2.png'
             ],[
+                'assets/img/background/layer-3/1.png',
+                'assets/img/background/layer-3/2.png',
                 'assets/img/background/layer-3/1.png',
                 'assets/img/background/layer-3/2.png'
             ]

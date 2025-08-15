@@ -20,7 +20,7 @@ class Cloud extends Actor {
 
     // #region Methods
     static randomX(canvas) {
-        return 2 * canvas.width + Math.random() * canvas.width;
+        return 4 * canvas.width + Math.random() * canvas.width;
     }
 
     static randomY() {
