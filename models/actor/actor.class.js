@@ -293,10 +293,12 @@ export class Collectable extends TouchingActor {
 
     // #region Attributes
     collected = false;
+    static xPos = 200;
     // #endregion
 
-    constructor(x, width, height, level) {
-        super(x, width, height, level)
+    constructor(width, height, level) {
+        super(Collectable.xPos, width, height, level);
+        Collectable.xPos += 200;
     }
 
     // #region Method
