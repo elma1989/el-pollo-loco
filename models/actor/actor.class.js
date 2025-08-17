@@ -285,6 +285,11 @@ export class TouchingActor extends GraviActor {
         if (arr.length == 0) return false;
         return arr.some(tA => this.isTouching(tA));
     }
+
+    act() {
+        super.act();
+        this.calcRealFrame();
+    }
     // #endregion
 }
 

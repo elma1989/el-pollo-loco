@@ -1,11 +1,21 @@
-import { MortalActor } from './actor.class.js'
+import { Level } from '../world/level.class.js';
+import { MortalActor } from './actor.class.js';
+import { ImgHelper } from '../helper/imghelper.class.js';
+import { IntervalHub } from '../helper/intervalhub.class.js';
 
+/** Respesents the enemies. */
 class Enemy extends MortalActor {
 
     // #region Attributes
     static enemyOffest = 500;
     // #endregion
 
+    /**
+     * Creates an enemy.
+     * @param {number} width - Width of enemy.
+     * @param {number} height - Height of enemy.
+     * @param {Level} level - Level on which enemy lives.
+     */
     constructor(width, height, level) {
         super(Enemy.randomPos(), width, height, level);
         Enemy.nextEnemy();
@@ -21,11 +31,50 @@ class Enemy extends MortalActor {
 
     /** Increds the enemy-offset. */
     static nextEnemy() {
-        Enemy += 300;
+        Enemy.enemyOffest += 300;
     }
 
     act() {
         super.act();
-        this.move(-2);
+        this.move(-1);
+    }
+
+    enemyAni = () => {};
+
+    animate() {
+        IntervalHub.startInverval(this.enemyAni, 1000 / 2);
+    }
+
+}
+
+/** Respesents a litte chicken. */
+export class Chick extends Enemy {
+
+    /**
+     * Creates a chick.
+     * @param {Level} level - Level on wiche chick lives.
+     * @param {HTMLElement} canvas - Canvas-Object on witich chick is drawn
+     */
+    constructor (level, canvas) {
+        super(236, 210, level);
+        this.scale(0.25);
+        this.loadImages(ImgHelper.ENEMY.chick.walk);
+        this.animate();
+        this.ground(canvas);
+        this.y = this.groundLevel;
+        this.offset.left = 10;
+        this.offset.right = 10;
+        this.offset.top = 10;
+        this.offset.bottom = 10;
+        this.calcRealFrame();
+    }
+
+    enemyAni = () => {
+        if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chick.walk);
+    }
+
+    act() {
+        super.act();
+        if (this.isOnGround()) this.rise(15);
     }
 }
