@@ -26,7 +26,7 @@ class Enemy extends MortalActor {
      * @returns {number} X-Pos for enemy.
      */
     static randomPos() {
-        return Enemy.enemyOffest + 100 * Math.random();
+        return Enemy.enemyOffest + 200 * Math.random();
     }
 
     /** Increds the enemy-offset. */
@@ -66,15 +66,46 @@ export class Chick extends Enemy {
         this.offset.right = 10;
         this.offset.top = 10;
         this.offset.bottom = 10;
-        this.calcRealFrame();
     }
 
     enemyAni = () => {
         if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chick.walk);
+        else {
+            this.loadImage(ImgHelper.ENEMY.chick.dead);
+            setTimeout(() => {
+                this.died = true;
+            }, 1000);
+        }
     }
 
     act() {
         super.act();
         if (this.isOnGround()) this.rise(15);
+    }
+}
+
+export class Chicken extends Enemy {
+
+    constructor(level, canvas) {
+        super(248, 243, level);
+        this.scale(0.5);
+        this.loadImages(ImgHelper.ENEMY.chicken.walk);
+        this.animate();
+        this.ground(canvas);
+        this.y = this.groundLevel;
+        this.offset.top = 40;
+        this.offset.bottom = 35;
+        this.offset.left = 25;
+        this.offset.right = 20;
+    }
+
+    enemyAni = () => {
+        if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chicken.walk);
+        else {
+            this.loadImage(ImgHelper.ENEMY.chicken.dead);
+            this.timeout(() => {
+                this.died = true;
+            }, 1000);
+        }
     }
 }
