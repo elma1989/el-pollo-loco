@@ -31,7 +31,8 @@ export class World {
         this.ctx.translate(this.cameraXPos, 0);
 
         this.drawObjects(this.level.backgrounds);
-        this.drawObjects(this.level.collectables);
+        this.drawObjects(this.level.coins);
+        this.drawObjects(this.level.bottles);
         this.drawObjects(this.level.enemies);
         this.drawSingleObject(this.level.pepe);
 

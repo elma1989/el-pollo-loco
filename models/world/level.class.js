@@ -9,6 +9,8 @@ export class Level {
     
     backgrounds;
     collectables;
+    coins;
+    bottles;
     enemies;
     pepe;
 
@@ -20,6 +22,7 @@ export class Level {
     constructor(canvas) {
         this.createBackgrounds(canvas);
         this.createCollectables(canvas);
+        this.sepparateCollectabeles();
         this.createEnemies(canvas);
         this.pepe = new Pepe(this, canvas);
     }
@@ -79,6 +82,10 @@ export class Level {
         ]
     }
 
+    /**
+     * Creates the ememies.
+     * @param {HTMLElement} canvas - Canvas-Object on which enmemies are drawn.
+     */
     createEnemies(canvas) {
         this.enemies = [
             new Chick(this, canvas),
@@ -92,5 +99,12 @@ export class Level {
             new Chick(this, canvas),
             new Chicken(this, canvas),
         ]
+    }
+
+    /** Splits collectables in coins and bottles. */
+    sepparateCollectabeles() {
+        this.coins = this.collectables.filter(collectable => collectable instanceof Coin);
+        this.bottles = this.collectables.filter(collectable => collectable instanceof Bottle);
+        this.collectables = [];
     }
 }
