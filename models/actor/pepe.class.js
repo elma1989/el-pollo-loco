@@ -12,6 +12,7 @@ export class Pepe extends MortalActor {
     idleStarted = false;
     idleSince = 0;
     facingLeft = false;
+    world;
     // #endregion
 
     /**
@@ -32,6 +33,7 @@ export class Pepe extends MortalActor {
         this.offset.right = 55;
         this.offset.top = 155;
         this.offset.bottom = 40;
+        IntervalHub.startInverval(this.pepeWalkInterval, 1000 / 60);
     }
 
     // #region Methods
@@ -43,6 +45,12 @@ export class Pepe extends MortalActor {
         } else this.playAnimation(ImgHelper.PEPE.longIdle);
     }
 
+    pepeWalkInterval = () => {
+        this.walkLeft();
+        this.walkRight();
+        this.world.cameraXPos = -this.x;
+    }
+
     animate() {
         IntervalHub.startInverval(this.pepeAni, 1000 / 2);
     }
@@ -50,8 +58,6 @@ export class Pepe extends MortalActor {
     act() {
         super.act();
         this.changeIdle();
-        this.walkLeft();
-        this.walkRight();
     }
 
     /** Starts iddle. */

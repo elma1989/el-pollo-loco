@@ -8,16 +8,21 @@ export class World {
     level;
     canvas;
     ctx;
-    cameraXPos = -200;
+    cameraXPos = 0;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.level = new Level(this.canvas);
+        this.setWorld();
         this.draw();
     }
 
     // #region Methods
+    /** Sets this world a character Attribute */
+    setWorld() {
+        this.level.pepe.world = this;
+    }
     // #region Draw
     /** Draws the world. */
     draw() {
