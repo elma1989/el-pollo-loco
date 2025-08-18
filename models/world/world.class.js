@@ -7,22 +7,29 @@ export class World {
     level;
     canvas;
     ctx;
+    static cameraXPos = 0;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.level = new Level(this.canvas);
         this.draw();
-        // this.ctx.translate(-2400,0);
     }
 
     // #region Methods
     // #region Draw
     /** Draws the world. */
     draw() {
+        this.ctx.translate(World.cameraXPos, 0);
 
         this.drawObjects(this.level.backgrounds);
         this.drawObjects(this.level.collectables);
+        this.drawObjects(this.level.enemies);
+        this.drawSingleObject(this.level.pepe);
+
+        this.ctx.translate(-World.cameraXPos, 0);
+
+        // console.log(World.cameraXPos);
 
         requestAnimationFrame(() => {
             this.draw();

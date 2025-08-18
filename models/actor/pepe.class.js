@@ -2,6 +2,8 @@ import { MortalActor } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { Level } from '../world/level.class.js';
+import { Keyboard } from '../helper/keyboard.class.js';
+import { World } from '../world/world.class.js';
 
 /** Represents the main-character. */
 export class Pepe extends MortalActor {
@@ -20,6 +22,7 @@ export class Pepe extends MortalActor {
     constructor(level, canvas) {
         super(0, 610, 1200, level);
         this.scale(0.25);
+        this.loadImages(ImgHelper.PEPE.walk);
         this.loadImages(ImgHelper.PEPE.idle);
         this.loadImages(ImgHelper.PEPE.longIdle);
         this.animate();
@@ -31,8 +34,10 @@ export class Pepe extends MortalActor {
         this.offset.bottom = 40;
     }
 
+    // #region Methods
     pepeAni = () => {
-        if (!this.longIdle) {
+        if (this.isWalking()) this.playAnimation(ImgHelper.PEPE.walk);
+        else if (!this.longIdle) {
             this.startIdle();
             this.playAnimation(ImgHelper.PEPE.idle);
         } else this.playAnimation(ImgHelper.PEPE.longIdle);
@@ -45,8 +50,12 @@ export class Pepe extends MortalActor {
     act() {
         super.act();
         this.changeIdle();
+        this.walkLeft();
+        this.walkRight();
+        World.cameraXPos = -this.x;
     }
 
+    /** Starts iddle. */
     startIdle() {
         if(!this.idleStarted) {
             this.idleSince = Date.now();
@@ -54,7 +63,37 @@ export class Pepe extends MortalActor {
         }
     }
 
+    /** Canges to long idle. */
     changeIdle() {
         if (this.idleStarted && Date.now() - this.idleSince >= 10000) this.longIdle = true;
     }
+
+    walkLeft() {
+        if (this.canWalkLeft() && Keyboard.LEFT) this.move(-5);
+    }
+
+    walkRight() {
+        if (this.canWalkRight() && Keyboard.RIGHT) this.move(5);
+    }
+    // #region Checks
+    isWalking() {
+        if (this.dieing || this.died) return false;
+        const walking = Keyboard.LEFT || Keyboard.RIGHT;
+        if (walking) {
+            if (this.animationCounter > 5) this.animationCounter = 0;
+            this.idleStarted = false;
+            this.longIdle = false;
+        }
+        return walking;
+    }
+
+    canWalkLeft() {
+        return this.x >= 0;
+    }
+
+    canWalkRight() {
+        return this.x <= 2400;
+    }
+    // #endregion
+    // #endregion
 }

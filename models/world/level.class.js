@@ -2,6 +2,7 @@ import { Air, Desert } from './background.class.js';
 import { SCloud, MCloud, LCloud } from './cloud.class.js';
 import { Coin, Bottle } from '../actor/collectable.class.js';
 import { Chick, Chicken } from '../actor/enemy.class.js';
+import { Pepe } from '../actor/pepe.class.js';
 
 /** Sumrizes all Object of the world. */
 export class Level {
@@ -9,6 +10,7 @@ export class Level {
     backgrounds;
     collectables;
     enemies;
+    pepe;
 
     /**
      * Creates the level.
@@ -18,7 +20,8 @@ export class Level {
     constructor(canvas) {
         this.createBackgrounds(canvas);
         this.createCollectables(canvas);
-        this.createEnemies(canvas)
+        this.createEnemies(canvas);
+        this.pepe = new Pepe(this, canvas);
     }
 
     /**
