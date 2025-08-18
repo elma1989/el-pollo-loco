@@ -13,6 +13,7 @@ export class Pepe extends MortalActor {
     idleSince = 0;
     facingLeft = false;
     world;
+    isJumping = false;
     // #endregion
 
     /**
@@ -23,6 +24,7 @@ export class Pepe extends MortalActor {
     constructor(level, canvas) {
         super(0, 610, 1200, level);
         this.scale(0.25);
+        this.loadImages(ImgHelper.PEPE.jump);
         this.loadImages(ImgHelper.PEPE.walk);
         this.loadImages(ImgHelper.PEPE.idle);
         this.loadImages(ImgHelper.PEPE.longIdle);
@@ -38,7 +40,14 @@ export class Pepe extends MortalActor {
 
     // #region Methods
     pepeAni = () => {
-        if (this.isWalking()) this.playAnimation(ImgHelper.PEPE.walk);
+        if (this.isJumping) {
+            this.playSingleAnimation(ImgHelper.PEPE.jump);
+            if (this.animationPlayed) {
+                this.isJumping = false;
+                this.animationPlayed = false;
+            }
+        }
+        else if (this.isWalking()) this.playAnimation(ImgHelper.PEPE.walk);
         else if (!this.longIdle) {
             this.startIdle();
             this.playAnimation(ImgHelper.PEPE.idle);
@@ -52,12 +61,13 @@ export class Pepe extends MortalActor {
     }
 
     animate() {
-        IntervalHub.startInverval(this.pepeAni, 1000 / 2);
+        IntervalHub.startInverval(this.pepeAni, 1000 / 5);
     }
 
     act() {
         super.act();
         this.changeIdle();
+        this.jump();
     }
 
     /** Starts iddle. */
@@ -84,6 +94,16 @@ export class Pepe extends MortalActor {
         if (this.canWalkRight() && Keyboard.RIGHT) {
             this.facingLeft = false;
             this.move(5);
+        }
+    }
+
+    jump() {
+        if (this.isOnGround() && Keyboard.SPACE) {
+            this.animationCounter = 0;
+            this.idleStarted = false;
+            this.longIdle = false;
+            this.isJumping = true;
+            this.rise(15);
         }
     }
     // #region Checks

@@ -164,7 +164,7 @@ export class GraviActor extends AnimatedActor {
 
     // #region Attributes
     groundLevel;
-    acceleration = 1;
+    acceleration = 0.5;
     speedY = 0;
     falling = false;
     rising = false;

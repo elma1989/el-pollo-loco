@@ -80,7 +80,7 @@ export class Chick extends Enemy {
 
     act() {
         super.act();
-        if (this.isOnGround()) this.rise(15);
+        if (this.isOnGround()) this.rise(10);
     }
 }
 
