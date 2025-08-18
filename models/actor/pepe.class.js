@@ -3,7 +3,6 @@ import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { Level } from '../world/level.class.js';
 import { Keyboard } from '../helper/keyboard.class.js';
-import { World } from '../world/world.class.js';
 
 /** Represents the main-character. */
 export class Pepe extends MortalActor {
@@ -12,6 +11,7 @@ export class Pepe extends MortalActor {
     longIdle = false;
     idleStarted = false;
     idleSince = 0;
+    facingLeft = false;
     // #endregion
 
     /**
@@ -52,7 +52,6 @@ export class Pepe extends MortalActor {
         this.changeIdle();
         this.walkLeft();
         this.walkRight();
-        World.cameraXPos = -this.x;
     }
 
     /** Starts iddle. */
@@ -69,11 +68,17 @@ export class Pepe extends MortalActor {
     }
 
     walkLeft() {
-        if (this.canWalkLeft() && Keyboard.LEFT) this.move(-5);
+        if (this.canWalkLeft() && Keyboard.LEFT) {
+            this.facingLeft = true;
+            this.move(-5);
+        }
     }
 
     walkRight() {
-        if (this.canWalkRight() && Keyboard.RIGHT) this.move(5);
+        if (this.canWalkRight() && Keyboard.RIGHT) {
+            this.facingLeft = false;
+            this.move(5);
+        }
     }
     // #region Checks
     isWalking() {

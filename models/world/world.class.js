@@ -1,5 +1,6 @@
 import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
+import { Pepe } from '../actor/pepe.class.js';
 
 /** Represents the world. */
 export class World {
@@ -7,7 +8,7 @@ export class World {
     level;
     canvas;
     ctx;
-    static cameraXPos = 0;
+    cameraXPos = -200;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
@@ -20,14 +21,16 @@ export class World {
     // #region Draw
     /** Draws the world. */
     draw() {
-        this.ctx.translate(World.cameraXPos, 0);
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
+        this.ctx.translate(this.cameraXPos, 0);
 
         this.drawObjects(this.level.backgrounds);
         this.drawObjects(this.level.collectables);
         this.drawObjects(this.level.enemies);
         this.drawSingleObject(this.level.pepe);
 
-        this.ctx.translate(-World.cameraXPos, 0);
+        this.ctx.translate(-this.cameraXPos, 0);
 
         // console.log(World.cameraXPos);
 
@@ -42,7 +45,13 @@ export class World {
      */
     drawSingleObject(dO) {
         if (dO instanceof Actor) dO.act();
+        if (this.pepeFacingLeft(dO)) {
+            this.flipImg(dO);
+        }
         if (dO.img.src) this.ctx.drawImage(dO.img, dO.x, dO.y, dO.width, dO.height);
+        if (this.pepeFacingLeft(dO)) {
+            this.backflipImg(dO);
+        }
     }
 
     /**
@@ -82,6 +91,26 @@ export class World {
             this.ctx.stroke();
         }
     }
+
+    /**
+     * Mirrors image vertically.
+     * @param {DrawableObject} dO - Object to draw.
+     */
+    flipImg(dO) {
+        this.ctx.save();
+        this.ctx.translate(dO.width, 0);
+        this.ctx.scale(-1, 1);
+        dO.x = -dO.x
+    }
+
+    /**
+     * Restores the previous setting before flip.
+     * @param {DrawableObject} dO - Object is drawn.
+     */
+    backflipImg(dO) {
+        this.ctx.restore();
+            dO.x = -dO.x
+    }
     // #endregion
     
     // #region Clear
@@ -101,6 +130,11 @@ export class World {
      */
     clearDead (arr) {
         return arr.filter(mA =>  !mA.died)
+    }
+    // #endregion
+    // #region Checks
+    pepeFacingLeft(dO) {
+        return dO instanceof Pepe && dO.facingLeft
     }
     // #endregion
     // #endregion
