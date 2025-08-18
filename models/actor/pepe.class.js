@@ -15,6 +15,7 @@ export class Pepe extends MortalActor {
     world;
     isJumping = false;
     coins = 0;
+    bottles = 0;
     // #endregion
 
     /**
@@ -70,6 +71,7 @@ export class Pepe extends MortalActor {
         this.changeIdle();
         this.jump();
         this.touchingCoin();
+        this.touchingBottle();
     }
 
     /** Starts iddle. */
@@ -130,12 +132,21 @@ export class Pepe extends MortalActor {
     // #endregion
 
     // #region Collision
-    /** Manages collision with a Coin. */
+    /** Manages collision with a coin. */
     touchingCoin() {
         if (this.isTouchingOneOf(this.level.coins)) {
             const coin = this.getTouching(this.level.coins);
             coin.collected = true;
             this.coins += 20;
+        }
+    }
+
+    /** Manages collision with a bottle */
+    touchingBottle() {
+        if (this.isTouchingOneOf(this.level.bottles)) {
+            const bottle = this.getTouching(this.level.bottles);
+            bottle.collected = true;
+            this.bottles += 20;
         }
     }
     // #endregion
