@@ -7,7 +7,9 @@ import { Level } from '../world/level.class.js';
 export class Pepe extends MortalActor {
 
     // #region Attributes
-
+    longIdle = false;
+    idleStarted = false;
+    idleSince = 0;
     // #endregion
 
     /**
@@ -18,6 +20,7 @@ export class Pepe extends MortalActor {
     constructor(level, canvas) {
         super(0, 610, 1200, level);
         this.scale(0.25);
+        this.loadImages(ImgHelper.PEPE.idle);
         this.loadImages(ImgHelper.PEPE.longIdle);
         this.animate();
         this.ground(canvas);
@@ -29,10 +32,29 @@ export class Pepe extends MortalActor {
     }
 
     pepeAni = () => {
-        this.playAnimation(ImgHelper.PEPE.longIdle);
+        if (!this.longIdle) {
+            this.startIdle();
+            this.playAnimation(ImgHelper.PEPE.idle);
+        } else this.playAnimation(ImgHelper.PEPE.longIdle);
     }
 
     animate() {
         IntervalHub.startInverval(this.pepeAni, 1000 / 2);
+    }
+
+    act() {
+        super.act();
+        this.changeIdle();
+    }
+
+    startIdle() {
+        if(!this.idleStarted) {
+            this.idleSince = Date.now();
+            this.idleStarted = true;
+        }
+    }
+
+    changeIdle() {
+        if (this.idleStarted && Date.now() - this.idleSince >= 10000) this.longIdle = true;
     }
 }
