@@ -4,6 +4,7 @@ export class Keyboard {
     static RIGHT = false;
     static SPACE = false;
     static CTRL = false;
+    static F = false;
 
     constructor() {
         this.addKeyDown();
@@ -12,6 +13,7 @@ export class Keyboard {
 
     addKeyDown() {
         window.addEventListener('keydown', e => {
+            console.log(e.code);
             switch(e.code) {
                 case 'ArrowLeft':
                     Keyboard.LEFT = true;
@@ -24,6 +26,9 @@ export class Keyboard {
                     break;
                 case 'Space':
                     Keyboard.SPACE = true;
+                    break;
+                case 'KeyF':
+                    Keyboard.F = true;
             }
         });
     }
@@ -42,6 +47,9 @@ export class Keyboard {
                     break;
                 case 'Space':
                     Keyboard.SPACE = false;
+                    break;
+                case 'KeyF':
+                    Keyboard.F = false;
             }
         });
     }
@@ -51,5 +59,6 @@ export class Keyboard {
         console.log('RIGHT: ', Keyboard.RIGHT);
         console.log('CTRL: ', Keyboard.CTRL);
         console.log('SPACE: ', Keyboard.SPACE);
+        console.log('F: ', Keyboard.F);
     }
 }
