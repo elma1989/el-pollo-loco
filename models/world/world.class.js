@@ -30,12 +30,9 @@ export class World {
 
         this.ctx.translate(this.cameraXPos, 0);
 
-        this.drawObjects(this.level.backgrounds);
-        this.level.coins = this.clearCollected(this.level.coins);
-        this.drawObjects(this.level.coins);
-        this.level.bottles = this.clearCollected(this.level.bottles);
-        this.drawObjects(this.level.bottles);
-        this.drawObjects(this.level.enemies);
+        this.drawCollectables();
+        this.drawCickens();
+        
         this.drawSingleObject(this.level.pepe);
 
         this.ctx.translate(-this.cameraXPos, 0);
@@ -72,6 +69,21 @@ export class World {
                 this.drawSingleObject(dO);
             });
         }
+    }
+
+    /** Draws all collectabeles */
+    drawCollectables() {
+        this.drawObjects(this.level.backgrounds);
+        this.level.coins = this.clearCollected(this.level.coins);
+        this.drawObjects(this.level.coins);
+        this.level.bottles = this.clearCollected(this.level.bottles);
+        this.drawObjects(this.level.bottles);
+    }
+
+    /** Draws all chickens. */
+    drawCickens() {
+        this.level.enemies = this.clearDead(this.level.enemies);
+        this.drawObjects(this.level.enemies);
     }
 
     /**

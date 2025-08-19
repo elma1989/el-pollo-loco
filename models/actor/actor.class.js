@@ -286,6 +286,11 @@ export class TouchingActor extends GraviActor {
         return arr.some(tA => this.isTouching(tA));
     }
 
+    /**
+     * Gets the colliding object.
+     * @param {Array.TouchingActor} arr - Collection to check.
+     * @returns null, if not toches, or collection is empty.
+     */
     getTouching(arr) {
         for (let i = 0; i < arr.length; i++ ) {
             if (this.isTouching(arr[i])) return arr[i];

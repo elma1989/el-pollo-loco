@@ -103,7 +103,7 @@ export class Chicken extends Enemy {
         if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chicken.walk);
         else {
             this.loadImage(ImgHelper.ENEMY.chicken.dead);
-            this.timeout(() => {
+            setTimeout(() => {
                 this.died = true;
             }, 1000);
         }
