@@ -36,7 +36,22 @@ export class AudioHub {
             collect: new MyAudio('assets/sounds/collectables/bottle-collect.wav'),
             break: new MyAudio('assets/sounds/collectables/bottle-break.mp3')
         }
-    }
+    };
+
+    static ALLFILES = [
+        AudioHub.GAME,
+        AudioHub.PEPE.walk,
+        AudioHub.PEPE.snoring,
+        AudioHub.PEPE.jump,
+        AudioHub.PEPE.hurt,
+        AudioHub.PEPE.dead,
+        AudioHub.ENEMY.chick,
+        AudioHub.ENEMY.chicken,
+        AudioHub.ENEMY.boss,
+        AudioHub.COLLECTABLES.coin,
+        AudioHub.COLLECTABLES.bottle.collect,
+        AudioHub.COLLECTABLES.bottle.break
+    ]
     // #endregion
 
     // #region Methods
@@ -57,6 +72,12 @@ export class AudioHub {
 
     static stopOne(sound) {
         sound.sound.pause();
+    }
+
+    static stopAll() {
+        AudioHub.ALLFILES.forEach(audio => {
+            audio.sound.pause()
+        });
     }
     // #endregion
 }
