@@ -18,10 +18,16 @@ class MyAudio {
 export class AudioHub {
     // #region Attributes
     static GAME = new MyAudio('assets/sounds/start.mp3');
+    static PEPE = {
+        walk : new MyAudio('assets/sounds/pepe/walk.mp3')
+    }
     // #endregion
 
     // #region Methods
-    
+    /**
+     * Plays a sound once.
+     * @param {MyAudio} sound - Sound to play.
+     */
     static playOne(sound) {
         sound.played = false;
         setInterval (() => {
@@ -31,6 +37,10 @@ export class AudioHub {
                 sound.sound.play();
             }
         }, 200);
+    }
+
+    static stopOne(sound) {
+        sound.sound.pause();
     }
     // #endregion
 }
