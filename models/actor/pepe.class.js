@@ -26,7 +26,9 @@ export class Pepe extends MortalActor {
     constructor(level, canvas) {
         super(0, 610, 1200, level);
         this.scale(0.25);
+        this.loadImages(ImgHelper.PEPE.dead);
         this.loadImages(ImgHelper.PEPE.jump);
+        this.loadImages(ImgHelper.PEPE.hurt);
         this.loadImages(ImgHelper.PEPE.walk);
         this.loadImages(ImgHelper.PEPE.idle);
         this.loadImages(ImgHelper.PEPE.longIdle);
@@ -42,13 +44,20 @@ export class Pepe extends MortalActor {
 
     // #region Methods
     pepeAni = () => {
-        if (this.isJumping) {
+        if (this.dieing) {
+            if (!this.died) {
+                this.playSingleAnimation(ImgHelper.PEPE.dead);
+                if (this.animationPlayed) this.died = true;
+            }
+        }
+        else if (this.isJumping) {
             this.playSingleAnimation(ImgHelper.PEPE.jump);
             if (this.animationPlayed) {
                 this.isJumping = false;
                 this.animationPlayed = false;
             }
         }
+        else if (this.injured) this.playAnimation(ImgHelper.PEPE.hurt);
         else if (this.isWalking()) this.playAnimation(ImgHelper.PEPE.walk);
         else if (!this.longIdle) {
             this.startIdle();
@@ -72,6 +81,7 @@ export class Pepe extends MortalActor {
         this.jump();
         this.touchingCoin();
         this.touchingBottle();
+        this.touchingChicken();
     }
 
     /** Starts iddle. */
@@ -122,10 +132,12 @@ export class Pepe extends MortalActor {
         return walking;
     }
 
+    /** Checks if Pepe can walk left. */
     canWalkLeft() {
         return this.x >= 0;
     }
 
+    /** Check if Pepe can walk right. */
     canWalkRight() {
         return this.x <= 2400;
     }
@@ -147,6 +159,21 @@ export class Pepe extends MortalActor {
             const bottle = this.getTouching(this.level.bottles);
             bottle.collected = true;
             this.bottles += 20;
+        }
+    }
+
+    /** Manages collision width small chicken or normal ckicken. */
+    touchingChicken() {
+        if (this.isTouchingOneOf(this.level.enemies)) {
+            const chicken = this.getTouching(this.level.enemies);
+            if (this.falling) {
+                chicken.hit(100);
+            } else if(!chicken.dieing) {
+                this.animationCounter = 0;
+                this.hit(10);
+                this.idleStarted = false;
+                this.longIdle = false;
+            }
         }
     }
     // #endregion
