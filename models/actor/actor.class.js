@@ -343,6 +343,7 @@ export class MortalActor extends TouchingActor {
     dieing = false;
     injured = false;
     injuredSince = 0;
+    hurtSoundPlayed = false;
     // #endregion
 
     constructor(x, width, height, level) {
@@ -369,7 +370,10 @@ export class MortalActor extends TouchingActor {
 
     /** Desables the injure-protection after a hit. */
     disableInjured() {
-        if (this.injured && Date.now() - this.injuredSince >= 3000) this.injured = false;
+        if (this.injured && Date.now() - this.injuredSince >= 3000) {
+            this.injured = false;
+            this.hurtSoundPlayed = false;
+        }
     }
 
     act() {

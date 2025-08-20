@@ -1,6 +1,7 @@
 import { MortalActor } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
+import { AudioHub } from '../helper/audiohub.class.js';
 import { Level } from '../world/level.class.js';
 import { Keyboard } from '../helper/keyboard.class.js';
 import { Bottle } from './collectable.class.js';
@@ -17,6 +18,8 @@ export class Pepe extends MortalActor {
     isJumping = false;
     coins = 0;
     bottles = 0;
+    deadSoundPlayed = false;
+    jumpSoundPlayed = false;
     // #endregion
 
     /**
@@ -45,25 +48,21 @@ export class Pepe extends MortalActor {
 
     // #region Methods
     pepeAni = () => {
-        if (this.dieing) {
-            if (!this.died) {
-                this.playSingleAnimation(ImgHelper.PEPE.dead);
-                if (this.animationPlayed) this.died = true;
-            }
+        if (this.dieing) this.handleDieing();
+        else if (this.isJumping) this.handleJumping();
+        else if (this.injured) this.handleInjuring();
+        else if (this.isWalking()) {
+            this.playAnimation(ImgHelper.PEPE.walk);
+            AudioHub.playOne(AudioHub.PEPE.walk);
         }
-        else if (this.isJumping) {
-            this.playSingleAnimation(ImgHelper.PEPE.jump);
-            if (this.animationPlayed) {
-                this.isJumping = false;
-                this.animationPlayed = false;
-            }
-        }
-        else if (this.injured) this.playAnimation(ImgHelper.PEPE.hurt);
-        else if (this.isWalking()) this.playAnimation(ImgHelper.PEPE.walk);
         else if (!this.longIdle) {
             this.startIdle();
             this.playAnimation(ImgHelper.PEPE.idle);
-        } else this.playAnimation(ImgHelper.PEPE.longIdle);
+            AudioHub.stopOne(AudioHub.PEPE.walk);
+        } else {
+            this.playAnimation(ImgHelper.PEPE.longIdle);
+            AudioHub.playOne(AudioHub.PEPE.snoring);
+        }
     }
 
     pepeWalkInterval = () => {
@@ -123,6 +122,7 @@ export class Pepe extends MortalActor {
         }
     }
 
+    /** Pepe throws a bottle. */
     throwBottle() {
         if (this.bottles >= 20 && !this.level.thrownBottle && Keyboard.CTRL) {
             this.bottles -= 20;
@@ -136,6 +136,42 @@ export class Pepe extends MortalActor {
             this.idleStarted = false;
         }
     }
+    // #region Animation-Handling
+    /** Handles the dieing-procedure. */
+    handleDieing() {
+        if (!this.died) {
+            this.playSingleAnimation(ImgHelper.PEPE.dead);
+            AudioHub.stopOne(AudioHub.PEPE.walk);
+            if (!this.deadSoundPlayed) {
+                AudioHub.playOne(AudioHub.PEPE.dead);
+                this.deadSoundPlayed = true;
+            }
+            if (this.animationPlayed) this.died = true;
+        }
+    }
+
+    /** Handles the jump-procedure. */
+    handleJumping() {
+        this.playSingleAnimation(ImgHelper.PEPE.jump);
+        AudioHub.stopOne(AudioHub.PEPE.walk);
+        if (!this.jumpSoundPlayed) AudioHub.playOne(AudioHub.PEPE.jump);
+        if (this.animationPlayed) {
+            this.isJumping = false;
+            this.animationPlayed = false;
+        }
+        if (this.isOnGround()) this.jumpSoundPlayed = false;
+    }
+
+    /** Handles the injuring-procedure. */
+    handleInjuring() {
+        this.playAnimation(ImgHelper.PEPE.hurt);
+            if (!this.hurtSoundPlayed) {
+                AudioHub.stopOne(AudioHub.PEPE.walk);
+                AudioHub.playOne(AudioHub.PEPE.hurt);
+                this.hurtSoundPlayed = true;
+            }
+    }
+    // #endregion
     // #region Checks
     isWalking() {
         if (this.dieing || this.died) return false;
@@ -150,12 +186,12 @@ export class Pepe extends MortalActor {
 
     /** Checks if Pepe can walk left. */
     canWalkLeft() {
-        return this.x >= 0;
+        return this.x >= 0 && !this.dieing && !this.injured;
     }
 
     /** Check if Pepe can walk right. */
     canWalkRight() {
-        return this.x <= 2400;
+        return this.x <= 2400 && !this.dieing && !this.injured;
     }
     // #endregion
 

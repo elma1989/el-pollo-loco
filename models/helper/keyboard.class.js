@@ -13,7 +13,6 @@ export class Keyboard {
 
     addKeyDown() {
         window.addEventListener('keydown', e => {
-            console.log(e.code);
             switch(e.code) {
                 case 'ArrowLeft':
                     Keyboard.LEFT = true;
