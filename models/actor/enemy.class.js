@@ -36,7 +36,10 @@ class Enemy extends MortalActor {
 
     act() {
         super.act();
-        this.move(-1);
+        if (this instanceof Chick || this instanceof Chicken) {
+            this.move(-1);
+            if (this.level.thrownBottle && this.isTouching(this.level.thrownBottle)) this.hit(100);
+        }
     }
 
     enemyAni = () => {};
@@ -85,7 +88,11 @@ export class Chick extends Enemy {
 }
 
 export class Chicken extends Enemy {
-
+    /**
+     * Creates a chicken.
+     * @param {Level} level - Level on which, chicken lives.
+     * @param {HTMLElement} canvas - Canvas-Object on which chicken is drawn.
+     */
     constructor(level, canvas) {
         super(248, 243, level);
         this.scale(0.5);

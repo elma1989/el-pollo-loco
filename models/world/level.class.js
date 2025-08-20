@@ -18,7 +18,6 @@ export class Level {
 
     /**
      * Creates the level.
-     * @class
      * @param {HTMLElement} canvas - Canvas-Object for draw.
      */
     constructor(canvas) {
