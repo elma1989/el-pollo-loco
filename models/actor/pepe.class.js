@@ -18,7 +18,6 @@ export class Pepe extends MortalActor {
     isJumping = false;
     coins = 0;
     bottles = 0;
-    deadSoundPlayed = false;
     jumpSoundPlayed = false;
     // #endregion
 
@@ -202,6 +201,7 @@ export class Pepe extends MortalActor {
             const coin = this.getTouching(this.level.coins);
             coin.collected = true;
             this.coins += 20;
+            AudioHub.playOne(AudioHub.COLLECTABLES.coin);
         }
     }
 
@@ -211,6 +211,7 @@ export class Pepe extends MortalActor {
             const bottle = this.getTouching(this.level.bottles);
             bottle.collected = true;
             this.bottles += 20;
+            AudioHub.playOne(AudioHub.COLLECTABLES.bottle.collect);
         }
     }
 

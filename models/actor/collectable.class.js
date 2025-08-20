@@ -1,6 +1,7 @@
 import { Collectable } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
+import { AudioHub } from '../helper/audiohub.class.js';
 
 export class Coin extends Collectable {
 
@@ -67,6 +68,7 @@ export class Bottle extends Collectable {
         }
         if (this.splashing & !this.splashed) {
             this.playSingleAnimation(ImgHelper.COLLECTABLE.bottle.splash);
+            AudioHub.playOne(AudioHub.COLLECTABLES.bottle.break);
             if (this.animationPlayed) this.splashed = true;
         }
     }

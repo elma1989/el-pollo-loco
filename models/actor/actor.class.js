@@ -344,6 +344,7 @@ export class MortalActor extends TouchingActor {
     injured = false;
     injuredSince = 0;
     hurtSoundPlayed = false;
+    deadSoundPlayed = false;
     // #endregion
 
     constructor(x, width, height, level) {

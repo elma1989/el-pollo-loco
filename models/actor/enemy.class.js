@@ -2,6 +2,7 @@ import { Level } from '../world/level.class.js';
 import { MortalActor } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
+import { AudioHub } from '../helper/audiohub.class.js';
 
 /** Respesents the enemies. */
 class Enemy extends MortalActor {
@@ -75,6 +76,10 @@ export class Chick extends Enemy {
         if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chick.walk);
         else {
             this.loadImage(ImgHelper.ENEMY.chick.dead);
+            if (!this.deadSoundPlayed) {
+                AudioHub.playOne(AudioHub.ENEMY.chick);
+                this.deadSoundPlayed = true;
+            }
             setTimeout(() => {
                 this.died = true;
             }, 1000);
@@ -110,6 +115,10 @@ export class Chicken extends Enemy {
         if (!this.dieing) this.playAnimation(ImgHelper.ENEMY.chicken.walk);
         else {
             this.loadImage(ImgHelper.ENEMY.chicken.dead);
+            if (!this.deadSoundPlayed) {
+                AudioHub.playOne(AudioHub.ENEMY.chicken);
+                this.deadSoundPlayed = true;
+            }
             setTimeout(() => {
                 this.died = true;
             }, 1000);
