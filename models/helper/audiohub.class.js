@@ -4,7 +4,6 @@ class MyAudio {
 
     sound;
     loaded = false;
-    played = false;
 
     /**
      * Creates a special Audio.
@@ -61,13 +60,10 @@ export class AudioHub {
      */
     static playOne(sound) {
         sound.played = false;
-        setInterval (() => {
-            if ((sound.sound.readyState == 4 || sound.loaded) && !sound.played) {
-                sound.loaded = true;
-                sound.played = true;
-                sound.sound.play();
-            }
-        }, 200);
+        if (sound.sound.readyState == 4 || sound.loaded) {
+            sound.loaded = true;
+            sound.sound.play();
+        }
     }
 
     static stopOne(sound) {
