@@ -3,6 +3,7 @@ import { SCloud, MCloud, LCloud } from './cloud.class.js';
 import { Coin, Bottle } from '../actor/collectable.class.js';
 import { Chick, Chicken } from '../actor/enemy.class.js';
 import { Pepe } from '../actor/pepe.class.js';
+import { IntervalHub } from '../helper/intervalhub.class.js';
 
 /** Sumrizes all Object of the world. */
 export class Level {
@@ -11,6 +12,7 @@ export class Level {
     collectables;
     coins;
     bottles;
+    thrownBottle = null;
     enemies;
     pepe;
 
@@ -25,6 +27,7 @@ export class Level {
         this.sepparateCollectabeles();
         this.createEnemies(canvas);
         this.pepe = new Pepe(this, canvas);
+        IntervalHub.startInverval(this.handleBotteleSplash, 1000 / 2);
     }
 
     /**
@@ -106,5 +109,13 @@ export class Level {
         this.coins = this.collectables.filter(collectable => collectable instanceof Coin);
         this.bottles = this.collectables.filter(collectable => collectable instanceof Bottle);
         this.collectables = [];
+    }
+
+    handleBotteleSplash = () => {
+        if (this.thrownBottle && this.thrownBottle.splashed) {
+            setTimeout(() => {
+                this.thrownBottle = null;
+            }, 1000);
+        }
     }
 }
