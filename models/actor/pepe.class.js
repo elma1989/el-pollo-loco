@@ -132,6 +132,8 @@ export class Pepe extends MortalActor {
             this.level.thrownBottle.y = this.ry;
             this.level.thrownBottle.directionLeft = this.facingLeft;
             this.level.thrownBottle.speedY = -20;
+            this.longIdle = false;
+            this.idleStarted = false;
         }
     }
     // #region Checks
