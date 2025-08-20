@@ -3,6 +3,7 @@ import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { Level } from '../world/level.class.js';
 import { Keyboard } from '../helper/keyboard.class.js';
+import { Bottle } from './collectable.class.js';
 
 /** Represents the main-character. */
 export class Pepe extends MortalActor {
@@ -82,6 +83,7 @@ export class Pepe extends MortalActor {
         this.touchingCoin();
         this.touchingBottle();
         this.touchingChicken();
+        this.throwBottle();
     }
 
     /** Starts iddle. */
@@ -118,6 +120,18 @@ export class Pepe extends MortalActor {
             this.longIdle = false;
             this.isJumping = true;
             this.rise(15);
+        }
+    }
+
+    throwBottle() {
+        if (this.bottles >= 20 && !this.level.thrownBottle && Keyboard.CTRL) {
+            this.bottles -= 20;
+            this.level.thrownBottle = new Bottle(this.level, this.world.canvas);
+            this.level.thrownBottle.thrown = true;
+            this.level.thrownBottle.x = this.rx + this.rwidth;
+            this.level.thrownBottle.y = this.ry;
+            this.level.thrownBottle.directionLeft = this.facingLeft;
+            this.level.thrownBottle.speedY = -20;
         }
     }
     // #region Checks

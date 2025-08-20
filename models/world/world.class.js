@@ -30,6 +30,7 @@ export class World {
 
         this.ctx.translate(this.cameraXPos, 0);
 
+        this.drawObjects(this.level.backgrounds);
         this.drawCollectables();
         this.drawCickens();
         
@@ -73,11 +74,11 @@ export class World {
 
     /** Draws all collectabeles */
     drawCollectables() {
-        this.drawObjects(this.level.backgrounds);
         this.level.coins = this.clearCollected(this.level.coins);
         this.drawObjects(this.level.coins);
         this.level.bottles = this.clearCollected(this.level.bottles);
         this.drawObjects(this.level.bottles);
+        if (this.level.thrownBottle) this.drawSingleObject(this.level.thrownBottle);
     }
 
     /** Draws all chickens. */
