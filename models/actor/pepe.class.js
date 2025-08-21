@@ -5,6 +5,7 @@ import { AudioHub } from '../helper/audiohub.class.js';
 import { Level } from '../world/level.class.js';
 import { Keyboard } from '../helper/keyboard.class.js';
 import { Bottle } from './collectable.class.js';
+import { Boss } from './boss.class.js';
 
 /** Represents the main-character. */
 export class Pepe extends MortalActor {
@@ -19,6 +20,7 @@ export class Pepe extends MortalActor {
     coins = 0;
     bottles = 0;
     jumpSoundPlayed = false;
+    bossSpawned = false;
     // #endregion
 
     /**
@@ -82,6 +84,7 @@ export class Pepe extends MortalActor {
         this.touchingBottle();
         this.touchingChicken();
         this.throwBottle();
+        this.spawnBoss();
     }
 
     /** Starts iddle. */
@@ -97,6 +100,7 @@ export class Pepe extends MortalActor {
         if (this.idleStarted && Date.now() - this.idleSince >= 10000) this.longIdle = true;
     }
 
+    /** Pepe walks left. */
     walkLeft() {
         if (this.canWalkLeft() && Keyboard.LEFT) {
             this.facingLeft = true;
@@ -104,6 +108,7 @@ export class Pepe extends MortalActor {
         }
     }
 
+    /** Pepe walks right. */
     walkRight() {
         if (this.canWalkRight() && Keyboard.RIGHT) {
             this.facingLeft = false;
@@ -111,6 +116,7 @@ export class Pepe extends MortalActor {
         }
     }
 
+    /** Pepe jumps. */
     jump() {
         if (this.isOnGround() && Keyboard.SPACE) {
             this.animationCounter = 0;
@@ -133,6 +139,15 @@ export class Pepe extends MortalActor {
             this.level.thrownBottle.speedY = -20;
             this.longIdle = false;
             this.idleStarted = false;
+        }
+    }
+
+    /** Let Pepe spawn the boss. */
+    spawnBoss() {
+        if(this.x >= 2000 && !this.bossSpawned) {
+            this.level.boss = new Boss(this.level, this.world.canvas);
+            AudioHub.playOne(AudioHub.ENEMY.boss);
+            this.bossSpawned = true;
         }
     }
     // #region Animation-Handling

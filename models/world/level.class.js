@@ -14,6 +14,7 @@ export class Level {
     bottles;
     thrownBottle = null;
     enemies;
+    boss = null;
     pepe;
 
     /**

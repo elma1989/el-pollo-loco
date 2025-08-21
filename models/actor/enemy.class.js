@@ -5,7 +5,7 @@ import { IntervalHub } from '../helper/intervalhub.class.js';
 import { AudioHub } from '../helper/audiohub.class.js';
 
 /** Respesents the enemies. */
-class Enemy extends MortalActor {
+export class Enemy extends MortalActor {
 
     // #region Attributes
     static enemyOffest = 500;

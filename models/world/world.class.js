@@ -32,7 +32,7 @@ export class World {
 
         this.drawObjects(this.level.backgrounds);
         this.drawCollectables();
-        this.drawCickens();
+        this.drawChickens();
         
         this.drawSingleObject(this.level.pepe);
 
@@ -82,9 +82,10 @@ export class World {
     }
 
     /** Draws all chickens. */
-    drawCickens() {
+    drawChickens() {
         this.level.enemies = this.clearDead(this.level.enemies);
         this.drawObjects(this.level.enemies);
+        if (this.level.boss) this.drawSingleObject(this.level.boss);
     }
 
     /**
