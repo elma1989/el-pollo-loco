@@ -62,7 +62,7 @@ export class Pepe extends MortalActor {
             AudioHub.stopOne(AudioHub.PEPE.walk);
         } else {
             this.playAnimation(ImgHelper.PEPE.longIdle);
-            // AudioHub.playOne(AudioHub.PEPE.snoring);
+            AudioHub.playOne(AudioHub.PEPE.snoring);
         }
     }
 
@@ -158,7 +158,7 @@ export class Pepe extends MortalActor {
             this.playSingleAnimation(ImgHelper.PEPE.dead);
             AudioHub.stopOne(AudioHub.PEPE.walk);
             if (!this.deadSoundPlayed) {
-                // AudioHub.playOne(AudioHub.PEPE.dead);
+                AudioHub.playOne(AudioHub.PEPE.dead);
                 this.deadSoundPlayed = true;
             }
             if (this.animationPlayed) this.died = true;
@@ -182,7 +182,7 @@ export class Pepe extends MortalActor {
         this.playAnimation(ImgHelper.PEPE.hurt);
             if (!this.hurtSoundPlayed) {
                 AudioHub.stopOne(AudioHub.PEPE.walk);
-                // AudioHub.playOne(AudioHub.PEPE.hurt);
+                AudioHub.playOne(AudioHub.PEPE.hurt);
                 this.hurtSoundPlayed = true;
             }
     }
