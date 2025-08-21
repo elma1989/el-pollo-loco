@@ -7,6 +7,8 @@ import { AudioHub } from '../helper/audiohub.class.js';
 /** Repesents the final enemy. */
 export class Boss extends Enemy {
 
+    alert = false;
+
     /**
      * Creates the boss.
      * @param {Level} level - Level on witch boss lives.
@@ -20,6 +22,7 @@ export class Boss extends Enemy {
         this.groundLevel += 60;
         this.y = this.groundLevel;
         this.loadImage(ImgHelper.ENEMY.boss.walk[0]);
+        this.loadImages(ImgHelper.ENEMY.boss.alert);
         this.loadImages(ImgHelper.ENEMY.boss.hurt);
         this.loadImages(ImgHelper.ENEMY.boss.dead);
         this.offset.top = 250;
@@ -40,11 +43,20 @@ export class Boss extends Enemy {
     }
 
     aniBoss = () => {
-        if (this.dieing && !this.died) {
-            this.playSingleAnimation(ImgHelper.ENEMY.boss.dead);
-            if(this.animationPlayed) {
-                this.died = true;
-                this.injured = false;
+        if (!this.alert) {
+            this.playSingleAnimation(ImgHelper.ENEMY.boss.alert);
+            if (this.animationPlayed) {
+                this.alert = true;
+                this.animationPlayed = false;
+            }
+        }
+        else if (this.dieing) {
+            if(!this.died) {
+                this.playSingleAnimation(ImgHelper.ENEMY.boss.dead);
+                if (this.animationPlayed) {
+                    this.died = true;
+                    this.animationPlayed = false;
+                }
             }
         }
         else if (this.injured && !this.hurtAnimationPlayed) {
@@ -53,11 +65,15 @@ export class Boss extends Enemy {
                 AudioHub.playOne(AudioHub.ENEMY.chicken);
                 this.hurtSoundPlayed = true;
             }
+            if (this.animationPlayed) {
+                this.hurtAnimationPlayed = true;
+                this.animationPlayed = false;
+            }
         }
     }
 
     animate() {
-        IntervalHub.startInverval(this.aniBoss, 1000 / 4);
+        IntervalHub.startInverval(this.aniBoss, 1000 / 10);
     }
 
     touchingBottle() {
