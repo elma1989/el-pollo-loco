@@ -31,8 +31,8 @@ export class World {
         this.ctx.translate(this.cameraXPos, 0);
 
         this.drawObjects(this.level.backgrounds);
-        this.drawCollectables();
         this.drawChickens();
+        this.drawCollectables();
         
         this.drawSingleObject(this.level.pepe);
 

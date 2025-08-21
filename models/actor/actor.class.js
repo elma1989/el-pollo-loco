@@ -343,6 +343,7 @@ export class MortalActor extends TouchingActor {
     dieing = false;
     injured = false;
     injuredSince = 0;
+    hurtAnimationPlayed = false;
     hurtSoundPlayed = false;
     deadSoundPlayed = false;
     // #endregion
@@ -354,7 +355,10 @@ export class MortalActor extends TouchingActor {
     // #region Methods
     /** Sets the dieing-flag, if empty health. */
     emptyHelth() {
-        if (!this.died && this.health <= 0) this.dieing = true;
+        if (!this.died && this.health <= 0) {
+            this.dieing = true;
+            this.injured = false;
+        }
     }
 
     /**
