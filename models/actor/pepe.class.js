@@ -83,6 +83,7 @@ export class Pepe extends MortalActor {
         this.touchingCoin();
         this.touchingBottle();
         this.touchingChicken();
+        this.touchingBoss();
         this.throwBottle();
         this.spawnBoss();
     }
@@ -242,6 +243,16 @@ export class Pepe extends MortalActor {
                 this.idleStarted = false;
                 this.longIdle = false;
             }
+        }
+    }
+
+    /** Mangeges collision with boss. */
+    touchingBoss() {
+        if (this.level.boss && this.isTouching(this.level.boss) && !this.level.boss.dieing) {
+            this.animationCounter = 0;
+                this.hit(34);
+                this.idleStarted = false;
+                this.longIdle = false;
         }
     }
     // #endregion
