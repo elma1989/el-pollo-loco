@@ -22,6 +22,7 @@ export class World {
     /** Sets this world a character Attribute */
     setWorld() {
         this.level.pepe.world = this;
+        this.level.statusbars[0].world = this;
     }
     // #region Draw
     /** Draws the world. */
@@ -35,6 +36,8 @@ export class World {
         this.drawCollectables();
         
         this.drawSingleObject(this.level.pepe);
+
+        this.drawObjects(this.level.statusbars);
 
         this.ctx.translate(-this.cameraXPos, 0);
 

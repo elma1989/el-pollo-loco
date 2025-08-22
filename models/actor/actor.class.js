@@ -86,6 +86,7 @@ export class AnimatedActor extends Actor {
     animationPlayed = false;
     animationCounter = 0;
     imageCache = {};
+    world;
     // #endregion
 
     /**
