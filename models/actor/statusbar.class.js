@@ -65,3 +65,18 @@ export class BottleBar extends Statusbar {
         this.img = this.imageCache[ImgHelper.STATUSBAR.bottles[this.calcIndex()]];
     }
 }
+
+/** Statusbar for Pepe's Coins. */
+export class Coinbar extends Statusbar {
+
+    constructor() {
+        super(0,100);
+        this.loadImages(ImgHelper.STATUSBAR.coins);
+        this.value = 0;
+    }
+
+    act() { 
+        this.value = this.world.level.pepe.coins;
+        this.img = this.imageCache[ImgHelper.STATUSBAR.coins[this.calcIndex()]];
+    }
+}

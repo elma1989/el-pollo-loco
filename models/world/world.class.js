@@ -24,6 +24,7 @@ export class World {
         this.level.pepe.world = this;
         this.level.statusbars[0].world = this;
         this.level.statusbars[1].world = this;
+        this.level.statusbars[2].world = this;
     }
     // #region Draw
     /** Draws the world. */

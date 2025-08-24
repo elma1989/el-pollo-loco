@@ -4,7 +4,7 @@ import { Coin, Bottle } from '../actor/collectable.class.js';
 import { Chick, Chicken } from '../actor/enemy.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
-import { PepeHealthBar, BottleBar } from '../actor/statusbar.class.js';
+import { PepeHealthBar, BottleBar, Coinbar } from '../actor/statusbar.class.js';
 
 /** Sumrizes all Object of the world. */
 export class Level {
@@ -110,7 +110,8 @@ export class Level {
     createStatusbars() {
         this.statusbars = [
             new PepeHealthBar(),
-            new BottleBar()
+            new BottleBar(),
+            new Coinbar()
         ]
     }
 
