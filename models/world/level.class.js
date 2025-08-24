@@ -125,9 +125,7 @@ export class Level {
 
     handleBotteleSplash = () => {
         if (this.thrownBottle && this.thrownBottle.splashed) {
-            setTimeout(() => {
-                this.thrownBottle = null;
-            }, 1000);
+            this.thrownBottle = null;
         }
     }
 }
