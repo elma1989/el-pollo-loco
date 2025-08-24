@@ -161,7 +161,7 @@ export class ImgHelper {
         coin: 'assets/img/collectables/coin.png'
     }
     static STATUSBAR = {
-        helth: [
+        health: [
             'assets/img/statusbar/health/0.png',
             'assets/img/statusbar/health/20.png',
             'assets/img/statusbar/health/40.png',
@@ -192,7 +192,7 @@ export class ImgHelper {
             'assets/img/statusbar/boss/60.png',
             'assets/img/statusbar/boss/80.png',
             'assets/img/statusbar/boss/100.png'
-        ]
+        ]   
     }
     static SCREENS = {
         start: 'assets/img/screens/start.png',

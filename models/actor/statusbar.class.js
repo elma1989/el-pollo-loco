@@ -2,7 +2,9 @@ import { AnimatedActor } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 
-/** Represents a statusbar */
+/** Represents a statusbar
+ * @class 
+ */
 class Statusbar extends AnimatedActor {
 
     value = 0;
@@ -27,26 +29,39 @@ class Statusbar extends AnimatedActor {
         return Math.ceil(this.value / 20);
     }
 
-    act() {
-        this.img = this.imageCache[ImgHelper.STATUSBAR.helth[this.calcIndex()]];
-    }
-
     statusbarMoveInt = () => {
         this.x = -this.world.cameraXPos + this.xfix;
     }
 }
 
+/** Statusbar for Health of Pepe */
 export class PepeHealthBar extends Statusbar {
 
     /** Creates Pepe's Health-Bar. */
     constructor() {
         super(0,0);
-        this.loadImages(ImgHelper.STATUSBAR.helth);
+        this.loadImages(ImgHelper.STATUSBAR.health);
         this.value = 100;
     }
 
     act() {
         this.value = this.world.level.pepe.health;
-        super.act();
+        this.img = this.imageCache[ImgHelper.STATUSBAR.health[this.calcIndex()]];
+    }
+}
+
+/** Statusbar for Pepes botles */
+export class BottleBar extends Statusbar {
+
+    /** Creates Pepe's bottle bar. */
+    constructor() {
+        super(0, 50);
+        this.loadImages(ImgHelper.STATUSBAR.bottles);
+        this.value = 0;
+    }
+
+    act() {
+        this.value = this.world.level.pepe.bottles;
+        this.img = this.imageCache[ImgHelper.STATUSBAR.bottles[this.calcIndex()]];
     }
 }
