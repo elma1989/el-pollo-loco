@@ -6,6 +6,7 @@ import { Level } from '../world/level.class.js';
 import { Keyboard } from '../helper/keyboard.class.js';
 import { Bottle } from './collectable.class.js';
 import { Boss } from './boss.class.js';
+import { BossHealthBar } from './statusbar.class.js';
 
 /** Represents the main-character. */
 export class Pepe extends MortalActor {
@@ -146,6 +147,8 @@ export class Pepe extends MortalActor {
     spawnBoss() {
         if(this.x >= 2000 && !this.bossSpawned) {
             this.level.boss = new Boss(this.level, this.world.canvas);
+            this.level.bossHealthBar = new BossHealthBar();
+            this.level.bossHealthBar.world = this.world;
             AudioHub.playOne(AudioHub.ENEMY.boss);
             this.bossSpawned = true;
         }

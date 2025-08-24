@@ -1,6 +1,7 @@
 import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
+import { BossHealthBar } from '../actor/statusbar.class.js'
 
 /** Represents the world. */
 export class World {
@@ -90,7 +91,10 @@ export class World {
     drawChickens() {
         this.level.enemies = this.clearDead(this.level.enemies);
         this.drawObjects(this.level.enemies);
-        if (this.level.boss) this.drawSingleObject(this.level.boss);
+        if (this.level.boss) {
+            this.drawSingleObject(this.level.boss);
+            this.drawSingleObject(this.level.bossHealthBar);
+        }
     }
 
     /**

@@ -67,8 +67,9 @@ export class BottleBar extends Statusbar {
 }
 
 /** Statusbar for Pepe's Coins. */
-export class Coinbar extends Statusbar {
+export class CoinBar extends Statusbar {
 
+    /** Creates Pepe"s coin bar. */
     constructor() {
         super(0,100);
         this.loadImages(ImgHelper.STATUSBAR.coins);
@@ -78,5 +79,21 @@ export class Coinbar extends Statusbar {
     act() { 
         this.value = this.world.level.pepe.coins;
         this.img = this.imageCache[ImgHelper.STATUSBAR.coins[this.calcIndex()]];
+    }
+}
+
+/** Statubar for boss health. */
+export class BossHealthBar extends Statusbar {
+    
+    /** Creates boss health bar. */
+    constructor() {
+        super(562,0);
+        this.loadImages(ImgHelper.STATUSBAR.boss);
+        this.value = 100;
+    }
+
+    act() {
+        this.value = (this.world.level.boss) ? this.world.level.boss.health : 100;
+        this.img = this.imageCache[ImgHelper.STATUSBAR.boss[this.calcIndex()]];
     }
 }
