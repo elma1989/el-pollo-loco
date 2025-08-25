@@ -10,6 +10,7 @@ export class World {
     canvas;
     ctx;
     cameraXPos = 0;
+    startScreenViewed = false;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
@@ -43,6 +44,8 @@ export class World {
         this.drawObjects(this.level.statusbars);
 
         this.ctx.translate(-this.cameraXPos, 0);
+
+        if(!this.startScreenViewed) this.drawSingleObject(this.level.screens[0]);
 
         // console.log(World.cameraXPos);
 

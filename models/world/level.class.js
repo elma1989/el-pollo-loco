@@ -5,6 +5,7 @@ import { Chick, Chicken } from '../actor/enemy.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { PepeHealthBar, BottleBar, CoinBar } from '../actor/statusbar.class.js';
+import { StartScreen } from '../actor/screen.class.js';
 
 /** Sumrizes all Object of the world. */
 export class Level {
@@ -19,6 +20,7 @@ export class Level {
     pepe;
     statusbars;
     bossHealthBar = null;
+    srceens;
 
     /**
      * Creates the level.
@@ -32,6 +34,7 @@ export class Level {
         this.pepe = new Pepe(this, canvas);
         this.createStatusbars();
         IntervalHub.startInverval(this.handleBotteleSplash, 1000 / 2);
+        this.createScreens();
     }
 
     /**
@@ -113,6 +116,12 @@ export class Level {
             new PepeHealthBar(),
             new BottleBar(),
             new CoinBar()
+        ]
+    }
+
+    createScreens() {
+        this.screens = [
+            new StartScreen(),
         ]
     }
 
