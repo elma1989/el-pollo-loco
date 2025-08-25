@@ -36,7 +36,10 @@ export class Air extends Background {
     constructor(canvas) {
         super(Air.xPos, 0, canvas.height, canvas);
         Air.nextXPos(canvas.width);
-        this.loadImage(ImgHelper.BACKGROUND.air);
+    }
+
+    async loadAll() {
+        await this.loadImage(ImgHelper.BACKGROUND.air);
     }
 
     static nextXPos(gap) {
@@ -49,11 +52,18 @@ export class Desert extends Background {
 
     static curLayer = 0;
     static curImgIndex = 0;
+    oCurLayer;
+    oCurImgIndex;
 
     constructor(canvas) {
         super(Desert.xPos, canvas.height - 450, 450, canvas);
-        this.loadImage(ImgHelper.BACKGROUND.layers[Desert.curLayer][Desert.curImgIndex]);
+        this.oCurLayer = Desert.curLayer;
+        this.oCurImgIndex = Desert.curImgIndex;
         Desert.nextXPos(canvas.width);
+    }
+
+    async loadAll() {
+        await this.loadImage(ImgHelper.BACKGROUND.layers[this.oCurLayer][this.oCurImgIndex]);
     }
 
     static nextXPos(gap) {

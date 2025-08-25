@@ -10,13 +10,14 @@ export class World {
     canvas;
     ctx;
     cameraXPos = 0;
-    startScreenViewed = false;
+    startScreenViewed = true;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.level = new Level(this.canvas);
         this.setWorld();
+        this.loadAssets();
         this.draw();
     }
 
@@ -28,6 +29,19 @@ export class World {
         this.level.statusbars[1].world = this;
         this.level.statusbars[2].world = this;
     }
+
+    // #region Loads
+    async loadAssets() {
+        await this.loadBackgrounds();
+    }
+
+    async loadBackgrounds() {
+        for (const background of this.level.backgrounds) {
+            await background.loadAll();
+        }
+    }
+    // #endregion
+
     // #region Draw
     /** Draws the world. */
     draw() {

@@ -26,12 +26,28 @@ export class DrawableObject {
     }
 
     // #region Methods
+
+    
+    loadAll() {
+
+    }
+
     /**
      * Loads image for draw.
      * @param {string} path - Path of Image.
      */
     loadImage(path) {
-        this.img.src = path;
+        return new Promise((resolve, reject) => {
+            try {
+                this.img.src = path;
+                requestAnimationFrame(() => {
+                resolve();
+                });
+            } catch (error) {
+                console.error(error);
+                reject();
+            }
+        })
     }
 
     /**
@@ -106,13 +122,23 @@ export class AnimatedActor extends Actor {
      * @param {Array.string} arr - Collection of image paths.
      */
     loadImages(arr) {
-        if (arr.length > 0) {
-            arr.forEach( path => {
-                const img = new Image();
-                img.src = path;
-                this.imageCache[path] = img;
-            })
-        }
+        return new Promise((resolve, reject) => {
+            try {
+                if (arr.length > 0) {
+                    arr.forEach( path => {
+                        const img = new Image();
+                        img.src = path;
+                        this.imageCache[path] = img;
+                    });
+                    requestAnimationFrame(() => {
+                        resolve();
+                    })
+                }
+            } catch (error) {
+                console.error(error);
+                reject();
+            }
+        });
     }
 
     /**
