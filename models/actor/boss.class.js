@@ -9,6 +9,7 @@ export class Boss extends Enemy {
 
     alert = false;
     attack = false;
+    active = false;
 
     /**
      * Creates the boss.
@@ -39,14 +40,16 @@ export class Boss extends Enemy {
         await this.loadImages(ImgHelper.ENEMY.boss.walk);
     }
     act() {
-        super.act();
-        this.touchingBottle();
-        if (!this.injured) {
-            this.hurtAnimationPlayed = false;
-            this.hurtSoundPlayed = false;
+        if (this.active) {
+            super.act();
+            this.touchingBottle();
+            if (!this.injured) {
+                this.hurtAnimationPlayed = false;
+                this.hurtSoundPlayed = false;
+            }
+            const speed = this.attack ? -5 : -1
+            if (!this.dieing) this.move(speed);
         }
-        const speed = this.attack ? -5 : -1
-        if (!this.dieing) this.move(speed);
     }
 
     aniBoss = () => {

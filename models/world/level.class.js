@@ -2,6 +2,7 @@ import { Air, Desert } from './background.class.js';
 import { SCloud, MCloud, LCloud } from './cloud.class.js';
 import { Coin, Bottle } from '../actor/collectable.class.js';
 import { Chick, Chicken } from '../actor/enemy.class.js';
+import { Boss } from '../actor/boss.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { PepeHealthBar, BottleBar, CoinBar } from '../actor/statusbar.class.js';
@@ -111,6 +112,7 @@ export class Level {
             new Chick(this, canvas),
             new Chicken(this, canvas),
         ]
+        this.boss = new Boss(this, canvas);
     }
 
     createStatusbars() {

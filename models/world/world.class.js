@@ -3,7 +3,6 @@ import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { Template } from '../tamplate.class.js';
 import { AudioHub } from '../helper/audiohub.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
 
 /** Represents the world. */
 export class World {
@@ -23,7 +22,6 @@ export class World {
         this.setWorld();
         this.loadAssets();
         this.draw();
-        // IntervalHub.startInverval(this.moveStatusbars, 1000 / 100);
     }
 
     // #region Methods
@@ -70,6 +68,7 @@ export class World {
         for (const enemy of this.level.enemies) {
             await enemy.loadAll();
         }
+        await this.level.boss.loadAll();
     }
 
     async loadPepe() {
@@ -147,7 +146,7 @@ export class World {
     drawChickens() {
         this.level.enemies = this.clearDead(this.level.enemies);
         this.drawObjects(this.level.enemies);
-        if (this.level.boss) {
+        if (this.level.boss.active) {
             this.drawSingleObject(this.level.boss);
         }
     }
