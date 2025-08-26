@@ -1,6 +1,5 @@
 import { AnimatedActor } from './actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
 
 /** Represents a statusbar
  * @class 
@@ -9,17 +8,21 @@ class Statusbar extends AnimatedActor {
 
     value = 0;
     xfix;
+    world;
 
     /**
-     * 
+     * Creates a statubar.
      * @param {number} y - Y-Positon of bar.
-     * @param {number} x -X-Posistion of bar
+     * @param {number} x - X-Posistion of bar
      */
     constructor(x, y) {
         super(x, y, 595,158);
         this.xfix = x;
         this.scale(0.4);
-        IntervalHub.startInverval(this.statusbarMoveInt, 1000 / 60);
+    }
+
+    act() {
+        this.x = -this.world.cameraXPos + this.xfix;
     }
 
     // #region Methods
@@ -27,10 +30,6 @@ class Statusbar extends AnimatedActor {
     calcIndex() {
         if (this.value < 0) return 0;
         return Math.ceil(this.value / 20);
-    }
-
-    statusbarMoveInt = () => {
-        this.x = -this.world.cameraXPos + this.xfix;
     }
 }
 
@@ -48,6 +47,7 @@ export class PepeHealthBar extends Statusbar {
     }
 
     act() {
+        super.act();
         this.value = this.world.level.pepe.health;
         this.img = this.imageCache[ImgHelper.STATUSBAR.health[this.calcIndex()]];
     }
@@ -67,6 +67,7 @@ export class BottleBar extends Statusbar {
     }
 
     act() {
+        super.act();
         this.value = this.world.level.pepe.bottles;
         this.img = this.imageCache[ImgHelper.STATUSBAR.bottles[this.calcIndex()]];
     }
@@ -86,6 +87,7 @@ export class CoinBar extends Statusbar {
     }
 
     act() { 
+        super.act();
         this.value = this.world.level.pepe.coins;
         this.img = this.imageCache[ImgHelper.STATUSBAR.coins[this.calcIndex()]];
     }
@@ -105,6 +107,7 @@ export class BossHealthBar extends Statusbar {
     }
 
     act() {
+        super.act();
         this.value = (this.world.level.boss) ? this.world.level.boss.health : 100;
         this.img = this.imageCache[ImgHelper.STATUSBAR.boss[this.calcIndex()]];
     }

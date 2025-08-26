@@ -152,9 +152,9 @@ export class Pepe extends MortalActor {
         if(this.x >= 2000 && !this.bossSpawned) {
             this.level.boss = new Boss(this.level, this.world.canvas);
             this.level.boss.loadAll();
-            this.level.bossHealthBar = new BossHealthBar();
-            this.level.bossHealthBar.loadAll();
-            this.level.bossHealthBar.world = this.world;
+            this.level.statusbars.push(new BossHealthBar());
+            this.level.statusbars[3].loadAll();
+            this.level.statusbars[3].world = this.world;
             AudioHub.playOne(AudioHub.ENEMY.boss);
             this.bossSpawned = true;
         }

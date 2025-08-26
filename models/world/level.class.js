@@ -37,6 +37,8 @@ export class Level {
         this.createScreens();
     }
 
+    // #region Methods
+    // #region Elements
     /**
      * Creates the backgrounds.
      * @param {HTMLElement} canvas - Canvas-Object on wich backgrouds are drown.
@@ -124,7 +126,9 @@ export class Level {
             new StartScreen(),
         ]
     }
+    // #endregion
 
+    // #region collectable
     /** Splits collectables in coins and bottles. */
     sepparateCollectabeles() {
         this.coins = this.collectables.filter(collectable => collectable instanceof Coin);
@@ -132,9 +136,12 @@ export class Level {
         this.collectables = [];
     }
 
+    /** Handles the splash bottle */
     handleBotteleSplash = () => {
         if (this.thrownBottle && this.thrownBottle.splashed) {
             this.thrownBottle = null;
         }
     }
+    // #endregion
+    // #endregion
 }
