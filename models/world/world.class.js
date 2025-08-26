@@ -1,7 +1,7 @@
 import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
-import { BossHealthBar } from '../actor/statusbar.class.js'
+import { Template } from '../tamplate.class.js';
 
 /** Represents the world. */
 export class World {
@@ -10,12 +10,13 @@ export class World {
     canvas;
     ctx;
     cameraXPos = 0;
-    startScreenViewed = true;
+    startScreenViewed = false;
     fullLoaded = false;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
+        this.createControlBtns();
         this.level = new Level(this.canvas);
         this.setWorld();
         this.loadAssets();
@@ -40,6 +41,8 @@ export class World {
         await this.loadPepe();
         await this.loadStatusbars();
         this.fullLoaded = true;
+        this.actvateStartBtn();
+        
     }
 
     async loadBackgrounds() {
@@ -108,7 +111,7 @@ export class World {
      * @param {DrawableObject} dO - Object to draw.
      */
     drawSingleObject(dO) {
-        if (dO instanceof Actor && this.fullLoaded) dO.act();
+        if (dO instanceof Actor && this.startScreenViewed) dO.act();
         if (this.pepeFacingLeft(dO)) {
             this.flipImg(dO);
         }
@@ -216,9 +219,30 @@ export class World {
     }
     // #endregion
     // #region Checks
-    pepeFacingLeft(dO) {
-        return dO instanceof Pepe && dO.facingLeft
+    /**
+     * Controls Pepes direction.
+     * @param {Pepe} pepe - Intance of main character.
+     * @returns true, if Pepe is watching left.
+     */
+    pepeFacingLeft(pepe) {
+        return pepe instanceof Pepe && pepe.facingLeft
     }
     // #endregion
+
+    /** Creates the control buttons. */
+    createControlBtns() {
+        document.getElementById('control-btns').innerHTML = Template.disBtn('start-btn', 'Loading');
+    }
+
+    /** Activates the start button. */
+    actvateStartBtn() {
+        const startBtn = document.getElementById('start-btn');
+        startBtn.textContent = 'START';
+        startBtn.removeAttribute('disabled');
+        startBtn.addEventListener('click', () => {
+            this.startScreenViewed = true;
+            document.getElementById('control-btns').classList.add('d-none');
+        });
+    }
     // #endregion
 }

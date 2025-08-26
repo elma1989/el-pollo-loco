@@ -48,3 +48,28 @@ main {
 h1 {
     font: 5.6rem Zabars
 }
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    cursor: wait;
+}
+
+.menu-ctrl {
+    background: #ffc000;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.d-none {
+    display: none;
+}
+
+#control-btns {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 32px;
+}
