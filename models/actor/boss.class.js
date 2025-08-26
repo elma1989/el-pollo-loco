@@ -10,6 +10,7 @@ export class Boss extends Enemy {
     alert = false;
     attack = false;
     active = false;
+    world;
 
     /**
      * Creates the boss.
@@ -49,7 +50,6 @@ export class Boss extends Enemy {
             }
             const speed = this.attack ? -5 : -1
             if (!this.dieing) this.move(speed);
-            if (this.died) this.level.screens[1].visible = true;
         }
     }
 
@@ -90,6 +90,8 @@ export class Boss extends Enemy {
             if (this.animationPlayed) {
                 this.died = true;
                 this.animationPlayed = false;
+                this.level.screens[1].visible = true;
+                this.world.endGame();
             }
         }
     }

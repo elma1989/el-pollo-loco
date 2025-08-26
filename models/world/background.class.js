@@ -2,7 +2,7 @@ import { DrawableObject } from '../actor/actor.class.js';
 import { ImgHelper } from '../helper/imghelper.class.js';
 
 /** Represents the backgound. */
-class Background extends DrawableObject {
+export class Background extends DrawableObject {
 
     static xPos = 0;
 

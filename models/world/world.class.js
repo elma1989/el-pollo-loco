@@ -1,7 +1,6 @@
 import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
-import { Template } from '../tamplate.class.js';
 import { AudioHub } from '../helper/audiohub.class.js';
 
 /** Represents the world. */
@@ -17,7 +16,6 @@ export class World {
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
-        this.createControlBtns();
         this.level = new Level(this.canvas);
         this.setWorld();
         this.loadAssets();
@@ -31,6 +29,8 @@ export class World {
         this.level.statusbars[0].world = this;
         this.level.statusbars[1].world = this;
         this.level.statusbars[2].world = this;
+        this.level.pepe.world = this;
+        this.level.boss.world = this;
     }
 
     // #region Loads
@@ -158,6 +158,7 @@ export class World {
         }
     }
 
+    /** Draws the screens. */
     drawScreens() {
         this.level.screens.forEach( screen => {
             if (screen.visible) {
@@ -243,11 +244,7 @@ export class World {
     }
     // #endregion
 
-    /** Creates the control buttons. */
-    createControlBtns() {
-        document.getElementById('control-btns').innerHTML = Template.disBtn('start-btn', 'Loading');
-    }
-
+    // #region Btn-Mangament
     /** Activates the start button. */
     activateStartBtn() {
         const startBtn = document.getElementById('start-btn');
@@ -260,5 +257,10 @@ export class World {
             AudioHub.playOne(AudioHub.GAME);
         });
     }
+
+    endGame() {
+        document.getElementById('end-btns').classList.remove('d-none');
+    }
+    // #endreqion
     // #endregion
 }

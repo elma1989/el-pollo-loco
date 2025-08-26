@@ -67,7 +67,7 @@ button:disabled {
     display: none;
 }
 
-#control-btns {
+.genaral-btns {
     position: absolute;
     bottom: 0;
     width: 100%;

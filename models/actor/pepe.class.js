@@ -21,6 +21,7 @@ export class Pepe extends MortalActor {
     bottles = 0;
     jumpSoundPlayed = false;
     bossSpawned = false;
+    world;
     // #endregion
 
     /**
@@ -171,6 +172,7 @@ export class Pepe extends MortalActor {
             if (this.animationPlayed) {
                 this.died = true;
                 this.level.screens[2].visible = true;
+                this.world.endGame();
             }
         }
     }
