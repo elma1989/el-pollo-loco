@@ -396,6 +396,10 @@ export class MortalActor extends TouchingActor {
         if (!this.injured) {
             this.health -= power;
             this.injured = true;
+            if (this.health <= 0) {
+                this.injured = false;
+                this.dieing = true;
+            }
             this.injuredSince = Date.now();
         }
     }

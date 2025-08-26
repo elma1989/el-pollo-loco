@@ -6,7 +6,7 @@ import { Boss } from '../actor/boss.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { IntervalHub } from '../helper/intervalhub.class.js';
 import { PepeHealthBar, BottleBar, CoinBar } from '../actor/statusbar.class.js';
-import { StartScreen, WinScreen } from '../actor/screen.class.js';
+import { LoseScreen, StartScreen, WinScreen } from '../actor/screen.class.js';
 
 /** Sumrizes all Object of the world. */
 export class Level {
@@ -126,7 +126,8 @@ export class Level {
     createScreens() {
         this.screens = [
             new StartScreen(),
-            new WinScreen()
+            new WinScreen(),
+            new LoseScreen()
         ]
     }
     // #endregion

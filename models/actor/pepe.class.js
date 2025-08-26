@@ -168,7 +168,10 @@ export class Pepe extends MortalActor {
                 AudioHub.playOne(AudioHub.PEPE.dead);
                 this.deadSoundPlayed = true;
             }
-            if (this.animationPlayed) this.died = true;
+            if (this.animationPlayed) {
+                this.died = true;
+                this.level.screens[2].visible = true;
+            }
         }
     }
 

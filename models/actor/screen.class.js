@@ -35,3 +35,15 @@ export class WinScreen extends Screen {
         await this.loadImage(ImgHelper.SCREENS.win);
     }
 }
+
+/** Screen for losing game. */
+export class LoseScreen extends Screen {
+
+    constructor() {
+        super();
+    }
+
+    async loadAll() {
+        await this.loadImage(ImgHelper.SCREENS.lost);
+    }
+}
