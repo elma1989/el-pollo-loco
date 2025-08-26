@@ -2,6 +2,7 @@ import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
 import { Template } from '../tamplate.class.js';
+import { AudioHub } from '../helper/audiohub.class.js';
 
 /** Represents the world. */
 export class World {
@@ -242,6 +243,7 @@ export class World {
         startBtn.addEventListener('click', () => {
             this.startScreenViewed = true;
             document.getElementById('control-btns').classList.add('d-none');
+            AudioHub.playOne(AudioHub.GAME);
         });
     }
     // #endregion
