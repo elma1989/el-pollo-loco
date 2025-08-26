@@ -62,14 +62,17 @@ export class Chick extends Enemy {
     constructor (level, canvas) {
         super(236, 210, level);
         this.scale(0.25);
-        this.loadImages(ImgHelper.ENEMY.chick.walk);
-        this.animate();
         this.ground(canvas);
         this.y = this.groundLevel;
         this.offset.left = 10;
         this.offset.right = 10;
         this.offset.top = 10;
         this.offset.bottom = 10;
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.ENEMY.chick.walk);
+        this.animate();
     }
 
     enemyAni = () => {

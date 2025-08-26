@@ -31,13 +31,6 @@ export class Pepe extends MortalActor {
     constructor(level, canvas) {
         super(0, 610, 1200, level);
         this.scale(0.25);
-        this.loadImages(ImgHelper.PEPE.dead);
-        this.loadImages(ImgHelper.PEPE.jump);
-        this.loadImages(ImgHelper.PEPE.hurt);
-        this.loadImages(ImgHelper.PEPE.walk);
-        this.loadImages(ImgHelper.PEPE.idle);
-        this.loadImages(ImgHelper.PEPE.longIdle);
-        this.animate();
         this.ground(canvas);
         this.y = this.groundLevel;
         this.offset.left = 35;
@@ -45,6 +38,16 @@ export class Pepe extends MortalActor {
         this.offset.top = 155;
         this.offset.bottom = 40;
         IntervalHub.startInverval(this.pepeWalkInterval, 1000 / 60);
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.PEPE.dead);
+        await this.loadImages(ImgHelper.PEPE.jump);
+        await this.loadImages(ImgHelper.PEPE.hurt);
+        await this.loadImages(ImgHelper.PEPE.walk);
+        await this.loadImages(ImgHelper.PEPE.idle);
+        await this.loadImages(ImgHelper.PEPE.longIdle);
+        this.animate();
     }
 
     // #region Methods
@@ -133,6 +136,7 @@ export class Pepe extends MortalActor {
         if (this.bottles >= 20 && !this.level.thrownBottle && Keyboard.CTRL) {
             this.bottles -= 20;
             this.level.thrownBottle = new Bottle(this.level, this.world.canvas);
+            this.level.thrownBottle.loadAll();
             this.level.thrownBottle.thrown = true;
             this.level.thrownBottle.x = this.rx + this.rwidth;
             this.level.thrownBottle.y = this.ry;
@@ -147,7 +151,9 @@ export class Pepe extends MortalActor {
     spawnBoss() {
         if(this.x >= 2000 && !this.bossSpawned) {
             this.level.boss = new Boss(this.level, this.world.canvas);
+            this.level.boss.loadAll();
             this.level.bossHealthBar = new BossHealthBar();
+            this.level.bossHealthBar.loadAll();
             this.level.bossHealthBar.world = this.world;
             AudioHub.playOne(AudioHub.ENEMY.boss);
             this.bossSpawned = true;

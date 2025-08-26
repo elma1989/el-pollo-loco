@@ -22,11 +22,6 @@ export class Boss extends Enemy {
         this.ground(canvas);
         this.groundLevel += 60;
         this.y = this.groundLevel;
-        this.loadImages(ImgHelper.ENEMY.boss.alert);
-        this.loadImages(ImgHelper.ENEMY.boss.hurt);
-        this.loadImages(ImgHelper.ENEMY.boss.dead);
-        this.loadImages(ImgHelper.ENEMY.boss.attack);
-        this.loadImages(ImgHelper.ENEMY.boss.walk);
         this.offset.top = 250;
         this.offset.left = 120;
         this.offset.bottom = 160;
@@ -35,6 +30,14 @@ export class Boss extends Enemy {
     }
 
     // #region Methods
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.ENEMY.boss.alert);
+        await this.loadImages(ImgHelper.ENEMY.boss.hurt);
+        await this.loadImages(ImgHelper.ENEMY.boss.dead);
+        await this.loadImages(ImgHelper.ENEMY.boss.attack);
+        await this.loadImages(ImgHelper.ENEMY.boss.walk);
+    }
     act() {
         super.act();
         this.touchingBottle();

@@ -7,7 +7,6 @@ export class Coin extends Collectable {
 
     constructor(level, canvas) {
         super(300, 300, level);
-        this.loadImage(ImgHelper.COLLECTABLE.coin);
         this.scale(0.5);
         this.ground(canvas);
         this.y = this.groundLevel;
@@ -16,6 +15,10 @@ export class Coin extends Collectable {
         this.offset.right = 60;
         this.offset.bottom = 60;
         this.calcRealFrame();
+    }
+
+    async loadAll() {
+        await this.loadImage(ImgHelper.COLLECTABLE.coin);
     }
 
     ground(canvas) {
@@ -34,11 +37,7 @@ export class Bottle extends Collectable {
 
     constructor(level, canvas) {
         super(400, 400, level);
-        this.loadImage(ImgHelper.COLLECTABLE.bottle.ground);
-        this.loadImages(ImgHelper.COLLECTABLE.bottle.flip);
-        this.loadImages(ImgHelper.COLLECTABLE.bottle.splash);
         this.scale(0.25);
-        this.animate();
         this.ground(canvas);
         this.y = this.groundLevel;
         this.offset.left = 50;
@@ -49,6 +48,13 @@ export class Bottle extends Collectable {
     }
 
     // #region Methods
+    async loadAll() {
+        await this.loadImage(ImgHelper.COLLECTABLE.bottle.ground);
+        await this.loadImages(ImgHelper.COLLECTABLE.bottle.flip);
+        await this.loadImages(ImgHelper.COLLECTABLE.bottle.splash);
+        this.animate();
+    }
+
     act() {
         super.act();
         if (this.thrown) {

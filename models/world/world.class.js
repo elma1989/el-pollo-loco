@@ -11,6 +11,7 @@ export class World {
     ctx;
     cameraXPos = 0;
     startScreenViewed = true;
+    fullLoaded = false;
 
     constructor() {
         this.canvas = document.getElementById('canvas');
@@ -33,11 +34,45 @@ export class World {
     // #region Loads
     async loadAssets() {
         await this.loadBackgrounds();
+        await this.loadCoins();
+        await this.loadBottles();
+        await this.loadEnemies();
+        await this.loadPepe();
+        await this.loadStatusbars();
+        this.fullLoaded = true;
     }
 
     async loadBackgrounds() {
         for (const background of this.level.backgrounds) {
             await background.loadAll();
+        }
+    }
+
+    async loadCoins() {
+        for (const coin of this.level.coins) {
+            await coin.loadAll();
+        }
+    }
+
+    async loadBottles() {
+        for (const bottle of this.level.bottles) {
+            await bottle.loadAll();
+        }
+    }
+
+    async loadEnemies() {
+        for (const enemy of this.level.enemies) {
+            await enemy.loadAll();
+        }
+    }
+
+    async loadPepe() {
+        this.level.pepe.loadAll();
+    }
+
+    async loadStatusbars() {
+        for (const statusbar of this.level.statusbars) {
+            await statusbar.loadAll();
         }
     }
     // #endregion
@@ -73,7 +108,7 @@ export class World {
      * @param {DrawableObject} dO - Object to draw.
      */
     drawSingleObject(dO) {
-        if (dO instanceof Actor) dO.act();
+        if (dO instanceof Actor && this.fullLoaded) dO.act();
         if (this.pepeFacingLeft(dO)) {
             this.flipImg(dO);
         }

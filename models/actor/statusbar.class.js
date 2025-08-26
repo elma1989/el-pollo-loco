@@ -40,8 +40,11 @@ export class PepeHealthBar extends Statusbar {
     /** Creates Pepe's Health-Bar. */
     constructor() {
         super(0,0);
-        this.loadImages(ImgHelper.STATUSBAR.health);
         this.value = 100;
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.STATUSBAR.health);
     }
 
     act() {
@@ -56,8 +59,11 @@ export class BottleBar extends Statusbar {
     /** Creates Pepe's bottle bar. */
     constructor() {
         super(0, 50);
-        this.loadImages(ImgHelper.STATUSBAR.bottles);
         this.value = 0;
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.STATUSBAR.bottles);
     }
 
     act() {
@@ -72,8 +78,11 @@ export class CoinBar extends Statusbar {
     /** Creates Pepe"s coin bar. */
     constructor() {
         super(0,100);
-        this.loadImages(ImgHelper.STATUSBAR.coins);
         this.value = 0;
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.STATUSBAR.coins);
     }
 
     act() { 
@@ -88,8 +97,11 @@ export class BossHealthBar extends Statusbar {
     /** Creates boss health bar. */
     constructor() {
         super(562,0);
-        this.loadImages(ImgHelper.STATUSBAR.boss);
         this.value = 100;
+    }
+
+    async loadAll() {
+        await this.loadImages(ImgHelper.STATUSBAR.boss);
     }
 
     act() {
