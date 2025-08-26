@@ -49,6 +49,7 @@ export class Boss extends Enemy {
             }
             const speed = this.attack ? -5 : -1
             if (!this.dieing) this.move(speed);
+            if (this.died) this.level.screens[1].visible = true;
         }
     }
 

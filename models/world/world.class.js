@@ -13,7 +13,7 @@ export class World {
     cameraXPos = 0;
     startScreenViewed = false;
     fullLoaded = false;
-
+    
     constructor() {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
@@ -41,8 +41,9 @@ export class World {
         await this.loadEnemies();
         await this.loadPepe();
         await this.loadStatusbars();
+        await this.loadScreens();
         this.fullLoaded = true;
-        this.actvateStartBtn();
+        this.activateStartBtn();
         
     }
 
@@ -80,6 +81,12 @@ export class World {
             await statusbar.loadAll();
         }
     }
+
+    async loadScreens() {
+        for (const screen of this.level.screens) {
+            await screen.loadAll();
+        }
+    }
     // #endregion
 
     // #region Draw
@@ -99,7 +106,7 @@ export class World {
 
         this.ctx.translate(-this.cameraXPos, 0);
 
-        if(!this.startScreenViewed) this.drawSingleObject(this.level.screens[0]);
+        this.drawScreens();
 
         requestAnimationFrame(() => {
             this.draw();
@@ -149,6 +156,14 @@ export class World {
         if (this.level.boss.active) {
             this.drawSingleObject(this.level.boss);
         }
+    }
+
+    drawScreens() {
+        this.level.screens.forEach( screen => {
+            if (screen.visible) {
+                this.drawSingleObject(screen);
+            }
+        })
     }
 
     /**
@@ -234,12 +249,13 @@ export class World {
     }
 
     /** Activates the start button. */
-    actvateStartBtn() {
+    activateStartBtn() {
         const startBtn = document.getElementById('start-btn');
         startBtn.textContent = 'START';
         startBtn.removeAttribute('disabled');
         startBtn.addEventListener('click', () => {
             this.startScreenViewed = true;
+            this.level.screens[0].visible = false;
             document.getElementById('control-btns').classList.add('d-none');
             AudioHub.playOne(AudioHub.GAME);
         });
