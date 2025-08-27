@@ -12,6 +12,7 @@ export class World {
     cameraXPos = 0;
     startScreenViewed = false;
     fullLoaded = false;
+    endOfGame = false;
     
     constructor() {
         this.canvas = document.getElementById('canvas');
@@ -118,7 +119,7 @@ export class World {
      * @param {DrawableObject} dO - Object to draw.
      */
     drawSingleObject(dO) {
-        if (dO instanceof Actor && this.startScreenViewed) dO.act();
+        if (dO instanceof Actor && this.startScreenViewed && !this.endOfGame) dO.act();
         if (this.pepeFacingLeft(dO)) {
             this.flipImg(dO);
         }
@@ -260,6 +261,7 @@ export class World {
 
     endGame() {
         document.getElementById('end-btns').classList.remove('d-none');
+        this.endOfGame = true;
     }
     // #endreqion
     // #endregion

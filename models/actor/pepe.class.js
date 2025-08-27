@@ -128,13 +128,14 @@ export class Pepe extends MortalActor {
             this.idleStarted = false;
             this.longIdle = false;
             this.isJumping = true;
+            this.playSingleAnimation(ImgHelper.PEPE.jump);
             this.rise(15);
         }
     }
 
     /** Pepe throws a bottle. */
     throwBottle() {
-        if (this.bottles >= 20 && !this.level.thrownBottle && Keyboard.CTRL) {
+        if (!this.dieing && this.bottles >= 20 && !this.level.thrownBottle && Keyboard.CTRL) {
             this.bottles -= 20;
             this.level.thrownBottle = new Bottle(this.level, this.world.canvas);
             this.level.thrownBottle.loadAll();
@@ -201,7 +202,7 @@ export class Pepe extends MortalActor {
     // #endregion
     // #region Checks
     isWalking() {
-        if (this.dieing || this.died) return false;
+        if (this.dieing || this.died || this.world.endOfGame) return false;
         const walking = Keyboard.LEFT || Keyboard.RIGHT;
         if (walking) {
             if (this.animationCounter > 5) this.animationCounter = 0;
@@ -213,12 +214,12 @@ export class Pepe extends MortalActor {
 
     /** Checks if Pepe can walk left. */
     canWalkLeft() {
-        return this.x >= 0 && !this.dieing && !this.injured;
+        return this.x >= 0 && !this.dieing && !this.injured && !this.world.endOfGame;
     }
 
     /** Check if Pepe can walk right. */
     canWalkRight() {
-        return this.x <= 2400 && !this.dieing && !this.injured;
+        return this.x <= 2400 && !this.dieing && !this.injured && !this.world.endOfGame;
     }
     // #endregion
 
