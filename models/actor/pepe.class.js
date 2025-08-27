@@ -69,7 +69,8 @@ export class Pepe extends MortalActor {
             AudioHub.playOne(AudioHub.PEPE.snoring);
         }
     }
-
+    
+    /** Pepes Inverval for move on canvas. */
     pepeWalkInterval = () => {
         this.walkLeft();
         this.walkRight();

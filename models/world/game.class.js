@@ -10,6 +10,8 @@ export class Game {
         new Keyboard();
         this.clickManual();
         this.clickManualClose();
+        this.clickImpressum();
+        this.clickImpressumClose();
         this.world = new World();
     }
 
@@ -25,5 +27,19 @@ export class Game {
         document.getElementById('man-close').addEventListener('click', () => {
             document.getElementById('manual').classList.add('d-none');
         });
+    }
+
+    /** Click-Event on Impressum-Button. */
+    clickImpressum() {
+        document.getElementById('impressum-btn').addEventListener('click', () => {
+            document.getElementById('impressum').classList.remove('d-none');
+        });
+    }
+
+    /** Click-Event on Impressum-Close-Button. */
+    clickImpressumClose() {
+        document.getElementById('imp-close').addEventListener('click', () => {
+            document.getElementById('impressum').classList.add('d-none');
+        })
     }
 }

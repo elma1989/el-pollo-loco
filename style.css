@@ -79,7 +79,7 @@ canvas {
     padding: 32px;
 }
 
-#manual {
+.screen-info {
     position: absolute;
     top: 0;
     left: 0;
@@ -94,7 +94,7 @@ canvas {
     }
 }
 
-#man-close {
+.close-btn {
     position: absolute;
     top: 32px;
     right: 32px;
