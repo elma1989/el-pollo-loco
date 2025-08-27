@@ -8,6 +8,22 @@ export class Game {
     
     constructor() {
         new Keyboard();
+        this.clickManual();
+        this.clickManualClose();
         this.world = new World();
+    }
+
+    /** Click-Event on Manual-Button. */
+    clickManual() {
+        document.getElementById('manual-btn').addEventListener('click', () => {
+            document.getElementById('manual').classList.remove('d-none');
+        });
+    }
+
+    /** Click-Event on Manual-Close-Button. */
+    clickManualClose() {
+        document.getElementById('man-close').addEventListener('click', () => {
+            document.getElementById('manual').classList.add('d-none');
+        });
     }
 }
