@@ -199,4 +199,15 @@ export class ImgHelper {
         lost: 'assets/img/screens/lost.png',
         win: 'assets/img/screens/win.png'
     }
+
+    static SOUND = {
+        music: {
+            on: 'assets/icons/music.svg',
+            off: 'assets/icons/music-off.svg',
+        },
+        sound: {
+            on: 'assets/icons/sound.svg',
+            off: 'assets/icons/sound-off.svg'
+        }
+    }
 }
