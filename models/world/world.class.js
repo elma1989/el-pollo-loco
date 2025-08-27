@@ -255,12 +255,14 @@ export class World {
             this.startScreenViewed = true;
             this.level.screens[0].visible = false;
             document.getElementById('control-btns').classList.add('d-none');
+            AudioHub.playOne(AudioHub.BACKGROUND);
             AudioHub.playOne(AudioHub.GAME);
         });
     }
 
     endGame() {
         document.getElementById('end-btns').classList.remove('d-none');
+        AudioHub.stopAll();
         this.endOfGame = true;
     }
     // #endreqion

@@ -1,4 +1,4 @@
-import { IntervalHub } from './intervalhub.class.js';
+
 
 class MyAudio {
 
@@ -17,6 +17,7 @@ class MyAudio {
 export class AudioHub {
     // #region Attributes
     static GAME = new MyAudio('assets/sounds/start.mp3');
+    static BACKGROUND = new MyAudio('assets/sounds/background.mp3')
     static PEPE = {
         walk: new MyAudio('assets/sounds/pepe/walk.mp3'),
         snoring: new MyAudio('assets/sounds/pepe/snoring.mp3'),
@@ -39,6 +40,7 @@ export class AudioHub {
 
     static ALLFILES = [
         AudioHub.GAME,
+        AudioHub.BACKGROUND,
         AudioHub.PEPE.walk,
         AudioHub.PEPE.snoring,
         AudioHub.PEPE.jump,
