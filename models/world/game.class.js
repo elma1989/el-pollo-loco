@@ -15,6 +15,7 @@ export class Game {
         this.clickImpressum();
         this.clickImpressumClose();
         this.toggleMuteMusic();
+        this.toggleMuteSound();
         this.world = new World();
     }
 
@@ -46,6 +47,7 @@ export class Game {
         })
     }
 
+    /** Scwich music on and off */
     toggleMuteMusic() {
         const musicBtn = document.getElementById('music-btn');
         musicBtn.addEventListener('click', () => {
@@ -57,5 +59,22 @@ export class Game {
                 musicBtn.children[0].src = ImgHelper.SOUND.music.off;
             }
         })
+    }
+
+    /** Mutes and ummutes the Sound */
+    toggleMuteSound() {
+        const soundBtn = document.getElementById('sound-btn');
+        const musicBtn = document.getElementById('music-btn');
+        soundBtn.addEventListener('click', () => {
+            if(AudioHub.muteAll) {
+                AudioHub.muteAll = false;
+                if (!AudioHub.muteMusic) musicBtn.children[0].src = ImgHelper.SOUND.music.on
+                soundBtn.children[0].src = ImgHelper.SOUND.sound.on
+            } else {
+                AudioHub.muteAll = true;
+                musicBtn.children[0].src = ImgHelper.SOUND.music.off
+                soundBtn.children[0].src = ImgHelper.SOUND.sound.off
+            }
+        });
     }
 }
