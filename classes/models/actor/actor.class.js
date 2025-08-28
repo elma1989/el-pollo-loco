@@ -40,14 +40,12 @@ export class DrawableObject {
         return new Promise((resolve, reject) => {
             try {
                 this.img.src = path;
-                requestAnimationFrame(() => {
-                resolve();
-                });
+                this.img.onload = () => resolve();
             } catch (error) {
                 console.error(error);
                 reject();
             }
-        })
+        });
     }
 
     /**
@@ -129,10 +127,8 @@ export class AnimatedActor extends Actor {
                         const img = new Image();
                         img.src = path;
                         this.imageCache[path] = img;
+                        img.onload = () => resolve()
                     });
-                    requestAnimationFrame(() => {
-                        resolve();
-                    })
                 }
             } catch (error) {
                 console.error(error);

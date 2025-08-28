@@ -2,16 +2,18 @@ import { Keyboard } from '../../helper/keyboard.class.js';
 import { World } from './world.class.js'
 import { AudioHub } from '../../helper/audiohub.class.js';
 import { ImgHelper } from '../../helper/imghelper.class.js';
+import { Template } from '../../helper/template.class.js';
 
 /** Does the game control. */
 export class Game {
     
     world;
-    musicBtn = document.getElementById('music-btn');
-    soundBtn = document.getElementById('sound-btn');
+    musicBtn;
+    soundBtn;
     
     constructor() {
         new Keyboard();
+        this.createButtons();
         this.clickManual();
         this.clickManualClose();
         this.clickImpressum();
@@ -20,6 +22,18 @@ export class Game {
         this.clickMuteMusic();
         this.clickMuteSound();
         this.world = new World();
+    }
+
+    /** Creates the Control-Buttons. */
+    createButtons() {
+        const ctrlBtns = document.getElementById('control-btns');
+        ctrlBtns.innerHTML = Template.dButton();
+        ctrlBtns.innerHTML += Template.ctrlButton('manual-btn', 'Manual');
+        ctrlBtns.innerHTML += Template.ctrlButton('impressum-btn', 'Impressum');
+        ctrlBtns.innerHTML += Template.soundButton('music-btn', ImgHelper.SOUND.music.on);
+        ctrlBtns.innerHTML += Template.soundButton('sound-btn', ImgHelper.SOUND.sound.on);
+        this.musicBtn = document.getElementById('music-btn');
+        this.soundBtn = document.getElementById('sound-btn');
     }
 
     /** Click-Event on Manual-Button. */
