@@ -70,24 +70,35 @@ export class Game {
     /** Schwitches Music on and off. */
     toggleMusic() {
         if(AudioHub.muteMusic) {
-                AudioHub.muteMusic = false;
-                this.musicBtn.children[0].src = ImgHelper.SOUND.music.on;
-            } else {
-                AudioHub.muteMusic = true;
-                this.musicBtn.children[0].src = ImgHelper.SOUND.music.off;
-            }
+            AudioHub.muteMusic = false;
+            this.musicBtn.children[0].src = ImgHelper.SOUND.music.on;
+        } else {
+            AudioHub.muteMusic = true;
+            this.musicBtn.children[0].src = ImgHelper.SOUND.music.off;
         }
+        this.saveLocal();
+    }
 
     /** Switches Sound on and off. */
     toggleSound() {
         if(AudioHub.muteAll) {
             AudioHub.muteAll = false;
             if (!AudioHub.muteMusic) musicBtn.children[0].src = ImgHelper.SOUND.music.on
-            soundBtn.children[0].src = ImgHelper.SOUND.sound.on
+            this.soundBtn.children[0].src = ImgHelper.SOUND.sound.on
         } else {
             AudioHub.muteAll = true;
-            musicBtn.children[0].src = ImgHelper.SOUND.music.off
-            soundBtn.children[0].src = ImgHelper.SOUND.sound.off
+            this.musicBtn.children[0].src = ImgHelper.SOUND.music.off
+            this.soundBtn.children[0].src = ImgHelper.SOUND.sound.off
         }
+        this.saveLocal();
+    }
+
+    /** Saves the sound settings in local storage. */
+    saveLocal() {
+        const sndSettings = {
+            muteMusic: AudioHub.muteMusic,
+            muteAll: AudioHub.muteAll
+        }
+        localStorage.setItem('sndSettings', JSON.stringify(sndSettings));
     }
 }
