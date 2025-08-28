@@ -7,6 +7,8 @@ import { ImgHelper } from '../helper/imghelper.class.js';
 export class Game {
     
     world;
+    musicBtn = document.getElementById('music-btn');
+    soundBtn = document.getElementById('sound-btn');
     
     constructor() {
         new Keyboard();
@@ -14,8 +16,8 @@ export class Game {
         this.clickManualClose();
         this.clickImpressum();
         this.clickImpressumClose();
-        this.toggleMuteMusic();
-        this.toggleMuteSound();
+        this.clickMuteMusic();
+        this.clickMuteSound();
         this.world = new World();
     }
 
@@ -23,6 +25,7 @@ export class Game {
     clickManual() {
         document.getElementById('manual-btn').addEventListener('click', () => {
             document.getElementById('manual').classList.remove('d-none');
+            document.getElementById('control-btns').classList.add('d-none');
         });
     }
 
@@ -30,6 +33,7 @@ export class Game {
     clickManualClose() {
         document.getElementById('man-close').addEventListener('click', () => {
             document.getElementById('manual').classList.add('d-none');
+            document.getElementById('control-btns').classList.remove('d-none');
         });
     }
 
@@ -37,6 +41,7 @@ export class Game {
     clickImpressum() {
         document.getElementById('impressum-btn').addEventListener('click', () => {
             document.getElementById('impressum').classList.remove('d-none');
+            document.getElementById('control-btns').classList.add('d-none');
         });
     }
 
@@ -44,37 +49,45 @@ export class Game {
     clickImpressumClose() {
         document.getElementById('imp-close').addEventListener('click', () => {
             document.getElementById('impressum').classList.add('d-none');
-        })
+            document.getElementById('control-btns').classList.remove('d-none');
+        });
     }
 
-    /** Scwich music on and off */
-    toggleMuteMusic() {
-        const musicBtn = document.getElementById('music-btn');
-        musicBtn.addEventListener('click', () => {
-            if(AudioHub.muteMusic) {
+    /** Click-Event on music note. */
+    clickMuteMusic() {
+        this.musicBtn.addEventListener('click', () => {
+            this.toggleMusic();
+        });
+    }
+
+    /** Click-Event on Speaker. */
+    clickMuteSound() {
+        this.soundBtn.addEventListener('click', () => {
+            this.toggleSound();
+        });
+    }
+
+    /** Schwitches Music on and off. */
+    toggleMusic() {
+        if(AudioHub.muteMusic) {
                 AudioHub.muteMusic = false;
-                musicBtn.children[0].src = ImgHelper.SOUND.music.on;
+                this.musicBtn.children[0].src = ImgHelper.SOUND.music.on;
             } else {
                 AudioHub.muteMusic = true;
-                musicBtn.children[0].src = ImgHelper.SOUND.music.off;
+                this.musicBtn.children[0].src = ImgHelper.SOUND.music.off;
             }
-        })
-    }
+        }
 
-    /** Mutes and ummutes the Sound */
-    toggleMuteSound() {
-        const soundBtn = document.getElementById('sound-btn');
-        const musicBtn = document.getElementById('music-btn');
-        soundBtn.addEventListener('click', () => {
-            if(AudioHub.muteAll) {
-                AudioHub.muteAll = false;
-                if (!AudioHub.muteMusic) musicBtn.children[0].src = ImgHelper.SOUND.music.on
-                soundBtn.children[0].src = ImgHelper.SOUND.sound.on
-            } else {
-                AudioHub.muteAll = true;
-                musicBtn.children[0].src = ImgHelper.SOUND.music.off
-                soundBtn.children[0].src = ImgHelper.SOUND.sound.off
-            }
-        });
+    /** Switches Sound on and off. */
+    toggleSound() {
+        if(AudioHub.muteAll) {
+            AudioHub.muteAll = false;
+            if (!AudioHub.muteMusic) musicBtn.children[0].src = ImgHelper.SOUND.music.on
+            soundBtn.children[0].src = ImgHelper.SOUND.sound.on
+        } else {
+            AudioHub.muteAll = true;
+            musicBtn.children[0].src = ImgHelper.SOUND.music.off
+            soundBtn.children[0].src = ImgHelper.SOUND.sound.off
+        }
     }
 }
