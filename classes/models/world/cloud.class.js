@@ -1,5 +1,5 @@
 import { Actor } from '../actor/actor.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
 
 /** Respesents a cloud. */
 class Cloud extends Actor {

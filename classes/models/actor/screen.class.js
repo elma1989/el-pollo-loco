@@ -1,5 +1,5 @@
 import { DrawableObject } from './actor.class.js';
-import { ImgHelper } from  '../helper/imghelper.class.js'
+import { ImgHelper } from  '../../helper/imghelper.class.js'
 
 /** Respresense a screen */
 class Screen extends DrawableObject{

@@ -1,8 +1,8 @@
 import { Level } from '../world/level.class.js';
 import { MortalActor } from './actor.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
-import { AudioHub } from '../helper/audiohub.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
+import { IntervalHub } from '../../helper/intervalhub.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
 
 /** Respesents the enemies. */
 export class Enemy extends MortalActor {

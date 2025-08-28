@@ -1,5 +1,5 @@
 import { AnimatedActor } from './actor.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
 
 /** Represents a statusbar
  * @class 

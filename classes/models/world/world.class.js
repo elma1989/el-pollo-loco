@@ -1,7 +1,7 @@
 import { Level } from './level.class.js';
 import { DrawableObject, Actor, TouchingActor} from '../actor/actor.class.js';
 import { Pepe } from '../actor/pepe.class.js';
-import { AudioHub } from '../helper/audiohub.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
 
 /** Represents the world. */
 export class World {

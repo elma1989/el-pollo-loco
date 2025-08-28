@@ -4,7 +4,7 @@ import { Coin, Bottle } from '../actor/collectable.class.js';
 import { Chick, Chicken } from '../actor/enemy.class.js';
 import { Boss } from '../actor/boss.class.js';
 import { Pepe } from '../actor/pepe.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
+import { IntervalHub } from '../../helper/intervalhub.class.js';
 import { PepeHealthBar, BottleBar, CoinBar } from '../actor/statusbar.class.js';
 import { LoseScreen, StartScreen, WinScreen } from '../actor/screen.class.js';
 

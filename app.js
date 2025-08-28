@@ -1,8 +1,8 @@
-import { Game } from './models/world/game.class.js';
-import { IntervalHub } from './models/helper/intervalhub.class.js';
-import { Background, Air, Desert } from './models/world/background.class.js';
-import { Collectable } from './models/actor/actor.class.js';
-import { Enemy } from './models/actor/enemy.class.js';
+import { Game } from './classes/models/world/game.class.js';
+import { IntervalHub } from './classes/helper/intervalhub.class.js';
+import { Background, Air, Desert } from './classes/models/world/background.class.js';
+import { Collectable } from './classes/models/actor/actor.class.js';
+import { Enemy } from './classes/models/actor/enemy.class.js';
 
 let game = new Game();
 

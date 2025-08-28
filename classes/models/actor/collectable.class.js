@@ -1,7 +1,7 @@
 import { Collectable } from './actor.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
-import { AudioHub } from '../helper/audiohub.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
+import { IntervalHub } from '../../helper/intervalhub.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
 
 export class Coin extends Collectable {
 

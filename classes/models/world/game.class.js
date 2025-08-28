@@ -1,7 +1,7 @@
-import { Keyboard } from '../helper/keyboard.class.js';
+import { Keyboard } from '../../helper/keyboard.class.js';
 import { World } from './world.class.js'
-import { AudioHub } from '../helper/audiohub.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
 
 /** Does the game control. */
 export class Game {

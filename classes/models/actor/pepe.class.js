@@ -1,11 +1,10 @@
 import { MortalActor } from './actor.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
-import { AudioHub } from '../helper/audiohub.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
+import { IntervalHub } from '../../helper/intervalhub.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
 import { Level } from '../world/level.class.js';
-import { Keyboard } from '../helper/keyboard.class.js';
+import { Keyboard } from '../../helper/keyboard.class.js';
 import { Bottle } from './collectable.class.js';
-import { Boss } from './boss.class.js';
 import { BossHealthBar } from './statusbar.class.js';
 
 /** Represents the main-character. */

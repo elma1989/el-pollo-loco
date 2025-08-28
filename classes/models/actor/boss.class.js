@@ -1,8 +1,8 @@
 import { Enemy } from './enemy.class.js';
-import { ImgHelper } from '../helper/imghelper.class.js';
+import { ImgHelper } from '../../helper/imghelper.class.js';
 import { Level } from '../world/level.class.js';
-import { IntervalHub } from '../helper/intervalhub.class.js';
-import { AudioHub } from '../helper/audiohub.class.js';
+import { IntervalHub } from '../../helper/intervalhub.class.js';
+import { AudioHub } from '../../helper/audiohub.class.js';
 
 /** Repesents the final enemy. */
 export class Boss extends Enemy {
