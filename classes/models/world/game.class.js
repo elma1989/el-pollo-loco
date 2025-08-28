@@ -27,11 +27,12 @@ export class Game {
     /** Creates the Control-Buttons. */
     createButtons() {
         const ctrlBtns = document.getElementById('control-btns');
+        const sndCtrl = document.querySelector('.sound-control')
         ctrlBtns.innerHTML = Template.dButton();
         ctrlBtns.innerHTML += Template.ctrlButton('manual-btn', 'Manual');
         ctrlBtns.innerHTML += Template.ctrlButton('impressum-btn', 'Impressum');
-        ctrlBtns.innerHTML += Template.soundButton('music-btn', ImgHelper.SOUND.music.on);
-        ctrlBtns.innerHTML += Template.soundButton('sound-btn', ImgHelper.SOUND.sound.on);
+        sndCtrl.innerHTML = Template.soundButton('music-btn', ImgHelper.SOUND.music.on);
+        sndCtrl.innerHTML += Template.soundButton('sound-btn', ImgHelper.SOUND.sound.on);
         this.musicBtn = document.getElementById('music-btn');
         this.soundBtn = document.getElementById('sound-btn');
     }
@@ -87,9 +88,11 @@ export class Game {
         if(AudioHub.muteMusic) {
             AudioHub.muteMusic = false;
             this.musicBtn.children[0].src = ImgHelper.SOUND.music.on;
+            if (this.world.startScreenViewed) AudioHub.playOne(AudioHub.BACKGROUND);
         } else {
             AudioHub.muteMusic = true;
             this.musicBtn.children[0].src = ImgHelper.SOUND.music.off;
+            AudioHub.stopOne(AudioHub.BACKGROUND);
         }
         this.saveLocal();
     }
@@ -104,6 +107,7 @@ export class Game {
             AudioHub.muteAll = true;
             this.musicBtn.children[0].src = ImgHelper.SOUND.music.off
             this.soundBtn.children[0].src = ImgHelper.SOUND.sound.off
+            AudioHub.stopAll();
         }
         this.saveLocal();
     }

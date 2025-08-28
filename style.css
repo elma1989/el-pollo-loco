@@ -75,7 +75,7 @@ canvas {
     background: transparent;
 }
 
-.genaral-btns {
+.general-btns {
     display: flex;
     align-items: flex-end;
     position: absolute;
@@ -97,6 +97,12 @@ canvas {
     p{
         margin-bottom: 0.5rem;
     }
+}
+
+.sound-control {
+    position: absolute;
+    bottom: 32px;
+    right: 0;
 }
 
 .close-btn {
