@@ -15,7 +15,6 @@ function reset() {
     IntervalHub.stopInvervals();
     document.getElementById('end-btns').classList.add('d-none');
     document.getElementById('control-btns').classList.remove('d-none');
-    resetStaticAttributes();
     game = null;
     resetStaticAttributes();
     game = new Game();

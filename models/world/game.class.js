@@ -16,6 +16,7 @@ export class Game {
         this.clickManualClose();
         this.clickImpressum();
         this.clickImpressumClose();
+        this.loadLocal();
         this.clickMuteMusic();
         this.clickMuteSound();
         this.world = new World();
@@ -83,7 +84,7 @@ export class Game {
     toggleSound() {
         if(AudioHub.muteAll) {
             AudioHub.muteAll = false;
-            if (!AudioHub.muteMusic) musicBtn.children[0].src = ImgHelper.SOUND.music.on
+            if (!AudioHub.muteMusic) this.musicBtn.children[0].src = ImgHelper.SOUND.music.on
             this.soundBtn.children[0].src = ImgHelper.SOUND.sound.on
         } else {
             AudioHub.muteAll = true;
@@ -100,5 +101,15 @@ export class Game {
             muteAll: AudioHub.muteAll
         }
         localStorage.setItem('sndSettings', JSON.stringify(sndSettings));
+    }
+
+    /** Restores from local strorage. */
+    loadLocal() {
+        const localStrored = localStorage.getItem('sndSettings');
+        if (localStrored) {
+            const sndSettings = JSON.parse(localStrored);
+            if (sndSettings.muteMusic) this.toggleMusic();
+            if (sndSettings.muteAll) this.toggleSound();
+        }
     }
 }
