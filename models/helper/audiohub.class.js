@@ -53,6 +53,9 @@ export class AudioHub {
         AudioHub.COLLECTABLES.bottle.collect,
         AudioHub.COLLECTABLES.bottle.break
     ]
+
+    static muteMusic = false;
+    static muteAll = false;
     // #endregion
 
     // #region Methods
@@ -62,16 +65,22 @@ export class AudioHub {
      */
     static playOne(sound) {
         sound.played = false;
-        if (sound.sound.readyState == 4 || sound.loaded) {
+        if ((sound.sound.readyState == 4 || sound.loaded) && !AudioHub.muteAll) {
             sound.loaded = true;
-            sound.sound.play();
+            if (sound != AudioHub.BACKGROUND) sound.sound.play();
+            else if (!AudioHub.muteMusic) sound.sound.play();
         }
     }
 
+    /**
+     * Stops a sound.
+     * @param {MyAudio} sound - Sound to stop.
+     */
     static stopOne(sound) {
         sound.sound.pause();
     }
 
+    /** Stopps all sounds. */
     static stopAll() {
         AudioHub.ALLFILES.forEach(audio => {
             audio.sound.pause()

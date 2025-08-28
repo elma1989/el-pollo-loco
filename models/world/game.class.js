@@ -1,5 +1,7 @@
 import { Keyboard } from '../helper/keyboard.class.js';
 import { World } from './world.class.js'
+import { AudioHub } from '../helper/audiohub.class.js';
+import { ImgHelper } from '../helper/imghelper.class.js';
 
 /** Does the game control. */
 export class Game {
@@ -12,6 +14,7 @@ export class Game {
         this.clickManualClose();
         this.clickImpressum();
         this.clickImpressumClose();
+        this.toggleMuteMusic();
         this.world = new World();
     }
 
@@ -40,6 +43,19 @@ export class Game {
     clickImpressumClose() {
         document.getElementById('imp-close').addEventListener('click', () => {
             document.getElementById('impressum').classList.add('d-none');
+        })
+    }
+
+    toggleMuteMusic() {
+        const musicBtn = document.getElementById('music-btn');
+        musicBtn.addEventListener('click', () => {
+            if(AudioHub.muteMusic) {
+                AudioHub.muteMusic = false;
+                musicBtn.children[0].src = ImgHelper.SOUND.music.on;
+            } else {
+                AudioHub.muteMusic = true;
+                musicBtn.children[0].src = ImgHelper.SOUND.music.off;
+            }
         })
     }
 }

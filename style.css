@@ -68,11 +68,16 @@ canvas {
     margin-right: 32px;
 }
 
-.d-none {
-    display: none;
+.snd-ctrl {
+    margin-right: 32px;
+    bottom: 0;
+    border: none;
+    background: transparent;
 }
 
 .genaral-btns {
+    display: flex;
+    align-items: flex-end;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -104,4 +109,8 @@ canvas {
     border-radius: 50%;
     color: white;
     font-weight: bold;
+}
+
+.d-none {
+    display: none;
 }
