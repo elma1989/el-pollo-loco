@@ -58,7 +58,26 @@ button:disabled {
 }
 
 canvas {
+    display: block;
     border-radius: 16px;
+}
+
+@media(max-width: 800px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media(max-height: 670px) {
+    .md-none {
+        display: none;
+    }
+}
+
+@media(max-height: 600px) {
+    canvas {
+        height: 100dvh;
+    }
 }
 
 .menu-ctrl {
