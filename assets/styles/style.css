@@ -1,0 +1,38 @@
+@import url(./fonts.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background: url(../img/00_Background/bg.jpg);
+}
+
+header {
+    height: 10dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    height: 90dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font: 3rem Cowboy;
+    color: #c10000;
+}
+
+canvas {
+    background: black;
+}
