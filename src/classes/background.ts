@@ -1,0 +1,31 @@
+import { DrawableObject } from "./drawable-object.js";
+import { Game } from "./game.js";
+
+export abstract class Background extends DrawableObject {
+    // #region Attributes
+    static WIDTH: number = 1920;
+    static HEIGHT: number = 1080;
+    static RATIO: number = 0.5625;
+    // #endregion
+
+    constructor(offset: number, y: number, height: number) {
+        super(
+            Background.calcX(offset),
+            y,
+            Game.canvas ? Game.canvas.width : 0,
+            height
+        )
+    }
+
+    /**
+     * Calculates x-position of background.
+     * @param offset - Number of background.
+     * @returns X-Positon of background.
+     */
+    static calcX(offset: number): number {
+        const canvas = Game.canvas;
+        if (!canvas) return 0;
+        return offset * canvas.width;
+    }
+    // #endregion
+}
