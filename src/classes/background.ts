@@ -6,6 +6,7 @@ export abstract class Background extends DrawableObject {
     static WIDTH: number = 1920;
     static HEIGHT: number = 1080;
     static RATIO: number = 0.5625;
+    protected offset: number;
     // #endregion
 
     constructor(offset: number, y: number, height: number) {
@@ -14,7 +15,8 @@ export abstract class Background extends DrawableObject {
             y,
             Game.canvas ? Game.canvas.width : 0,
             height
-        )
+        );
+        this.offset = offset;
     }
 
     /**
