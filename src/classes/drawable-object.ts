@@ -1,3 +1,5 @@
+import { Game } from "./game.js";
+
 export abstract class DrawableObject {
     // #region Attributes
     protected x: number;
@@ -21,6 +23,7 @@ export abstract class DrawableObject {
         this.height = height;
     }
 
+    // #region Methods
     // #region Loading
     /** Implemntes complete loading process. */
     abstract load(): Promise<void>;
@@ -36,7 +39,6 @@ export abstract class DrawableObject {
             throw new Error(`HTTP-Error: ${resp.status}`);
         }
         this.img = await this.getImage(path);
-        console.log(this.img);
     }
 
     /**
@@ -51,5 +53,23 @@ export abstract class DrawableObject {
             img.onload = () => resolve(img);
         });
     }
+    // #endregion
+    
+    // #region Drawing
+    /** Draws an object. */
+    draw(): void {
+        if (!Game.ctx || !this.img) return;
+        Game.ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+
+    /**
+     * Scales an object.
+     * @param factor - Factor for scale.
+     */
+    protected scale(factor: number): void {
+        this.width *= factor;
+        this.height *= factor;
+    }
+    // #endregion
     // #endregion
 }
