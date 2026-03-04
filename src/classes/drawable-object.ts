@@ -20,4 +20,36 @@ export abstract class DrawableObject {
         this.width = width;
         this.height = height;
     }
+
+    // #region Loading
+    /** Implemntes complete loading process. */
+    abstract load(): Promise<void>;
+
+    /**
+     * Loads an image in cache.
+     * @param path - Path from image.
+     */
+    protected async loadImage(path: string): Promise<void> {
+        const resp = await fetch(path);
+        if(!resp.ok) {
+            this.img = null;
+            throw new Error(`HTTP-Error: ${resp.status}`);
+        }
+        this.img = await this.getImage(path);
+        console.log(this.img);
+    }
+
+    /**
+     * Creates an HTMLImageElemnt from path.
+     * @param path - Path from image.
+     * @returns HTMLImageElemnt
+     */
+    private async getImage(path: string): Promise<HTMLImageElement> {
+        const img = new Image();
+        return new Promise(resolve => {
+            img.src = path;
+            img.onload = () => resolve(img);
+        });
+    }
+    // #endregion
 }
