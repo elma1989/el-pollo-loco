@@ -1,7 +1,7 @@
 export class ImgHub {
 
     static BACKGROUND = {
-        air: ['assets/img/00_background/air.png'],
+        air: 'assets/img/00_background/air.png',
         layer0: [
             'assets/img/00_background/0-1.png',
             'assets/img/00_background/0-2.png'
