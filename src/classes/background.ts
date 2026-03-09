@@ -1,7 +1,7 @@
-import { DrawableObject } from "./drawable-object.js";
 import { Game } from "./game.js";
+import { MovableObject } from "./movable-object.js";
 
-export abstract class Background extends DrawableObject {
+export abstract class Background extends MovableObject {
     // #region Attributes
     static WIDTH: number = 1920;
     static HEIGHT: number = 1080;
