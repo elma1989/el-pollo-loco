@@ -1,4 +1,6 @@
 export class Game {
+
+    static run: boolean = false;
     
     private constructor() {}
 

@@ -16,7 +16,7 @@ export abstract class MovableObject extends DrawableObject {
     }
 
     /** Will be repeated 60 times per second. */
-    abstract act(): void;
+    act():void {}
 
     /**
      * Moves an Object horizontally.

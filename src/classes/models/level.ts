@@ -1,4 +1,7 @@
 import { DrawableObject } from "../drawable-object.js";
+import { Game } from "../game.js";
+import { IntervalHub } from "../interval-hub.js";
+import { MovableObject } from "../movable-object.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
@@ -34,11 +37,34 @@ export class Level {
 
     /** Draws all drawings */
     private drawAll(): void {
+        this.clearCanvas();
         this.drawnObjects.forEach(drawing => {
             drawing.draw();
         });
         const self = this;
         requestAnimationFrame(() => self.drawAll());
+    }
+
+    /** Clears canvas. */
+    private clearCanvas(): void {
+        const canvas = Game.canvas;
+        const ctx = Game.ctx;
+        if (canvas && ctx) 
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    /** Updates all objects. */
+    private update: () => void = () => {
+        this.drawnObjects.forEach(dO => {
+            if (dO instanceof MovableObject)
+                dO.act();
+        });
+    }
+
+    /** Starts the game. */
+    startGame(): void {
+        Game.run = true;
+        IntervalHub.start(this.update, 1000 / MovableObject.fps)
     }
     // #endregion
 }
