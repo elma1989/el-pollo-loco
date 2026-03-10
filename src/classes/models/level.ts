@@ -2,6 +2,7 @@ import { DrawableObject } from "../drawable-object.js";
 import { Game } from "../game.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
+import { Clouds } from "./clouds.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
@@ -22,6 +23,7 @@ export class Level {
             new Layer0(0), new Layer0(1),
             new Layer1(0), new Layer1(1),
             new Layer2(0), new Layer2(1),
+            new Clouds(0), new Clouds(1), new Clouds(2), new Clouds(3)
         ]
     }
 
