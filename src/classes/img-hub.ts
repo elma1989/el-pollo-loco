@@ -13,6 +13,10 @@ export class ImgHub {
         layer2: [
             'assets/img/00_background/2-1.png',
             'assets/img/00_background/2-2.png'
+        ],
+        clouds: [
+            'assets/img/00_background/clouds-1.png',
+            'assets/img/00_background/clouds-2.png'
         ]
     }
 
