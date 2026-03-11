@@ -9,7 +9,7 @@ export class Sky extends Background {
 
     async load(): Promise<void> {
         try {
-            await this.loadImage(ImgHub.BACKGROUND.air);
+            this.img = await this.loadImage(ImgHub.BACKGROUND.air);
         } catch (e) {
             console.error(e);
         }

@@ -10,7 +10,7 @@ export class Clouds extends Layer {
 
     async load(): Promise<void> {
         try {
-            await this.loadImage(ImgHub.BACKGROUND.clouds[this.offset % 2]);
+            this.img = await this.loadImage(ImgHub.BACKGROUND.clouds[this.offset % 2]);
         } catch (e) {
             console.error(e);
         }

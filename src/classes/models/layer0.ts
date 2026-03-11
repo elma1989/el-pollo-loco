@@ -8,7 +8,7 @@ export class Layer0 extends Layer {
 
     async load(): Promise<void> {
         try {
-            await this.loadImage(ImgHub.BACKGROUND.layer0[this.offset]);
+            this.img = await this.loadImage(ImgHub.BACKGROUND.layer0[this.offset]);
         } catch (e) {
             console.error(e);
         }
