@@ -32,13 +32,13 @@ export abstract class DrawableObject {
      * Loads an image in cache.
      * @param path - Path from image.
      */
-    protected async loadImage(path: string): Promise<void> {
+    protected async loadImage(path: string): Promise<HTMLImageElement> {
         const resp = await fetch(path);
         if(!resp.ok) {
             this.img = null;
             throw new Error(`HTTP-Error: ${resp.status}`);
         }
-        this.img = await this.getImage(path);
+        return this.getImage(path);
     }
 
     /**
