@@ -1,7 +1,9 @@
+import { AnimatedObject } from "../animated-object.js";
 import { DrawableObject } from "../drawable-object.js";
 import { Game } from "../game.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
+import { Character } from "./character.js";
 import { Clouds } from "./clouds.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
@@ -17,13 +19,15 @@ export class Level {
 
     // #region Methods
     /** Creates all objects. */
+    // #region Loading
     private createObjects(): void {
         this.drawnObjects = [
             new Sky(0), new Sky(1),
             new Layer0(0), new Layer0(1),
             new Layer1(0), new Layer1(1),
             new Layer2(0), new Layer2(1),
-            new Clouds(0), new Clouds(1), new Clouds(2), new Clouds(3)
+            new Clouds(0), new Clouds(1), new Clouds(2), new Clouds(3),
+            new Character()
         ]
     }
 
@@ -34,9 +38,13 @@ export class Level {
                 await object.load()
             )
         );
+        this.animateAll();
+        this.enablePepeIdleInterval();
         this.drawAll();
     }
+    // #endregion
 
+    // #region Drawing
     /** Draws all drawings */
     private drawAll(): void {
         this.clearCanvas();
@@ -54,6 +62,7 @@ export class Level {
         if (canvas && ctx) 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    // #endregion
 
     /** Updates all objects. */
     private update: () => void = () => {
@@ -61,6 +70,21 @@ export class Level {
             if (dO instanceof MovableObject)
                 dO.act();
         });
+    }
+
+    /** Starts all animations. */
+    private animateAll() {
+        this.drawnObjects.forEach(animation => {
+            if (animation instanceof AnimatedObject) {
+                animation.animate();
+            }
+        });
+    }
+
+    /** Enabeles Pepe's idle interval. */
+    private enablePepeIdleInterval(): void {
+        const pepe: Character = this.drawnObjects[this.drawnObjects.length - 1] as Character;
+        pepe.startIdleCounterInterval();
     }
 
     /** Starts the game. */

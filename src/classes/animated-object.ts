@@ -51,6 +51,7 @@ export abstract class AnimatedObject extends MovableObject {
      * @param name - Name of animation
      */
     protected playAnmation(name: string) {
+        if (this.currentAnimation != name) this.currentImage = 0;
         this.currentAnimation = name;
         this.changeImage();
         if (this.currentImage == this.imgs[this.currentAnimation].length)
@@ -62,6 +63,7 @@ export abstract class AnimatedObject extends MovableObject {
      * @param name - Name of anination.
      */
     protected playAnimationLoop(name: string) {
+        if (this.currentAnimation != name) this.currentImage = 0;
         this.currentAnimation = name;
         this.changeImage();
         if (this.currentImage == this.imgs[this.currentAnimation].length)
