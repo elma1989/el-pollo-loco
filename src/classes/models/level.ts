@@ -12,6 +12,7 @@ import { Sky } from "./sky.js";
 
 export class Level {
     private drawnObjects: DrawableObject[] = [];
+    static cameraX: number = 0;
 
     constructor() {
         this.createObjects();
@@ -47,12 +48,18 @@ export class Level {
     // #region Drawing
     /** Draws all drawings */
     private drawAll(): void {
-        this.clearCanvas();
-        this.drawnObjects.forEach(drawing => {
-            drawing.draw();
-        });
-        const self = this;
-        requestAnimationFrame(() => self.drawAll());
+        if (Game.ctx) {
+            this.clearCanvas();
+            Game.ctx.translate(Level.cameraX, 0);
+            this.drawnObjects.forEach(drawing => {
+                if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
+                else drawing.draw();
+            });
+            Game.ctx.translate(-Level.cameraX, 0);
+
+            const self = this;
+            requestAnimationFrame(() => self.drawAll());
+        }
     }
 
     /** Clears canvas. */
@@ -62,8 +69,38 @@ export class Level {
         if (canvas && ctx) 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+
+    /**
+     * Checks, if Pepe is watching left.
+     * @param dO - Instace of DrawableObject
+     * @returns true, if Pepe watches left.
+     */
+    private isPepeFacingLeft(dO: DrawableObject): boolean { 
+        if(dO instanceof Character) {
+            const character = dO as Character;
+            return character.facingLeft;
+        }
+        return false;
+    }
+
+    /**
+     * Mirrors a DrawableObject horizontally.
+     * @param dO - DrawableObject to mirror
+     */
+    private mirrorHorizontally(dO: DrawableObject): void {
+        const ctx = Game.ctx;
+        if (ctx) {
+            ctx.save();
+            ctx.scale(-1, 1);
+            dO.x = -dO.x -dO.width;
+            dO.draw();
+            dO.x = -dO.x -dO.width;
+            ctx.restore();
+        }
+    }
     // #endregion
 
+    // #region Update
     /** Updates all objects. */
     private update: () => void = () => {
         this.drawnObjects.forEach(dO => {
@@ -86,11 +123,12 @@ export class Level {
         const pepe: Character = this.drawnObjects[this.drawnObjects.length - 1] as Character;
         pepe.startIdleCounterInterval();
     }
+    // #endregion
 
     /** Starts the game. */
     startGame(): void {
         Game.run = true;
-        IntervalHub.start(this.update, 1000 / MovableObject.fps)
+        IntervalHub.start(this.update, 1000 / MovableObject.fps);
     }
     // #endregion
 }

@@ -2,7 +2,7 @@ import { MovableObject } from "./movable-object.js";
 
 /** A movabel oject, which is animated. */
 export abstract class AnimatedObject extends MovableObject {
-    protected frequency: number  = 4;
+    protected frequency: number  = 5;
     protected imgs: Record<string, HTMLImageElement[]> = {};
     private currentImage: number = 0;
     private currentAnimation: string | null = null;

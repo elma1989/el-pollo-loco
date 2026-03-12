@@ -44,6 +44,14 @@ export class ImgHub {
             'assets/img/02_pepe/02_long_idle/I-18.png',
             'assets/img/02_pepe/02_long_idle/I-19.png',
             'assets/img/02_pepe/02_long_idle/I-20.png'
+        ],
+        walk: [
+            'assets/img/02_pepe/03_walk/W-21.png',
+            'assets/img/02_pepe/03_walk/W-22.png',
+            'assets/img/02_pepe/03_walk/W-23.png',
+            'assets/img/02_pepe/03_walk/W-24.png',
+            'assets/img/02_pepe/03_walk/W-25.png',
+            'assets/img/02_pepe/03_walk/W-26.png',
         ]
     }
 

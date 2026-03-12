@@ -2,9 +2,9 @@ import { Game } from "./game.js";
 
 export abstract class DrawableObject {
     // #region Attributes
-    protected x: number;
+    x: number;
     protected y: number;
-    private width: number;
+    width: number;
     private height: number;
     protected img: HTMLImageElement | null = null;
     // #endregion
