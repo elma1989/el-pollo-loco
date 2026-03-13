@@ -2,7 +2,7 @@ import { MovableObject } from "./movable-object.js";
 
 /** A movabel oject, which is animated. */
 export abstract class AnimatedObject extends MovableObject {
-    protected frequency: number  = 4;
+    protected frequency: number  = 5;
     protected imgs: Record<string, HTMLImageElement[]> = {};
     private currentImage: number = 0;
     private currentAnimation: string | null = null;
@@ -51,6 +51,7 @@ export abstract class AnimatedObject extends MovableObject {
      * @param name - Name of animation
      */
     protected playAnmation(name: string) {
+        if (this.currentAnimation != name) this.currentImage = 0;
         this.currentAnimation = name;
         this.changeImage();
         if (this.currentImage == this.imgs[this.currentAnimation].length)
@@ -62,6 +63,7 @@ export abstract class AnimatedObject extends MovableObject {
      * @param name - Name of anination.
      */
     protected playAnimationLoop(name: string) {
+        if (this.currentAnimation != name) this.currentImage = 0;
         this.currentAnimation = name;
         this.changeImage();
         if (this.currentImage == this.imgs[this.currentAnimation].length)
