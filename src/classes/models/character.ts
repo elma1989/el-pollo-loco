@@ -13,8 +13,7 @@ export class Character extends AnimatedObject {
     facingLeft: boolean = false;
 
     constructor() {
-        super(0, 0, 610, 1200);
-        this.scale(0.2);
+        super(0, 0, 122, 240);// 610 x 1200 * 0.2
     }
 
     // #region Methods
