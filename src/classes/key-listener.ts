@@ -3,7 +3,8 @@ import { IntervalHub } from "./interval-hub.js";
 export class KeyListener {
     static KEY = {
         left:  false,
-        right: false
+        right: false,
+        space: false
     }
 
     constructor() {
@@ -35,6 +36,9 @@ export class KeyListener {
                 case 'ArrowRight':
                     KeyListener.KEY.right = true;
                     break;
+
+                case 'Space':
+                    KeyListener.KEY.space = true;
             }
         });
     }
@@ -50,6 +54,9 @@ export class KeyListener {
                 case 'ArrowRight':
                     KeyListener.KEY.right = false;
                     break;
+
+                case 'Space':
+                    KeyListener.KEY.space = false;
             }
         });
     }

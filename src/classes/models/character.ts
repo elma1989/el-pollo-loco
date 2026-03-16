@@ -1,31 +1,39 @@
-import { AnimatedObject } from "../animated-object.js";
 import { Game } from "../game.js";
+import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
 import { Level } from "./level.js";
 
 /** Represents the main character Pepe. */
-export class Character extends AnimatedObject {
+export class Character extends GravitalObject {
     private idleCounter: number = 0;
     private idle: boolean = true;
     private speed: number = 10;
-    facingLeft: boolean = false;
+    private _facingLeft: boolean = false;
 
     constructor() {
-        super(0, 0, 122, 240);// 610 x 1200 * 0.2
+        super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
     }
 
     // #region Methods
+    get facingLeft(): boolean { return this._facingLeft; }
+
     async load(): Promise<void> {
         this.img  = await this.loadImage(ImgHub.CHARACTER.idle[0]);
         this.imgs['idle'] = await this.addAnimation(ImgHub.CHARACTER.idle);
         this.imgs['longidle'] = await this.addAnimation(ImgHub.CHARACTER.longIdle);
         this.imgs['walk'] = await this.addAnimation(ImgHub.CHARACTER.walk);
+        this.imgs['jump'] = await this.addAnimation(ImgHub.CHARACTER.jump);
     }
 
     act(): void {
         this.movement();
+        this.falling();
+        if(KeyListener.KEY.space) {
+            this.idleCounter = 0;
+            this.jump(25);
+        }
     }
 
     // #region Animation
@@ -42,10 +50,12 @@ export class Character extends AnimatedObject {
 
     /** Special aninmation for Pape. */
     private pepeAni = () => {
-        if (this.isWalking())
-            this.playAnimationLoop('walk')
+        if (this.jumping || this.fallingJump) 
+            this.playAnmation('jump');
+        else if (this.isWalking())
+            this.playAnimationLoop('walk');
         else if (this.idle && this.idleCounter >= 5)
-            this.playAnimationLoop('longidle')
+            this.playAnimationLoop('longidle');
         else if (this.idle) 
             this.playAnimationLoop('idle');
     }
@@ -78,12 +88,12 @@ export class Character extends AnimatedObject {
         if (this.isWalking()) this.disableIdle()
         else this.idle = true;
         if (this.isWalkingLeft()) {
-            this.facingLeft = true;
+            this._facingLeft = true;
             this.move(-this.speed);
         };
         if (this.isWalkingRight()) {
             this.move(this.speed);
-            this.facingLeft = false;
+            this._facingLeft = false;
         }
         if(canvas && this.x <= canvas.width) {
             Level.cameraX = -this.x;
