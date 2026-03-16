@@ -6,7 +6,8 @@ export abstract class GravitalObject extends AnimatedObject {
     static accelaration: number = 1;
     private fallingSpeed: number = 0;
     private yGround: number;
-    private jumping: boolean = false;
+    private _jumping: boolean = false;
+    private _fallingJump: boolean = false;
 
     /**
      * Creates an gravital object.
@@ -19,6 +20,10 @@ export abstract class GravitalObject extends AnimatedObject {
         super(x, y, width, height);
         this.yGround = GravitalObject.toGround(height);
     }
+
+    get jumping(): boolean { return this._jumping; }
+
+    get fallingJump(): boolean { return this._fallingJump; }
 
     /**
      * Calculates the ground level of the world.
@@ -51,16 +56,24 @@ export abstract class GravitalObject extends AnimatedObject {
     protected falling(): void {
         if (this.isOnGround() && !this.jumping) {
             this.fallingSpeed = 0;
+            this._fallingJump = false;
         } else {
-            this.jumping = false;
+            if (this.fallingSpeed >= 0) {
+                this._jumping = false;
+                this._fallingJump = true;
+            }
             this.fallingSpeed += GravitalObject.accelaration
             this.y += this.fallingSpeed;
         }
     }
 
+    /**
+     * Moves an oject against gravitation
+     * @param speed - Intialspeed for Jump.
+     */
     protected jump(speed: number): void {
         if (this.isOnGround()) {
-            this.jumping = true;
+            this._jumping = true;
             this.fallingSpeed = -speed;
         }
     }

@@ -52,6 +52,17 @@ export class ImgHub {
             'assets/img/02_pepe/03_walk/W-24.png',
             'assets/img/02_pepe/03_walk/W-25.png',
             'assets/img/02_pepe/03_walk/W-26.png',
+        ],
+        jump: [
+            'assets/img/02_pepe/04_jump/J-31.png',
+            'assets/img/02_pepe/04_jump/J-32.png',
+            'assets/img/02_pepe/04_jump/J-33.png',
+            'assets/img/02_pepe/04_jump/J-34.png',
+            'assets/img/02_pepe/04_jump/J-35.png',
+            'assets/img/02_pepe/04_jump/J-36.png',
+            'assets/img/02_pepe/04_jump/J-37.png',
+            'assets/img/02_pepe/04_jump/J-38.png',
+            'assets/img/02_pepe/04_jump/J-39.png'
         ]
     }
 
