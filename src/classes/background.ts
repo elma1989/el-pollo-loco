@@ -6,7 +6,7 @@ export abstract class Background extends MovableObject {
     static WIDTH: number = 1920;
     static HEIGHT: number = 1080;
     static RATIO: number = 0.5625;
-    protected offset: number;
+    private _offset: number;
     // #endregion
 
     constructor(offset: number, y: number, height: number) {
@@ -16,8 +16,10 @@ export abstract class Background extends MovableObject {
             Game.canvas ? Game.canvas.width : 0,
             height
         );
-        this.offset = offset;
+        this._offset = offset;
     }
+
+    protected get offset(): number { return this._offset }
 
     /**
      * Calculates x-position of background.
