@@ -31,7 +31,7 @@ export abstract class DrawableObject {
 
     get y(): number { return this._y; }
 
-    set y(newPos) {
+    set y(newPos: number) {
         const canvas = Game.canvas;
         if (!canvas || newPos < 0) this._y = 0;
         else {
