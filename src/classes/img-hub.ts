@@ -63,6 +63,20 @@ export class ImgHub {
             'assets/img/02_pepe/04_jump/J-37.png',
             'assets/img/02_pepe/04_jump/J-38.png',
             'assets/img/02_pepe/04_jump/J-39.png'
+        ],
+        hurt: [
+            'assets/img/02_pepe/05_hurt/H-41.png',
+            'assets/img/02_pepe/05_hurt/H-42.png',
+            'assets/img/02_pepe/05_hurt/H-43.png'
+        ],
+        dead: [
+            'assets/img/02_pepe/06_dead/D-61.png',
+            'assets/img/02_pepe/06_dead/D-62.png',
+            'assets/img/02_pepe/06_dead/D-63.png',
+            'assets/img/02_pepe/06_dead/D-64.png',
+            'assets/img/02_pepe/06_dead/D-65.png',
+            'assets/img/02_pepe/06_dead/D-66.png',
+            'assets/img/02_pepe/06_dead/D-67.png',
         ]
     }
 

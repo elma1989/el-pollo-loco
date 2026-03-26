@@ -1,19 +1,20 @@
 import { Game } from "../game.js";
-import { GravitalObject } from "../gravital-object.js";
+import { HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
 import { Level } from "./level.js";
 
 /** Represents the main character Pepe. */
-export class Character extends GravitalObject {
+export class Character extends HealthyObject {
     private idleCounter: number = 0;
     private idle: boolean = true;
     private speed: number = 10;
     private _facingLeft: boolean = false;
+    private isHurtPlaying: boolean = false;
 
     constructor() {
-        super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
+        super(0, 122, 240);  // 610 x 1200 * 0.2
     }
 
     // #region Methods
@@ -25,6 +26,8 @@ export class Character extends GravitalObject {
         this.imgs['longidle'] = await this.addAnimation(ImgHub.CHARACTER.longIdle);
         this.imgs['walk'] = await this.addAnimation(ImgHub.CHARACTER.walk);
         this.imgs['jump'] = await this.addAnimation(ImgHub.CHARACTER.jump);
+        this.imgs['hurt'] = await this.addAnimation(ImgHub.CHARACTER.hurt);
+        this.imgs['dead'] = await this.addAnimation(ImgHub.CHARACTER.dead);
     }
 
     act(): void {
@@ -34,6 +37,11 @@ export class Character extends GravitalObject {
             this.idleCounter = 0;
             this.jump(25);
         }
+    }
+
+    injure(damage: number): void {
+        super.injure(damage);
+        this.isHurtPlaying = true;
     }
 
     // #region Animation
@@ -50,7 +58,14 @@ export class Character extends GravitalObject {
 
     /** Special aninmation for Pape. */
     private pepeAni = () => {
-        if (this.jumping || this.fallingJump) 
+        if (this.dieing) {
+            this.playAnmation('dead');
+            if (this.imgIndex == 7) this.dieingAnimationPlayed();
+        }
+        else if (this.isHurtPlaying) {   
+            this.playAnmation('hurt');
+            if (this.imgIndex == 3) this.isHurtPlaying = false;
+        } else if (this.jumping || this.fallingJump) 
             this.playAnmation('jump');
         else if (this.isWalking())
             this.playAnimationLoop('walk');

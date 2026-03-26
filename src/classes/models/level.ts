@@ -1,6 +1,7 @@
 import { AnimatedObject } from "../animated-object.js";
 import { DrawableObject } from "../drawable-object.js";
 import { Game } from "../game.js";
+import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
 import { Character } from "./character.js";
@@ -53,7 +54,12 @@ export class Level {
             Game.ctx.translate(Level.cameraX, 0);
             this.drawnObjects.forEach(drawing => {
                 if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
-                else drawing.draw();
+                else {
+                    if(drawing instanceof HealthyObject) {
+                        if(!drawing.dead) drawing.draw();
+                    }
+                    else drawing.draw();
+                }
             });
             Game.ctx.translate(-Level.cameraX, 0);
 

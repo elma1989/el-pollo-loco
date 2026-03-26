@@ -19,6 +19,9 @@ export abstract class AnimatedObject extends MovableObject {
     }
 
     // #region Methods
+
+    get imgIndex(): number { return this.currentImage; }
+
     /**
      * Loads images of array in carche.
      * @param paths - Array of path
