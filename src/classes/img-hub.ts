@@ -80,5 +80,16 @@ export class ImgHub {
         ]
     }
 
+    static CHICKENM = {
+        walk: [
+            'assets/img/03_chicken/01_medium/1_walk/1_w.png',
+            'assets/img/03_chicken/01_medium/1_walk/2_w.png',
+            'assets/img/03_chicken/01_medium/1_walk/3_w.png'
+        ],
+        dead: [
+            'assets/img/03_chicken/01_medium/dead.png'
+        ]
+    }
+
     private constructor() {}
 }
