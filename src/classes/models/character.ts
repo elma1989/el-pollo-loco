@@ -15,6 +15,12 @@ export class Character extends HealthyObject {
 
     constructor() {
         super(0, 122, 240);  // 610 x 1200 * 0.2
+        this.offset = {
+            top: 130,
+            right: 50,
+            bottom: 40,
+            left: 40
+        }
     }
 
     // #region Methods
@@ -40,8 +46,10 @@ export class Character extends HealthyObject {
     }
 
     injure(damage: number): void {
-        super.injure(damage);
-        this.isHurtPlaying = true;
+        if (!this.dead) {
+            super.injure(damage);
+            this.isHurtPlaying = true;
+        }
     }
 
     // #region Animation
