@@ -1,6 +1,5 @@
 import { Chicken } from "../chicken.js";
 import { ImgHub } from "../img-hub.js";
-import { IntervalHub } from "../interval-hub.js";
 
 export class ChickenM extends Chicken {
     constructor() {
