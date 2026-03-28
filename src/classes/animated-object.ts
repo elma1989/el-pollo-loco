@@ -36,8 +36,15 @@ export abstract class AnimatedObject extends MovableObject {
         return imgArr;
     }
 
-    /** Will be excecuted by lavel ater load. */
+    /** Will be excecuted by lavel after load. */
     animate() {
+
+    }
+
+    /** Defines an animation for each object.
+     * Must be implement by children, if object has animation
+     */
+    protected customAni() {
 
     }
 

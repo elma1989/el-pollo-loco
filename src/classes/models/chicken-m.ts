@@ -20,19 +20,6 @@ export class ChickenM extends Chicken {
         this.imgs['dead'] = await this.addAnimation(ImgHub.CHICKENM.dead);
     }
 
-    private chickenAni = () => {
-        if(this.dieing) {
-            this.playAnmation('dead');
-            setTimeout(() => {this.dieingAnimationPlayed()}, 1000)
-        } else {
-            this.playAnimationLoop('walk');
-        }
-    }
-
-    animate(): void {
-        IntervalHub.start(this.chickenAni, 1000 / 4);
-    }
-
     act() {
         super.act();
         this.move(-3);

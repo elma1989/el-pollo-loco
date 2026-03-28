@@ -1,4 +1,5 @@
 import { HealthyObject } from "./healthy-object.js";
+import { IntervalHub } from "./interval-hub.js";
 
 export abstract class Chicken extends HealthyObject {
     static offset: number = 500;
@@ -6,6 +7,20 @@ export abstract class Chicken extends HealthyObject {
     constructor(width: number, height: number) {
         super(Chicken.randomX(), width, height);
         Chicken.next();
+    }
+
+    // #region Methods
+
+    protected customAni(): void {
+        if(this.dieing) {
+            this.playAnmation('dead');
+            setTimeout(() => { this.dieingAnimationPlayed(); }, 1000)
+        }
+        else this.playAnimationLoop('walk');
+    }
+
+    animate(): void {
+        IntervalHub.start(this.customAni.bind(this), 1000 / 4);
     }
 
     /**
@@ -20,4 +35,5 @@ export abstract class Chicken extends HealthyObject {
     static next(): void {
         Chicken.offset += 300
     }
+    // #endregion
 }
