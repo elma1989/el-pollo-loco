@@ -65,7 +65,7 @@ export class Character extends HealthyObject {
     }
 
     /** Special aninmation for Pape. */
-    private pepeAni = () => {
+    protected customAni(): void {
         if (this.dieing) {
             this.playAnmation('dead');
             if (this.imgIndex == 7) this.dieingAnimationPlayed();
@@ -84,7 +84,7 @@ export class Character extends HealthyObject {
     }
 
     animate(): void {
-        IntervalHub.start(this.pepeAni, 1000 / this.frequency);
+        IntervalHub.start(this.customAni.bind(this), 1000 / this.frequency);
     }
 
     /** Disables the idle state */
