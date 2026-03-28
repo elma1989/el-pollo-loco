@@ -6,6 +6,7 @@ import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
 import { Character } from "./character.js";
 import { ChickenM } from "./chicken-m.js";
+import { ChickenS } from "./chicken-s.js";
 import { Clouds } from "./clouds.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
@@ -30,7 +31,11 @@ export class Level {
             new Layer1(0), new Layer1(1),
             new Layer2(0), new Layer2(1),
             new Clouds(0), new Clouds(1), new Clouds(2), new Clouds(3),
-            new ChickenM(), new ChickenM(), new ChickenM(), new ChickenM(), new ChickenM(),
+            new ChickenM(), new ChickenS(),
+            new ChickenM(), new ChickenS(),
+            new ChickenM(), new ChickenS(),
+            new ChickenM(), new ChickenS(),
+            new ChickenM(), new ChickenS(),
             new Character()
         ]
     }
