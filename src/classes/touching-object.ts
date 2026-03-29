@@ -32,7 +32,7 @@ export abstract class TouchingObject extends GravitalObject {
     get real() { return this._real; }
 
     /** Calculates real frame. */
-    private calcRealRect(): void {
+    calcRealRect(): void {
         this._real.x = this.x + this.offset.left;
         this._real.y = this.y + this.offset.top;
         this._real.width = this.width - this.offset.left - this.offset.right;
@@ -55,7 +55,6 @@ export abstract class TouchingObject extends GravitalObject {
         if (ctx) {
             ctx.strokeStyle = 'red';
             ctx.lineWidth = 3;
-            this.calcRealRect();
             ctx.strokeRect(this.real.x, this.real.y, this.real.width, this.real.height);
         }
     }
