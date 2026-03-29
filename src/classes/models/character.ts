@@ -46,10 +46,9 @@ export class Character extends HealthyObject {
     }
 
     injure(damage: number): void {
-        if (!this.dead) {
-            super.injure(damage);
-            this.isHurtPlaying = true;
-        }
+        super.injure(damage);
+        if(this.protected) return;
+        this.isHurtPlaying = true;
     }
 
     // #region Animation

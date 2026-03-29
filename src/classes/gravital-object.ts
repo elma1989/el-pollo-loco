@@ -8,6 +8,7 @@ export abstract class GravitalObject extends AnimatedObject {
     private yGround: number;
     private _jumping: boolean = false;
     private _fallingJump: boolean = false;
+    private _wasFalling: boolean = false;
 
     /**
      * Creates an gravital object.
@@ -21,9 +22,13 @@ export abstract class GravitalObject extends AnimatedObject {
         this.yGround = GravitalObject.toGround(height);
     }
 
+    // #region Methods
+
     get jumping(): boolean { return this._jumping; }
 
     get fallingJump(): boolean { return this._fallingJump; }
+
+    get wasFalling(): boolean { return this._wasFalling; }
 
     /**
      * Calculates the ground level of the world.
@@ -48,12 +53,13 @@ export abstract class GravitalObject extends AnimatedObject {
      * Checks, if object is on ground.
      * @returns True, if object is on ground
      */
-    private isOnGround(): boolean {
+    protected isOnGround(): boolean {
         return this.y >= this.yGround;
     }
 
     /** Will be called on act(), if, object schould fall down. */
     protected falling(): void {
+        this.fallingSpeed += GravitalObject.accelaration
         if (this.isOnGround() && !this.jumping) {
             this.fallingSpeed = 0;
             this._fallingJump = false;
@@ -61,11 +67,19 @@ export abstract class GravitalObject extends AnimatedObject {
             if (this.fallingSpeed >= 0) {
                 this._jumping = false;
                 this._fallingJump = true;
+                this._wasFalling = true;
             }
-            this.fallingSpeed += GravitalObject.accelaration
             this.y += this.fallingSpeed;
         }
     }
+
+    /**
+     * Checks, if object is falling.
+     * @returns True, if object is falling
+     */
+    isFalling(): boolean { return this.fallingSpeed > 0 }
+
+    resetFalling(): void { this._wasFalling = false; }
 
     /**
      * Moves an oject against gravitation
@@ -77,4 +91,5 @@ export abstract class GravitalObject extends AnimatedObject {
             this.fallingSpeed = -speed;
         }
     }
+    // #endregion
 }

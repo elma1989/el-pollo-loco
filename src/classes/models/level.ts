@@ -1,9 +1,11 @@
 import { AnimatedObject } from "../animated-object.js";
+import { Chicken } from "../chicken.js";
 import { DrawableObject } from "../drawable-object.js";
 import { Game } from "../game.js";
 import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
+import { TouchingObject } from "../touching-object.js";
 import { Character } from "./character.js";
 import { ChickenM } from "./chicken-m.js";
 import { ChickenS } from "./chicken-s.js";
@@ -16,6 +18,9 @@ import { Sky } from "./sky.js";
 export class Level {
     private drawnObjects: DrawableObject[] = [];
     static cameraX: number = 0;
+    private character: Character | null = null;
+    private charcterAction: boolean = false;
+    private chickens: Chicken[] = []
 
     constructor() {
         this.createObjects();
@@ -38,6 +43,9 @@ export class Level {
             new ChickenM(), new ChickenS(),
             new Character()
         ]
+
+        this.character = this.drawnObjects[this.drawnObjects.length - 1] as Character;
+        this.chickens = this.drawnObjects.filter(dO => dO instanceof Chicken);
     }
 
     /** Loads all drawn objects in cache. */
@@ -60,6 +68,7 @@ export class Level {
             this.clearCanvas();
             Game.ctx.translate(Level.cameraX, 0);
             this.drawnObjects.forEach(drawing => {
+                if (drawing instanceof TouchingObject) drawing.calcRealRect();
                 if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
                 else {
                     if(drawing instanceof HealthyObject) {
@@ -142,6 +151,27 @@ export class Level {
     startGame(): void {
         Game.run = true;
         IntervalHub.start(this.update, 1000 / MovableObject.fps);
+        IntervalHub.start(this.handleCharacterTouching.bind(this), 1000 / 100);
+    }
+
+
+    /** Manages any collisions with character. */
+    handleCharacterTouching(): void  {
+        const character = this.character;
+        if (!character || this.charcterAction) return;
+        this.charcterAction = true;
+        this.chickens.forEach(chicken => {
+            if (character.isTouching(chicken)) {
+                if (character.wasFalling) {
+                    character.hit();
+                    chicken.injure(100);
+                    character.resetFalling();
+                } else {
+                    character.injure(33);
+                }
+            } 
+        });
+        this.charcterAction = false;
     }
     // #endregion
 }

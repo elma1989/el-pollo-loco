@@ -3,10 +3,11 @@ import { TouchingObject } from "./touching-object.js";
 
 export abstract class HealthyObject extends TouchingObject {
     static inuaralbleTime: number = 700;
-    private health: number = 100;
+    private _health: number = 100;
     private _dieing: boolean = false;
     private _dead: boolean = false;
     private _injured: boolean = false;
+    private hitProcess: boolean = false;
 
     constructor(x:number, width:number, height:number) {
         super(x, GravitalObject.toGround(height), width, height);
@@ -22,14 +23,18 @@ export abstract class HealthyObject extends TouchingObject {
 
     get dead(): boolean { return this._dead; }
 
+    get health(): number {return this._health; }
+
+    get protected(): boolean { return this.hitProcess; }
+
     /**
      * Will be excueted, if an healthy object has injured.
      * @param damage - 0..100 - percent of health, which injure coast.
      */
     injure(damage: number) {
-        if (damage > 0 && damage <= 100) {
+        if (!this.hitProcess && !this.dead && !this._injured && damage > 0 && damage <= 100) {
             this._injured = true;
-            this.health -= damage;
+            this._health -= damage;
             if(this.health <= 0) this._dieing = true;
             setTimeout(() => {this._injured = false}, HealthyObject.inuaralbleTime);
         }
@@ -41,5 +46,11 @@ export abstract class HealthyObject extends TouchingObject {
             this._dieing = false;
             this._dead = true;
         }
+    }
+
+    /** Will be executed character for enemy. */
+    hit(): void {
+        this.hitProcess = true;
+        setTimeout(() => {this.hitProcess = false}, 700)
     }
 }
