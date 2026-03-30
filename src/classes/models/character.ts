@@ -107,6 +107,7 @@ export class Character extends HealthyObject {
     /** Manages the movment of Pepe. */
     private movement():void {
         const canvas = Game.canvas;
+        if (this.dead) return;
         if (this.isWalking()) this.disableIdle()
         else this.idle = true;
         if (this.isWalkingLeft()) {

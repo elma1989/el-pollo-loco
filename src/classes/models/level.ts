@@ -111,7 +111,7 @@ export class Level {
      */
     private mirrorHorizontally(dO: DrawableObject): void {
         const ctx = Game.ctx;
-        if (ctx) {
+        if (dO instanceof HealthyObject && !dO.dead && ctx) {
             ctx.save();
             ctx.scale(-1, 1);
             dO.x = -dO.x -dO.width;
