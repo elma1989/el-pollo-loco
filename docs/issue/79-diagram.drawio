@@ -1,0 +1,34 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="ECoSB0KJIOw5F6sY1k1q">
+    <mxGraphModel dx="946" dy="669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vrSqRhCAqY0S7UK0BZb8-6" parent="1" style="html=1;whiteSpace=wrap;fontStyle=3" value="Collectable" vertex="1">
+          <mxGeometry height="50" width="110" x="469" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="GDfZz_D1AC1N6NaRqI8n-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Coin" vertex="1">
+          <mxGeometry height="86" width="220" x="414" y="384" as="geometry" />
+        </mxCell>
+        <mxCell id="GDfZz_D1AC1N6NaRqI8n-5" parent="GDfZz_D1AC1N6NaRqI8n-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="220" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="GDfZz_D1AC1N6NaRqI8n-7" parent="GDfZz_D1AC1N6NaRqI8n-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0" value="+ Coin()" vertex="1">
+          <mxGeometry height="26" width="220" y="34" as="geometry" />
+        </mxCell>
+        <mxCell id="GDfZz_D1AC1N6NaRqI8n-8" parent="GDfZz_D1AC1N6NaRqI8n-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ randomY(): number" vertex="1">
+          <mxGeometry height="26" width="220" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GDfZz_D1AC1N6NaRqI8n-11" edge="1" parent="1" source="GDfZz_D1AC1N6NaRqI8n-1" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;" target="vrSqRhCAqY0S7UK0BZb8-6" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="200" y="290" as="sourcePoint" />
+            <mxPoint x="300" y="427" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PxTHCB-7oE9d2vv7YfaG-11" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;CoinSate&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;idle&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp;collected&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="226" x="400" y="130" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
