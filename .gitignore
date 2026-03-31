@@ -1,3 +1,4 @@
 dist/
+docs/issue/body.md
 src/classes/test.ts
 *.drawio.bkp
