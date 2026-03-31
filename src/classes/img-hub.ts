@@ -102,5 +102,12 @@ export class ImgHub {
         ]
     }
 
+    static COIN = {
+        idle: [
+            'assets/img/04_collectables/01_coin/coin_1.png',
+            'assets/img/04_collectables/01_coin/coin_2.png'
+        ]
+    }
+
     private constructor() {}
 }

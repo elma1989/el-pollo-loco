@@ -1,7 +1,9 @@
 import { TouchingObject } from "./touching-object.js";
 
+export type BaseState = 'idle' | 'collected';
+
 /** Things to collect. */
-export abstract class Collectable<TState extends string> extends TouchingObject {
+export abstract class Collectable<TState extends BaseState> extends TouchingObject {
     static offset: number = 300;
     private _state: TState = 'idle' as TState;
     private _value: number;
