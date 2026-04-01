@@ -1,5 +1,6 @@
 import { AnimatedObject } from "../animated-object.js";
 import { Chicken } from "../chicken.js";
+import { BaseState, Collectable } from "../collectable.js";
 import { DrawableObject } from "../drawable-object.js";
 import { Game } from "../game.js";
 import { HealthyObject } from "../healthy-object.js";
@@ -10,6 +11,7 @@ import { Character } from "./character.js";
 import { ChickenM } from "./chicken-m.js";
 import { ChickenS } from "./chicken-s.js";
 import { Clouds } from "./clouds.js";
+import { Coin } from "./coin.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
@@ -19,8 +21,9 @@ export class Level {
     private drawnObjects: DrawableObject[] = [];
     static cameraX: number = 0;
     private character: Character | null = null;
-    private charcterAction: boolean = false;
-    private chickens: Chicken[] = []
+    private chickens: Chicken[] = [];
+    private collectables: Collectable<BaseState>[] = [];
+    private coins: number = 0;
 
     constructor() {
         this.createObjects();
@@ -30,6 +33,7 @@ export class Level {
     /** Creates all objects. */
     // #region Loading
     private createObjects(): void {
+        this.character = new Character();
         this.drawnObjects = [
             new Sky(0), new Sky(1),
             new Layer0(0), new Layer0(1),
@@ -41,11 +45,11 @@ export class Level {
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
-            new Character()
+            new Coin(), new Coin(), new Coin(), new Coin(), new Coin(), 
+            this.character
         ]
 
-        this.character = this.drawnObjects[this.drawnObjects.length - 1] as Character;
-        this.chickens = this.drawnObjects.filter(dO => dO instanceof Chicken);
+        this.sepparateLists();
     }
 
     /** Loads all drawn objects in cache. */
@@ -69,18 +73,29 @@ export class Level {
             Game.ctx.translate(Level.cameraX, 0);
             this.drawnObjects.forEach(drawing => {
                 if (drawing instanceof TouchingObject) drawing.calcRealRect();
-                if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
-                else {
-                    if(drawing instanceof HealthyObject) {
-                        if(!drawing.dead) drawing.draw();
-                    }
-                    else drawing.draw();
-                }
+                this.drawObject(drawing);
             });
             Game.ctx.translate(-Level.cameraX, 0);
 
             const self = this;
             requestAnimationFrame(() => self.drawAll());
+        }
+    }
+
+    /**
+     * Draws a single object.
+     * @param drawing - Object to draw.
+     */
+    private drawObject(drawing: DrawableObject) {
+        if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
+        else {
+            if(drawing instanceof HealthyObject) {
+                if(!drawing.dead) drawing.draw();
+            }
+            else if (drawing instanceof Collectable) {
+                if(drawing.state == 'idle') drawing.draw();
+            }
+            else drawing.draw();
         }
     }
 
@@ -147,19 +162,20 @@ export class Level {
     }
     // #endregion
 
-    /** Starts the game. */
-    startGame(): void {
-        Game.run = true;
-        IntervalHub.start(this.update, 1000 / MovableObject.fps);
-        IntervalHub.start(this.handleCharacterTouching.bind(this), 1000 / 100);
-    }
-
-
+    // #region Collision
     /** Manages any collisions with character. */
     handleCharacterTouching(): void  {
         const character = this.character;
-        if (!character || this.charcterAction) return;
-        this.charcterAction = true;
+        if (!character) return;
+        this.handleChickenCollision(character);
+        this.handleCollectableCollision(character);
+    }
+
+    /**
+     * Manages collisions between characte and chickens.
+     * @param character - Instance of character
+     */
+    private handleChickenCollision(character: Character): void {
         this.chickens.forEach(chicken => {
             if (character.isTouching(chicken)) {
                 if (character.wasFalling) {
@@ -171,7 +187,46 @@ export class Level {
                 }
             } 
         });
-        this.charcterAction = false;
+    }
+
+    /**
+     * Mangages collision between Character and Collectables.
+     * @param character - Instance of character
+     */
+    private handleCollectableCollision(character: Character): void {
+        this.collectables.forEach(collectable => {
+            if(character.isTouching(collectable)) {
+                if (collectable instanceof Coin) {
+                    this.coins += collectable.value;
+                    this.remove(collectable);
+                }
+            }
+        });
+    }
+    // #endregion
+
+    // #region Objectmangement
+    /**Removes an object from the world. */
+    private remove(object: DrawableObject) {
+        const index = this.drawnObjects.indexOf(object);
+        if (index != -1) {
+            this.drawnObjects.splice(index, 1);
+            this.sepparateLists();
+        }
+    }
+
+    /** Seppartes main object list to diffrent lists. */
+    private sepparateLists(): void {
+        this.chickens = this.drawnObjects.filter(dO => dO instanceof Chicken);
+        this.collectables = this.drawnObjects.filter(dO => dO instanceof Collectable);
+    }
+    // #endregion
+
+    /** Starts the game. */
+    startGame(): void {
+        Game.run = true;
+        IntervalHub.start(this.update, 1000 / MovableObject.fps);
+        IntervalHub.start(this.handleCharacterTouching.bind(this), 1000 / 100);
     }
     // #endregion
 }
