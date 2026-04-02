@@ -1,10 +1,10 @@
 import { TouchingObject } from "./touching-object.js";
 
-export type BaseState = 'idle' | 'collected' | 'trown';
+export type BaseState = 'idle' | 'collected' | 'thrown';
 
 /** Things to collect. */
 export abstract class Collectable<TState extends BaseState> extends TouchingObject {
-    static offset: number = 300;
+    static offset: number = 100;
     private _state: TState = 'idle' as TState;
     private _value: number;
 
@@ -23,6 +23,8 @@ export abstract class Collectable<TState extends BaseState> extends TouchingObje
 
     get state(): TState { return this._state; }
 
+    set state(state: TState) { this._state = state; }
+
     get value(): number { return this._value; }
 
     // #rregion Methods
@@ -36,7 +38,7 @@ export abstract class Collectable<TState extends BaseState> extends TouchingObje
 
     /** Increases collecables' offset after create */
     static next(): void {
-        Collectable.offset += 200;
+        Collectable.offset += 100;
     }
 
     /** Will be execurted, if this object was been collected. */

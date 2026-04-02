@@ -2,7 +2,6 @@ import { BaseState, Collectable } from "../collectable.js";
 import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
-import { KeyListener } from "../key-listener.js";
 
 export class Bottle extends Collectable<BaseState> {
     offsetChanged: boolean = false;
@@ -10,7 +9,7 @@ export class Bottle extends Collectable<BaseState> {
     constructor() {
         super(GravitalObject.toGround(96), 128, 128, 10);
         this.offset = {
-            top: 60,
+            top: 50,
             right: 40,
             left: 70,
             bottom: 20
@@ -32,9 +31,6 @@ export class Bottle extends Collectable<BaseState> {
 
     act() {
         this.falling();
-        if (this.state == 'idle' && KeyListener.KEY.ctrl) {
-            this.throw();
-        }
         if (this.state == 'thrown') {
             if (!this.offsetChanged) {
                 this.offset = {
@@ -45,7 +41,7 @@ export class Bottle extends Collectable<BaseState> {
                 }
                 this.offsetChanged = true;
             }
-            // this.move(5);
+            this.move(7);
         }
     }
 

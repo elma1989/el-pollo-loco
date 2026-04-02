@@ -3,6 +3,7 @@ import { HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
+import { Bottle } from "./bottle.js";
 import { Level } from "./level.js";
 
 /** Represents the main character Pepe. */
@@ -12,6 +13,8 @@ export class Character extends HealthyObject {
     private speed: number = 10;
     private _facingLeft: boolean = false;
     private isHurtPlaying: boolean = false;
+    private bottles: Bottle[] = [];
+    private hasBottleThrown: boolean = false;
 
     constructor() {
         super(0, 122, 240);  // 610 x 1200 * 0.2
@@ -25,6 +28,8 @@ export class Character extends HealthyObject {
 
     // #region Methods
     get facingLeft(): boolean { return this._facingLeft; }
+
+    get numberBottles(): number { return this.bottles.length; }
 
     async load(): Promise<void> {
         this.img  = await this.loadImage(ImgHub.CHARACTER.idle[0]);
@@ -42,6 +47,9 @@ export class Character extends HealthyObject {
         if(KeyListener.KEY.space) {
             this.idleCounter = 0;
             this.jump(25);
+        }
+        if (KeyListener.KEY.ctrl) {
+            this.throwBottle();
         }
     }
 
@@ -120,6 +128,28 @@ export class Character extends HealthyObject {
         }
         if(canvas && this.x <= canvas.width) {
             Level.cameraX = -this.x;
+        }
+    }
+    // #endregion
+    
+    // #region Bottle-Action
+    /**
+     * Will be executed, if a bottle is collected by him.
+     * @param bottle - Bottle to collect.
+     */
+    collectBottle(bottle: Bottle): void {
+        this.bottles.push(bottle);
+    }
+
+    /** Will be exetuted to throw a bottle. */
+    private throwBottle(): void {
+        if (this.numberBottles > 0 && !this.hasBottleThrown) {
+            const bottle = this.bottles.splice(0, 1)[0];
+            bottle.x = this.x + this.width - this.offset.right;
+            bottle.y = this.y - bottle.height + this.offset.top;
+            bottle.throw();
+            this.hasBottleThrown = true;
+            setTimeout(() => {this.hasBottleThrown = false}, 700);
         }
     }
     // #endregion
