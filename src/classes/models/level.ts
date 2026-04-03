@@ -7,6 +7,7 @@ import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
 import { TouchingObject } from "../touching-object.js";
+import { Bottle } from "./bottle.js";
 import { Character } from "./character.js";
 import { ChickenM } from "./chicken-m.js";
 import { ChickenS } from "./chicken-s.js";
@@ -23,6 +24,7 @@ export class Level {
     private character: Character | null = null;
     private chickens: Chicken[] = [];
     private collectables: Collectable<BaseState>[] = [];
+    private bottles: Bottle[] = [];
     private coins: number = 0;
 
     constructor() {
@@ -45,7 +47,10 @@ export class Level {
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
-            new Coin(), new Coin(), new Coin(), new Coin(), new Coin(), 
+            new Bottle(), new Coin(), new Bottle(),
+            new Bottle(), new Coin(), new Bottle(),
+            new Bottle(), new Coin(), new Bottle(),
+            new Bottle(), new Coin(), new Bottle(),
             this.character
         ]
 
@@ -93,7 +98,7 @@ export class Level {
                 if(!drawing.dead) drawing.draw();
             }
             else if (drawing instanceof Collectable) {
-                if(drawing.state == 'idle') drawing.draw();
+                if(drawing.state != 'collected') drawing.draw();
             }
             else drawing.draw();
         }
@@ -199,9 +204,30 @@ export class Level {
                 if (collectable instanceof Coin) {
                     this.coins += collectable.value;
                     this.remove(collectable);
+                } else if (collectable instanceof Bottle) {
+                    if (collectable.state == 'idle') {
+                        collectable.collect();
+                        character.collectBottle(collectable);
+                    }
                 }
             }
         });
+    }
+
+    /** Manages collision of bottles. */
+    handleBottleCollision(): void {
+        this.bottles.forEach(bottle => {
+            if (bottle.state == 'thrown') {
+                let touchedEnemy = false;
+                this.chickens.forEach(chicken => {
+                    if (bottle.isTouching(chicken)) {
+                        chicken.injure(100);
+                        touchedEnemy = true;
+                    }
+                }) 
+                if(bottle.isOnGround() || touchedEnemy) this.remove(bottle);
+            }
+        })
     }
     // #endregion
 
@@ -219,6 +245,7 @@ export class Level {
     private sepparateLists(): void {
         this.chickens = this.drawnObjects.filter(dO => dO instanceof Chicken);
         this.collectables = this.drawnObjects.filter(dO => dO instanceof Collectable);
+        this.bottles = this.collectables.filter(collect => collect instanceof Bottle);
     }
     // #endregion
 
@@ -227,6 +254,7 @@ export class Level {
         Game.run = true;
         IntervalHub.start(this.update, 1000 / MovableObject.fps);
         IntervalHub.start(this.handleCharacterTouching.bind(this), 1000 / 100);
+        IntervalHub.start(this.handleBottleCollision.bind(this), 1000 / 100);
     }
     // #endregion
 }

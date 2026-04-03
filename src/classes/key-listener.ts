@@ -4,7 +4,8 @@ export class KeyListener {
     static KEY = {
         left:  false,
         right: false,
-        space: false
+        space: false,
+        ctrl: false
     }
 
     constructor() {
@@ -39,6 +40,10 @@ export class KeyListener {
 
                 case 'Space':
                     KeyListener.KEY.space = true;
+                    break;
+
+                case 'ControlLeft':
+                    KeyListener.KEY.ctrl = true;
             }
         });
     }
@@ -57,6 +62,10 @@ export class KeyListener {
 
                 case 'Space':
                     KeyListener.KEY.space = false;
+                    break;
+                
+                case 'ControlLeft':
+                    KeyListener.KEY.ctrl = false;
             }
         });
     }

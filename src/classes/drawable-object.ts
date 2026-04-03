@@ -2,8 +2,8 @@ import { Game } from "./game.js";
 
 export abstract class DrawableObject {
     // #region Attributes
-    x: number;
-    private _y: number = 0;
+   private _x: number;
+    private _y: number;
     private _width: number;
     private _height: number;
     protected img: HTMLImageElement | null = null;
@@ -19,8 +19,8 @@ export abstract class DrawableObject {
     constructor(x: number, y: number, width: number, height:number) {
         this._width = width;
         this._height = height;
-        this.x = x;
-        this.y = y;
+        this._x = x;
+        this._y = y;
     }
 
     // #region Methods
@@ -28,6 +28,12 @@ export abstract class DrawableObject {
     get width(): number  { return this._width; }
 
     get height(): number { return this._height; }
+
+    get x(): number { return this._x; }
+
+    set x(newValue: number) {
+        this._x = newValue;
+    }
 
     get y(): number { return this._y; }
 

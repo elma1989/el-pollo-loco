@@ -4,7 +4,7 @@ import { Game } from "./game.js";
 /** An animated object, which has gravitation/ */
 export abstract class GravitalObject extends AnimatedObject {
     static accelaration: number = 1;
-    private fallingSpeed: number = 0;
+    private _fallingSpeed: number = 0;
     private yGround: number;
     private _jumping: boolean = false;
     private _fallingJump: boolean = false;
@@ -26,9 +26,17 @@ export abstract class GravitalObject extends AnimatedObject {
 
     get jumping(): boolean { return this._jumping; }
 
+    set jumping(state: boolean)  { this._jumping = state; }
+
     get fallingJump(): boolean { return this._fallingJump; }
 
     get wasFalling(): boolean { return this._wasFalling; }
+
+    get fallingSpeed(): number { return this._fallingSpeed; }
+
+    set fallingSpeed(speed: number) {
+        if (-100 <= speed && speed <= 0) this._fallingSpeed = speed;
+    }
 
     /**
      * Calculates the ground level of the world.
@@ -53,15 +61,15 @@ export abstract class GravitalObject extends AnimatedObject {
      * Checks, if object is on ground.
      * @returns True, if object is on ground
      */
-    protected isOnGround(): boolean {
+    isOnGround(): boolean {
         return this.y >= this.yGround;
     }
 
     /** Will be called on act(), if, object schould fall down. */
     protected falling(): void {
-        this.fallingSpeed += GravitalObject.accelaration
+        this._fallingSpeed += GravitalObject.accelaration
         if (this.isOnGround() && !this.jumping) {
-            this.fallingSpeed = 0;
+            this._fallingSpeed = 0;
             this._fallingJump = false;
         } else {
             if (this.fallingSpeed >= 0) {
@@ -87,7 +95,7 @@ export abstract class GravitalObject extends AnimatedObject {
      */
     protected jump(speed: number): void {
         if (this.isOnGround()) {
-            this._jumping = true;
+            this.jumping = true;
             this.fallingSpeed = -speed;
         }
     }

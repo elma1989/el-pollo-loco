@@ -109,5 +109,15 @@ export class ImgHub {
         ]
     }
 
+    static BOTTLE = {
+        idle: 'assets/img/04_collectables/02_bottle/bottle.png',
+        rotation: [
+            'assets/img/04_collectables/02_bottle/rotation/r-1.png',
+            'assets/img/04_collectables/02_bottle/rotation/r-2.png',
+            'assets/img/04_collectables/02_bottle/rotation/r-3.png',
+            'assets/img/04_collectables/02_bottle/rotation/r-4.png',
+        ]
+    }
+
     private constructor() {}
 }
