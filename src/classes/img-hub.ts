@@ -116,6 +116,14 @@ export class ImgHub {
             'assets/img/04_collectables/02_bottle/rotation/r-2.png',
             'assets/img/04_collectables/02_bottle/rotation/r-3.png',
             'assets/img/04_collectables/02_bottle/rotation/r-4.png',
+        ],
+        splash: [
+            'assets/img/04_collectables/02_bottle/splash/1_bottle_splash.png',
+            'assets/img/04_collectables/02_bottle/splash/2_bottle_splash.png',
+            'assets/img/04_collectables/02_bottle/splash/3_bottle_splash.png',
+            'assets/img/04_collectables/02_bottle/splash/4_bottle_splash.png',
+            'assets/img/04_collectables/02_bottle/splash/5_bottle_splash.png',
+            'assets/img/04_collectables/02_bottle/splash/6_bottle_splash.png'
         ]
     }
 
