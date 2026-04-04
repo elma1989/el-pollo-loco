@@ -20,7 +20,9 @@ export class ChickenS extends Chicken {
 
     act(): void {
         super.act();
-        this.jump(15);
-        this.move(-3);
+        if(!this.dieing) {
+            this.jump(15);
+            this.move(-3);
+        }
     }
 }
