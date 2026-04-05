@@ -144,10 +144,11 @@ export class Character extends HealthyObject {
     /** Will be exetuted to throw a bottle. */
     private throwBottle(): void {
         if (this.numberBottles > 0 && !this.hasBottleThrown) {
+            this.idleCounter = 0;
             const bottle = this.bottles.splice(0, 1)[0];
-            bottle.x = this.x + this.width - this.offset.right;
+            bottle.x = this._facingLeft ? this.x : this.x + this.width - this.offset.right;
             bottle.y = this.y - bottle.height + this.offset.top;
-            bottle.throw();
+            bottle.throw(this.facingLeft ? 'left' : 'right');
             this.hasBottleThrown = true;
             setTimeout(() => {this.hasBottleThrown = false}, 700);
         }

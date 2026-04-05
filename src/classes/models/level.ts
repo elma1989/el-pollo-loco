@@ -17,14 +17,17 @@ import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
 import { Sky } from "./sky.js";
+import { Splash } from "./splash.js";
 
 export class Level {
     private drawnObjects: DrawableObject[] = [];
     static cameraX: number = 0;
     private character: Character | null = null;
     private chickens: Chicken[] = [];
+    private creatures: HealthyObject[] = [];
     private collectables: Collectable<BaseState>[] = [];
     private bottles: Bottle[] = [];
+    private splashes: Splash[] = [];
     private coins: number = 0;
 
     constructor() {
@@ -35,7 +38,6 @@ export class Level {
     /** Creates all objects. */
     // #region Loading
     private createObjects(): void {
-        this.character = new Character();
         this.drawnObjects = [
             new Sky(0), new Sky(1),
             new Layer0(0), new Layer0(1),
@@ -51,10 +53,13 @@ export class Level {
             new Bottle(), new Coin(), new Bottle(),
             new Bottle(), new Coin(), new Bottle(),
             new Bottle(), new Coin(), new Bottle(),
-            this.character
+            new Splash(), new Splash(), new Splash(), new Splash(), 
+            new Splash(), new Splash(), new Splash(), new Splash(), 
+            new Character()
         ]
 
         this.sepparateLists();
+        this.assignSplashToBottle();
     }
 
     /** Loads all drawn objects in cache. */
@@ -94,11 +99,11 @@ export class Level {
     private drawObject(drawing: DrawableObject) {
         if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
         else {
-            if(drawing instanceof HealthyObject) {
-                if(!drawing.dead) drawing.draw();
-            }
-            else if (drawing instanceof Collectable) {
+            if (drawing instanceof Collectable) {
                 if(drawing.state != 'collected') drawing.draw();
+            }
+            else if (drawing instanceof Splash) {
+                if(drawing.active) drawing.draw();
             }
             else drawing.draw();
         }
@@ -169,7 +174,7 @@ export class Level {
 
     // #region Collision
     /** Manages any collisions with character. */
-    handleCharacterTouching(): void  {
+    private handleCharacterTouching(): void  {
         const character = this.character;
         if (!character) return;
         this.handleChickenCollision(character);
@@ -215,7 +220,7 @@ export class Level {
     }
 
     /** Manages collision of bottles. */
-    handleBottleCollision(): void {
+    private handleBottleCollision(): void {
         this.bottles.forEach(bottle => {
             if (bottle.state == 'thrown') {
                 let touchedEnemy = false;
@@ -225,13 +230,17 @@ export class Level {
                         touchedEnemy = true;
                     }
                 }) 
-                if(bottle.isOnGround() || touchedEnemy) this.remove(bottle);
+                if(bottle.isOnGround() || touchedEnemy) {
+                    bottle.destroy();
+                    this.remove(bottle);
+                }
             }
         })
     }
     // #endregion
 
     // #region Objectmangement
+
     /**Removes an object from the world. */
     private remove(object: DrawableObject) {
         const index = this.drawnObjects.indexOf(object);
@@ -243,18 +252,56 @@ export class Level {
 
     /** Seppartes main object list to diffrent lists. */
     private sepparateLists(): void {
-        this.chickens = this.drawnObjects.filter(dO => dO instanceof Chicken);
+        this.creatures = this.drawnObjects.filter(dO => dO instanceof HealthyObject);
+        const characters = this.creatures.filter(creature => creature instanceof Character);
+        this.character = characters.length == 1 ? characters[0] : null;
+        this.chickens = this.creatures.filter(creature => creature instanceof Chicken);
         this.collectables = this.drawnObjects.filter(dO => dO instanceof Collectable);
         this.bottles = this.collectables.filter(collect => collect instanceof Bottle);
+        this.splashes = this.drawnObjects.filter(dO => dO instanceof Splash);
+    }
+
+    /** Assigns a splash for each bottle. */
+    private assignSplashToBottle(): void {
+        this.bottles.forEach((bottle, i) => {
+            bottle.addSplash(this.splashes[i]);
+        });
+    }
+
+    /** Removes complete viewed splashes. */
+    private removeFullSplashes(): void {
+        this.splashes.forEach(splash => {
+            if(splash.viewed) this.remove(splash);
+        });
+    }
+
+    /** Removes creatures, which already died. */
+    private removeDeaths(): void {
+        this.creatures.forEach(creature => {
+            if (creature.dead) this.remove(creature)
+        });
     }
     // #endregion
 
+    // #region Game-Loop.
+    /** Includes all methods, which should be executeed quickly. */
+    fastLoop(): void {
+        this.handleCharacterTouching();
+        this.handleBottleCollision();
+    }
+
+    /** Includes all method, which can be executed slowly. */
+    slowLoop(): void {
+        this.removeFullSplashes();
+        this.removeDeaths();
+    }
     /** Starts the game. */
     startGame(): void {
         Game.run = true;
         IntervalHub.start(this.update, 1000 / MovableObject.fps);
-        IntervalHub.start(this.handleCharacterTouching.bind(this), 1000 / 100);
-        IntervalHub.start(this.handleBottleCollision.bind(this), 1000 / 100);
+        IntervalHub.start(this.fastLoop.bind(this), 1000 / 100);
+        IntervalHub.start(this.slowLoop.bind(this), 1000 / 4);
     }
+    // #endregion
     // #endregion
 }

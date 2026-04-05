@@ -21,7 +21,7 @@ export class ChickenM extends Chicken {
 
     act() {
         super.act();
-        this.move(-3);
+        if(!this.dieing) this.move(-3);
     }
     // #endregion
 }
