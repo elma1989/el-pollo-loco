@@ -1,0 +1,37 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Page-1" id="Dx14ufkPF3a7yrhV9EjZ">
+    <mxGraphModel dx="946" dy="669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="wDejHKkJzv_wxzml-UVb-1" parent="1" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Screen" vertex="1">
+          <mxGeometry height="138" width="240" x="300" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-2" parent="wDejHKkJzv_wxzml-UVb-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- _view" vertex="1">
+          <mxGeometry height="26" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-3" parent="wDejHKkJzv_wxzml-UVb-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-4" parent="wDejHKkJzv_wxzml-UVb-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ Screen()" vertex="1">
+          <mxGeometry height="26" width="240" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-5" parent="wDejHKkJzv_wxzml-UVb-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getter" vertex="1">
+          <mxGeometry height="26" width="240" y="86" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-6" parent="wDejHKkJzv_wxzml-UVb-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ show()" vertex="1">
+          <mxGeometry height="26" width="240" y="112" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-7" parent="1" style="html=1;whiteSpace=wrap;fontStyle=1" value="LoseScreen" vertex="1">
+          <mxGeometry height="50" width="110" x="430" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="wDejHKkJzv_wxzml-UVb-8" edge="1" parent="1" source="wDejHKkJzv_wxzml-UVb-7" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontStyle=1" target="wDejHKkJzv_wxzml-UVb-1" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="377" y="360" as="sourcePoint" />
+            <mxPoint x="397" y="318" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
