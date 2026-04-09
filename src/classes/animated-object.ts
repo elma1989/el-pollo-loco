@@ -22,6 +22,12 @@ export abstract class AnimatedObject extends MovableObject {
 
     get imgIndex(): number { return this.currentImage; }
 
+    set imgIndex(i: number) { 
+        if (this.currentAnimation) this.currentImage = i >= 0 ? i : 
+            (i < this.imgs[this.currentAnimation].length ? i : this.imgs[this.currentAnimation].length - 1);
+        else this.currentImage = 0;
+    }
+
     /**
      * Loads images of array in carche.
      * @param paths - Array of path

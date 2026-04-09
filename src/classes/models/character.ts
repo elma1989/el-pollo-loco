@@ -1,4 +1,5 @@
 import { Game } from "../game.js";
+import { GravitalObject } from "../gravital-object.js";
 import { HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
@@ -17,7 +18,7 @@ export class Character extends HealthyObject {
     private hasBottleThrown: boolean = false;
 
     constructor() {
-        super(0, 122, 240);  // 610 x 1200 * 0.2
+        super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
         this.offset = {
             top: 130,
             right: 50,

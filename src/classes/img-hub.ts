@@ -127,5 +127,44 @@ export class ImgHub {
         ]
     }
 
+    static BOSS = {
+        walk: [
+            'assets/img/05_boss/01_walk/G1.png',
+            'assets/img/05_boss/01_walk/G2.png',
+            'assets/img/05_boss/01_walk/G3.png',
+            'assets/img/05_boss/01_walk/G4.png',
+        ],
+        alert: [
+            'assets/img/05_boss/02_alert/G5.png',
+            'assets/img/05_boss/02_alert/G6.png',
+            'assets/img/05_boss/02_alert/G7.png',
+            'assets/img/05_boss/02_alert/G8.png',
+            'assets/img/05_boss/02_alert/G9.png',
+            'assets/img/05_boss/02_alert/G10.png',
+            'assets/img/05_boss/02_alert/G11.png',
+            'assets/img/05_boss/02_alert/G12.png',
+        ],
+        attact: [
+            'assets/img/05_boss/03_attack/G13.png',
+            'assets/img/05_boss/03_attack/G14.png',
+            'assets/img/05_boss/03_attack/G15.png',
+            'assets/img/05_boss/03_attack/G16.png',
+            'assets/img/05_boss/03_attack/G17.png',
+            'assets/img/05_boss/03_attack/G18.png',
+            'assets/img/05_boss/03_attack/G19.png',
+            'assets/img/05_boss/03_attack/G20.png'
+        ],
+        hurt: [
+            'assets/img/05_boss/04_hurt/G21.png',
+            'assets/img/05_boss/04_hurt/G22.png',
+            'assets/img/05_boss/04_hurt/G23.png'
+        ],
+        dead: [
+            'assets/img/05_boss/05_dead/G24.png',
+            'assets/img/05_boss/05_dead/G25.png',
+            'assets/img/05_boss/05_dead/G26.png'
+        ]
+    }
+
     private constructor() {}
 }
