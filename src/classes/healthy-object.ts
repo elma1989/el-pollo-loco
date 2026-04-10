@@ -9,8 +9,8 @@ export abstract class HealthyObject extends TouchingObject {
     private _injured: boolean = false;
     private hitProcess: boolean = false;
 
-    constructor(x:number, width:number, height:number) {
-        super(x, GravitalObject.toGround(height), width, height);
+    constructor(x:number, y: number, width:number, height:number) {
+        super(x, y, width, height);
     }
 
     act(): void {

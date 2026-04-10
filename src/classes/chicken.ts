@@ -1,3 +1,4 @@
+import { GravitalObject } from "./gravital-object.js";
 import { HealthyObject } from "./healthy-object.js";
 import { IntervalHub } from "./interval-hub.js";
 
@@ -5,7 +6,7 @@ export abstract class Chicken extends HealthyObject {
     static offset: number = 500;
 
     constructor(width: number, height: number) {
-        super(Chicken.randomX(), width, height);
+        super(Chicken.randomX(), GravitalObject.toGround(height), width, height);
         Chicken.next();
     }
 
