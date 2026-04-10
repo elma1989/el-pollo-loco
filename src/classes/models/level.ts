@@ -7,6 +7,7 @@ import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
 import { TouchingObject } from "../touching-object.js";
+import { Boss } from "./boss.js";
 import { Bottle } from "./bottle.js";
 import { Character } from "./character.js";
 import { ChickenM } from "./chicken-m.js";
@@ -22,7 +23,8 @@ import { Splash } from "./splash.js";
 export class Level {
     private drawnObjects: DrawableObject[] = [];
     static cameraX: number = 0;
-    private character: Character | null = null;
+    private character: Character = new Character();
+    private boss: Boss = new Boss();
     private chickens: Chicken[] = [];
     private creatures: HealthyObject[] = [];
     private collectables: Collectable<BaseState>[] = [];
@@ -55,11 +57,13 @@ export class Level {
             new Bottle(), new Coin(), new Bottle(),
             new Splash(), new Splash(), new Splash(), new Splash(), 
             new Splash(), new Splash(), new Splash(), new Splash(), 
-            new Character()
+            this.boss,
+            this.character
         ]
 
         this.sepparateLists();
         this.assignSplashToBottle();
+        this.handleEvents();
     }
 
     /** Loads all drawn objects in cache. */
@@ -72,6 +76,13 @@ export class Level {
         this.animateAll();
         this.enablePepeIdleInterval();
         this.drawAll();
+    }
+
+    /** Runs the workflow for events from objects. */
+    private handleEvents(): void {
+        this.character.onRunOut = () => {
+            this.boss.activate();
+        }
     }
     // #endregion
 
@@ -104,8 +115,7 @@ export class Level {
             }
             else if (drawing instanceof Splash) {
                 if(drawing.active) drawing.draw();
-            }
-            else drawing.draw();
+            } else drawing.draw();
         }
     }
 
@@ -253,8 +263,6 @@ export class Level {
     /** Seppartes main object list to diffrent lists. */
     private sepparateLists(): void {
         this.creatures = this.drawnObjects.filter(dO => dO instanceof HealthyObject);
-        const characters = this.creatures.filter(creature => creature instanceof Character);
-        this.character = characters.length == 1 ? characters[0] : null;
         this.chickens = this.creatures.filter(creature => creature instanceof Chicken);
         this.collectables = this.drawnObjects.filter(dO => dO instanceof Collectable);
         this.bottles = this.collectables.filter(collect => collect instanceof Bottle);
