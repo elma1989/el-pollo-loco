@@ -1,0 +1,44 @@
+import { AnimatedObject } from "./animated-object.js";
+
+/** It is used for representation of a status bar. */
+export abstract class Statusbar extends AnimatedObject {
+    private _value: number;
+    private visible: boolean;
+    private name: string;
+
+    /**
+     * Creates a status bar.
+     * @param x - X-Pos of bar.
+     * @param y - Y-Pos of bar.
+     * @param name - Name of animation.
+     * @param value - Startvalue of bar.
+     * @param visible - Viesibilty: Default true;
+     */
+    constructor(x: number, y: number, name: string, value: number, visible: boolean = true) {
+        super(x, y, 300, 80);
+        this.name = name;
+        this._value = value;
+        this.visible = visible;
+    }
+
+    // #region Methods
+    get value(): number { return this._value; }
+
+    set value(v: number) {
+        this._value = v >= 0 ? ( v <= 100 ? v : 100) : 0;
+        this.updateProcesss();
+    }
+
+    get view(): boolean { return this.visible; }
+
+    /** Updates schema of bar. */
+    private updateProcesss() {
+        this.img = this.imgs[this.name][Math.floor(this.value / 20)];
+    }
+
+    /** Activates vilibility. */
+    setVisible(): void {
+        this.visible = true;
+    }
+    // #endregion
+}
