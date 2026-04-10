@@ -1,4 +1,3 @@
-import { GravitalObject } from "./gravital-object.js";
 import { TouchingObject } from "./touching-object.js";
 
 export abstract class HealthyObject extends TouchingObject {
@@ -8,6 +7,8 @@ export abstract class HealthyObject extends TouchingObject {
     private _dead: boolean = false;
     private _injured: boolean = false;
     private hitProcess: boolean = false;
+    onInjure?: (health: number) => void;
+    onDead?: () => void;
 
     constructor(x:number, y: number, width:number, height:number) {
         super(x, y, width, height);
@@ -35,6 +36,7 @@ export abstract class HealthyObject extends TouchingObject {
         if (!this.hitProcess && !this.dead && !this._injured && damage > 0 && damage <= 100) {
             this._injured = true;
             this._health -= damage;
+            this.onInjure?.(this.health);
             if(this.health <= 0) this._dieing = true;
             setTimeout(() => {this._injured = false}, HealthyObject.inuaralbleTime);
         }
@@ -45,6 +47,7 @@ export abstract class HealthyObject extends TouchingObject {
         if(this.dieing) {
             this._dieing = false;
             this._dead = true;
+            this.onDead?.();
         }
     }
 
