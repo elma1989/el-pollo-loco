@@ -16,6 +16,8 @@ export class Character extends HealthyObject {
     private isHurtPlaying: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
+    onRunOut?: () => void;
+    private runOutEmmited: boolean = false;
 
     constructor() {
         super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
@@ -43,6 +45,7 @@ export class Character extends HealthyObject {
     }
 
     act(): void {
+        const canvas = Game.canvas;
         this.movement();
         this.falling();
         if(KeyListener.KEY.space) {
@@ -51,6 +54,10 @@ export class Character extends HealthyObject {
         }
         if (KeyListener.KEY.ctrl) {
             this.throwBottle();
+        }
+        if (!this.runOutEmmited && canvas && this.x >= canvas.width) {
+            this.onRunOut?.();
+            this.runOutEmmited = true;
         }
     }
 
@@ -155,5 +162,6 @@ export class Character extends HealthyObject {
         }
     }
     // #endregion
+
     // #endregion
 }
