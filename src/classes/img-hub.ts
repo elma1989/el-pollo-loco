@@ -165,6 +165,16 @@ export class ImgHub {
             'assets/img/05_boss/05_dead/G26.png'
         ]
     }
+    static STATUS = {
+        healthCharacter: [
+            'assets/img/06_status/01_health_character/0.png',
+            'assets/img/06_status/01_health_character/20.png',
+            'assets/img/06_status/01_health_character/40.png',
+            'assets/img/06_status/01_health_character/60.png',
+            'assets/img/06_status/01_health_character/80.png',
+            'assets/img/06_status/01_health_character/100.png',
+        ]
+    }
 
     private constructor() {}
 }
