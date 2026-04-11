@@ -4,7 +4,7 @@ import { AnimatedObject } from "./animated-object.js";
 export abstract class Statusbar extends AnimatedObject {
     private _value: number;
     private visible: boolean;
-    private name: string;
+    private _name: string;
 
     /**
      * Creates a status bar.
@@ -16,12 +16,14 @@ export abstract class Statusbar extends AnimatedObject {
      */
     constructor(x: number, y: number, name: string, value: number, visible: boolean = true) {
         super(x, y, 300, 80);
-        this.name = name;
+        this._name = name;
         this._value = value;
         this.visible = visible;
     }
 
     // #region Methods
+    get name(): string { return this._name; }
+
     get value(): number { return this._value; }
 
     set value(v: number) {
