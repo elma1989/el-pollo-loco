@@ -35,7 +35,8 @@ export abstract class Statusbar extends AnimatedObject {
 
     /** Updates schema of bar. */
     private updateProcesss() {
-        this.img = this.imgs[this.name][Math.floor(this.value / 20)];
+        const index = this.value <= 0 ? 0 : (this.value < 20 ? 1 : Math.floor(this.value / 20));
+        this.img = this.imgs[this.name][index];
     }
 
     /** Activates vilibility. */

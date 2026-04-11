@@ -3,6 +3,7 @@ import { DrawableObject } from "./drawable-object.js";
 /** An drawalble object, which can move.*/
 export abstract class MovableObject extends DrawableObject {
     static fps: number = 60;
+    onMove?: (x: number) => void;
 
     /**
      * Creates an movable Object.
@@ -24,5 +25,6 @@ export abstract class MovableObject extends DrawableObject {
      */
     protected move(speed: number) {
         this.x += speed;
+        this.onMove?.(this.x);
     }
 }

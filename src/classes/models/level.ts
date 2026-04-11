@@ -6,10 +6,12 @@ import { Game } from "../game.js";
 import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
+import { Statusbar } from "../statusbar.js";
 import { TouchingObject } from "../touching-object.js";
 import { Boss } from "./boss.js";
 import { Bottle } from "./bottle.js";
 import { Character } from "./character.js";
+import { CharacterHealthbar } from "./characterhealthbar.js";
 import { ChickenM } from "./chicken-m.js";
 import { ChickenS } from "./chicken-s.js";
 import { Clouds } from "./clouds.js";
@@ -30,6 +32,7 @@ export class Level {
     private collectables: Collectable<BaseState>[] = [];
     private bottles: Bottle[] = [];
     private splashes: Splash[] = [];
+    private statusbars: Statusbar[] = [new CharacterHealthbar()];
     private coins: number = 0;
 
     constructor() {
@@ -60,6 +63,7 @@ export class Level {
             this.boss,
             this.character
         ]
+        this.drawnObjects.push(...this.statusbars);
 
         this.sepparateLists();
         this.assignSplashToBottle();
@@ -74,14 +78,27 @@ export class Level {
             )
         );
         this.animateAll();
-        this.enablePepeIdleInterval();
+        this.character.startIdleCounterInterval();
         this.drawAll();
     }
 
     /** Runs the workflow for events from objects. */
     private handleEvents(): void {
+        const canvas = Game.canvas;
+        if (!canvas) return;
+
         this.character.onRunOut = () => {
             this.boss.activate();
+        }
+
+        this.character.onMove = (x) => {
+            if (x <= canvas.width) {
+                this.statusbars[0].x = x;
+            }
+        }
+
+        this.character.onInjure = (health) => {
+            this.statusbars[0].value = health;
         }
     }
     // #endregion
@@ -173,12 +190,6 @@ export class Level {
                 animation.animate();
             }
         });
-    }
-
-    /** Enabeles Pepe's idle interval. */
-    private enablePepeIdleInterval(): void {
-        const pepe: Character = this.drawnObjects[this.drawnObjects.length - 1] as Character;
-        pepe.startIdleCounterInterval();
     }
     // #endregion
 
