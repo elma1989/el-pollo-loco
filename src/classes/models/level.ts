@@ -8,6 +8,7 @@ import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
 import { Statusbar } from "../statusbar.js";
 import { TouchingObject } from "../touching-object.js";
+import { BossHealthbar } from "./boss-healthbar.js";
 import { Boss } from "./boss.js";
 import { Bottle } from "./bottle.js";
 import { Character } from "./character.js";
@@ -32,7 +33,9 @@ export class Level {
     private collectables: Collectable<BaseState>[] = [];
     private bottles: Bottle[] = [];
     private splashes: Splash[] = [];
-    private statusbars: Statusbar[] = [new CharacterHealthbar()];
+    private statusbars: Statusbar[] = [
+        new CharacterHealthbar(), new BossHealthbar()
+    ];
     private coins: number = 0;
 
     constructor() {
@@ -81,27 +84,42 @@ export class Level {
         this.character.startIdleCounterInterval();
         this.drawAll();
     }
-
+    // #endregion
+    
+    // #region Events
     /** Runs the workflow for events from objects. */
     private handleEvents(): void {
+        this.handleCharatermovment();
+        this.handleInjureEvents();
+    }
+
+    /** Handles all events with injury. */
+    private handleInjureEvents() {
+        this.character.onInjure = (health) => {
+            this.statusbars[0].value = health;
+        }
+
+        this.boss.onInjure = (health) => {
+            this.statusbars[1].value = health;
+        }
+    }
+    /** Handles movment of character. */
+    private handleCharatermovment() {
         const canvas = Game.canvas;
         if (!canvas) return;
 
         this.character.onRunOut = () => {
             this.boss.activate();
+            this.statusbars[1].setVisible();
         }
 
         this.character.onMove = (x) => {
             if (x <= canvas.width) {
                 this.statusbars[0].x = x;
+                this.statusbars[1].x = x + canvas.width - Statusbar.statusWidth;
             }
         }
-
-        this.character.onInjure = (health) => {
-            this.statusbars[0].value = health;
-        }
     }
-    // #endregion
 
     // #region Drawing
     /** Draws all drawings */
@@ -132,6 +150,8 @@ export class Level {
             }
             else if (drawing instanceof Splash) {
                 if(drawing.active) drawing.draw();
+            } else if (drawing instanceof Statusbar) {
+                if(drawing.view) drawing.draw();
             } else drawing.draw();
         }
     }
@@ -198,42 +218,51 @@ export class Level {
     private handleCharacterTouching(): void  {
         const character = this.character;
         if (!character) return;
-        this.handleChickenCollision(character);
-        this.handleCollectableCollision(character);
+        this.handleChickenCollision();
+        this.handleBossCollision();
+        this.handleCollectableCollision();
     }
 
-    /**
-     * Manages collisions between characte and chickens.
-     * @param character - Instance of character
-     */
-    private handleChickenCollision(character: Character): void {
+    /** Manages collisions between characte and chickens. */
+    private handleChickenCollision(): void {
         this.chickens.forEach(chicken => {
-            if (character.isTouching(chicken)) {
-                if (character.wasFalling) {
-                    character.hit();
+            if (this.character.isTouching(chicken)) {
+                if (this.character.wasFalling) {
+                    this.character.hit();
                     chicken.injure(100);
-                    character.resetFalling();
+                    this.character.resetFalling();
                 } else {
-                    character.injure(33);
+                    this.character.injure(33);
                 }
             } 
         });
+    }
+
+    /** Handles collision between Charcter and Boss. */
+    private handleBossCollision() {
+        if (this.character.isTouching(this.boss)) this.character.injure(33);
+        this.bottles.forEach(bottle => {
+            if (this.boss.isTouching(bottle) && bottle.state == 'thrown') {
+                this.boss.injure(20);
+                bottle.destroy();
+            }
+        })
     }
 
     /**
      * Mangages collision between Character and Collectables.
      * @param character - Instance of character
      */
-    private handleCollectableCollision(character: Character): void {
+    private handleCollectableCollision(): void {
         this.collectables.forEach(collectable => {
-            if(character.isTouching(collectable)) {
+            if(this.character.isTouching(collectable)) {
                 if (collectable instanceof Coin) {
                     this.coins += collectable.value;
                     this.remove(collectable);
                 } else if (collectable instanceof Bottle) {
                     if (collectable.state == 'idle') {
                         collectable.collect();
-                        character.collectBottle(collectable);
+                        this.character.collectBottle(collectable);
                     }
                 }
             }

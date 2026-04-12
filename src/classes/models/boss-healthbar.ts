@@ -5,10 +5,7 @@ import { Statusbar } from "../statusbar.js";
 export class BossHealthbar extends Statusbar {
     constructor() {
         const canvas = Game.canvas;
-        super(
-            canvas ? canvas.width - Statusbar.statusWidth : 0,
-            0, 'healthBoss', 100, false
-        )
+        super(0, 10, 'healthBoss', 100, false);
     }
 
     async load(): Promise<void> {
