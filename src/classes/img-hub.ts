@@ -173,6 +173,14 @@ export class ImgHub {
             'assets/img/06_status/01_health_character/60.png',
             'assets/img/06_status/01_health_character/80.png',
             'assets/img/06_status/01_health_character/100.png',
+        ],
+        healthBoss: [
+            'assets/img/06_status/02_boss/green0.png',
+            'assets/img/06_status/02_boss/green20.png',
+            'assets/img/06_status/02_boss/green40.png',
+            'assets/img/06_status/02_boss/green60.png',
+            'assets/img/06_status/02_boss/green80.png',
+            'assets/img/06_status/02_boss/green100.png',
         ]
     }
 
