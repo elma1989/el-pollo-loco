@@ -256,15 +256,7 @@ export class Level {
     private handleCollectableCollision(): void {
         this.collectables.forEach(collectable => {
             if(this.character.isTouching(collectable)) {
-                if (collectable instanceof Coin) {
-                    this.coins += collectable.value;
-                    this.remove(collectable);
-                } else if (collectable instanceof Bottle) {
-                    if (collectable.state == 'idle') {
-                        collectable.collect();
-                        this.character.collectBottle(collectable);
-                    }
-                }
+                this.character.collect(collectable);
             }
         });
     }

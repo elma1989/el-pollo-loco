@@ -1,3 +1,4 @@
+import { BaseState, Collectable } from "../collectable.js";
 import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
 import { HealthyObject } from "../healthy-object.js";
@@ -16,6 +17,9 @@ export class Character extends HealthyObject {
     private isHurtPlaying: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
+    private onChangeBottle?: (count: number) => void;
+    private coins: number = 0;
+    private onChangeCoin?: (count: number) => void;
     onRunOut?: () => void;
     private runOutEmmited: boolean = false;
 
@@ -140,13 +144,11 @@ export class Character extends HealthyObject {
     }
     // #endregion
     
-    // #region Bottle-Action
-    /**
-     * Will be executed, if a bottle is collected by him.
-     * @param bottle - Bottle to collect.
-     */
-    collectBottle(bottle: Bottle): void {
+    // #region Collect
+    /** Adds a bottle to backpack. */
+    addBottle(bottle: Bottle): void {
         this.bottles.push(bottle);
+        this.onChangeBottle?.(this.bottles.length);
     }
 
     /** Will be exetuted to throw a bottle. */
@@ -154,12 +156,27 @@ export class Character extends HealthyObject {
         if (this.numberBottles > 0 && !this.hasBottleThrown) {
             this.idleCounter = 0;
             const bottle = this.bottles.splice(0, 1)[0];
+            this.onChangeBottle?.(this.bottles.length);
             bottle.x = this._facingLeft ? this.x : this.x + this.width - this.offset.right;
             bottle.y = this.y - bottle.height + this.offset.top;
             bottle.throw(this.facingLeft ? 'left' : 'right');
             this.hasBottleThrown = true;
             setTimeout(() => {this.hasBottleThrown = false}, 700);
         }
+    }
+
+    /** Adds a coin to counter, */
+    addCoin(): void {
+        this.coins++;
+        this.onChangeCoin?.(this.coins);
+    }
+
+    /**
+     * Will be executed, if Pepe collect an item.
+     * @param item - Item to collect
+     */
+    collect(item: Collectable<BaseState>) {
+        item.collect(this);
     }
     // #endregion
 

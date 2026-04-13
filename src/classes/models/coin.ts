@@ -3,6 +3,7 @@ import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
+import { Character } from "./character.js";
 
 export class Coin extends Collectable<BaseState> {
     constructor() {
@@ -19,6 +20,10 @@ export class Coin extends Collectable<BaseState> {
     async load(): Promise<void> {
         this.img = await this.loadImage(ImgHub.COIN.idle[0]);
         this.imgs['idle'] = await this.addAnimation(ImgHub.COIN.idle);
+    }
+
+    protected onCollect(character: Character): void {
+        character.addCoin();
     }
 
     static randomY(height: number): number {
