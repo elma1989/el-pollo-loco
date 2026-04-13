@@ -16,6 +16,7 @@ import { CharacterHealthbar } from "./characterhealthbar.js";
 import { ChickenM } from "./chicken-m.js";
 import { ChickenS } from "./chicken-s.js";
 import { Clouds } from "./clouds.js";
+import { CoinBar } from "./coin-bar.js";
 import { Coin } from "./coin.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
@@ -34,7 +35,7 @@ export class Level {
     private bottles: Bottle[] = [];
     private splashes: Splash[] = [];
     private statusbars: Statusbar[] = [
-        new CharacterHealthbar(), new BossHealthbar()
+        new CharacterHealthbar(), new BossHealthbar(), new CoinBar()
     ];
     private coins: number = 0;
 
@@ -57,7 +58,7 @@ export class Level {
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
             new ChickenM(), new ChickenS(),
-            new Bottle(), new Coin(), new Bottle(),
+            new Coin(), new Bottle(), new Coin(), new Bottle(),
             new Bottle(), new Coin(), new Bottle(),
             new Bottle(), new Coin(), new Bottle(),
             new Bottle(), new Coin(), new Bottle(),
@@ -91,6 +92,7 @@ export class Level {
     private handleEvents(): void {
         this.handleCharatermovment();
         this.handleInjureEvents();
+        this.handleChangeCoin();
     }
 
     /** Handles all events with injury. */
@@ -117,7 +119,14 @@ export class Level {
             if (x <= canvas.width) {
                 this.statusbars[0].x = x;
                 this.statusbars[1].x = x + canvas.width - Statusbar.statusWidth;
+                this.statusbars[2].x = x;
             }
+        }
+    }
+
+    private handleChangeCoin(): void {
+        this.character.onChangeCoin = (coins) => {
+            this.statusbars[2].value = coins;
         }
     }
 
