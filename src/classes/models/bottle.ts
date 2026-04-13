@@ -2,6 +2,7 @@ import { BaseState, Collectable } from "../collectable.js";
 import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
+import { Character } from "./character.js";
 import { Splash } from "./splash.js";
 
 type Direction = 'right' | 'left';
@@ -31,6 +32,10 @@ export class Bottle extends Collectable<BaseState> {
 
     protected customAni(): void {
         if (this.state == 'thrown') this.playAnimationLoop('rotation');
+    }
+
+    protected onCollect(character: Character): void {
+        character.addBottle(this);
     }
 
     animate(): void {

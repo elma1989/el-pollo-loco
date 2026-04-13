@@ -1,3 +1,4 @@
+import { Character } from "./models/character.js";
 import { TouchingObject } from "./touching-object.js";
 
 export type BaseState = 'idle' | 'collected' | 'thrown';
@@ -41,9 +42,15 @@ export abstract class Collectable<TState extends BaseState> extends TouchingObje
         Collectable.offset += 100;
     }
 
+    // #region Manage collection
     /** Will be execurted, if this object was been collected. */
-    collect(): void {
-        this._state = 'collected' as TState
+    collect(character: Character): void {
+        this._state = 'collected' as TState;
+        this.onCollect(character);
     }
+
+    /** Manges the collect process for each child individual. */
+    protected abstract onCollect(character: Character): void
+    // #endregion
     // #endregion
 }
