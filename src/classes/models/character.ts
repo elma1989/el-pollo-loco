@@ -1,3 +1,4 @@
+import { BaseState, Collectable } from "../collectable.js";
 import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
 import { HealthyObject } from "../healthy-object.js";
@@ -168,6 +169,14 @@ export class Character extends HealthyObject {
     addCoin(): void {
         this.coins++;
         this.onChangeCoin?.(this.coins);
+    }
+
+    /**
+     * Will be executed, if Pepe collect an item.
+     * @param item - Item to collect
+     */
+    collect(item: Collectable<BaseState>) {
+        item.collect(this);
     }
     // #endregion
 
