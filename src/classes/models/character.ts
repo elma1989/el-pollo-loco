@@ -17,9 +17,9 @@ export class Character extends HealthyObject {
     private isHurtPlaying: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
-    private onChangeBottle?: (count: number) => void;
+    onChangeBottle?: (count: number) => void;
     private coins: number = 0;
-    private onChangeCoin?: (count: number) => void;
+    onChangeCoin?: (count: number) => void;
     onRunOut?: () => void;
     private runOutEmmited: boolean = false;
 
@@ -167,7 +167,7 @@ export class Character extends HealthyObject {
 
     /** Adds a coin to counter, */
     addCoin(): void {
-        this.coins++;
+        this.coins += 20;
         this.onChangeCoin?.(this.coins);
     }
 
@@ -176,7 +176,9 @@ export class Character extends HealthyObject {
      * @param item - Item to collect
      */
     collect(item: Collectable<BaseState>) {
-        item.collect(this);
+        if (item.state == 'idle') {
+            item.collect(this);
+        }
     }
     // #endregion
 

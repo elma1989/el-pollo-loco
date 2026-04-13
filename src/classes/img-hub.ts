@@ -181,6 +181,14 @@ export class ImgHub {
             'assets/img/06_status/02_boss/green60.png',
             'assets/img/06_status/02_boss/green80.png',
             'assets/img/06_status/02_boss/green100.png',
+        ],
+        coin: [
+            'assets/img/06_status/03_coin/0.png',
+            'assets/img/06_status/03_coin/20.png',
+            'assets/img/06_status/03_coin/40.png',
+            'assets/img/06_status/03_coin/60.png',
+            'assets/img/06_status/03_coin/80.png',
+            'assets/img/06_status/03_coin/100.png'
         ]
     }
 

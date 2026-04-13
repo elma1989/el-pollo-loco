@@ -22,7 +22,7 @@
         <mxCell id="E9qis7hhuBrGH5QPIUzI-6" parent="E9qis7hhuBrGH5QPIUzI-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="&amp;nbsp;getter / setter" vertex="1">
           <mxGeometry height="26" width="240" y="120" as="geometry" />
         </mxCell>
-        <mxCell id="E9qis7hhuBrGH5QPIUzI-7" parent="E9qis7hhuBrGH5QPIUzI-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ updateProgress()" vertex="1">
+        <mxCell id="E9qis7hhuBrGH5QPIUzI-7" parent="E9qis7hhuBrGH5QPIUzI-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- updateProgress()" vertex="1">
           <mxGeometry height="26" width="240" y="146" as="geometry" />
         </mxCell>
         <mxCell id="E9qis7hhuBrGH5QPIUzI-8" parent="E9qis7hhuBrGH5QPIUzI-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ setVisible()" vertex="1">
