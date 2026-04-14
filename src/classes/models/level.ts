@@ -10,6 +10,7 @@ import { Statusbar } from "../statusbar.js";
 import { TouchingObject } from "../touching-object.js";
 import { BossHealthbar } from "./boss-healthbar.js";
 import { Boss } from "./boss.js";
+import { BottleBar } from "./botte-bar.js";
 import { Bottle } from "./bottle.js";
 import { Character } from "./character.js";
 import { CharacterHealthbar } from "./characterhealthbar.js";
@@ -35,7 +36,7 @@ export class Level {
     private bottles: Bottle[] = [];
     private splashes: Splash[] = [];
     private statusbars: Statusbar[] = [
-        new CharacterHealthbar(), new BossHealthbar(), new CoinBar()
+        new CharacterHealthbar(), new BossHealthbar(), new CoinBar(), new BottleBar()
     ];
     private coins: number = 0;
 
@@ -93,6 +94,7 @@ export class Level {
         this.handleCharatermovment();
         this.handleInjureEvents();
         this.handleChangeCoin();
+        this.handleChangeBottle();
     }
 
     /** Handles all events with injury. */
@@ -120,15 +122,26 @@ export class Level {
                 this.statusbars[0].x = x;
                 this.statusbars[1].x = x + canvas.width - Statusbar.statusWidth;
                 this.statusbars[2].x = x;
+                this.statusbars[3].x = x;
             }
         }
     }
 
+    /** Handles change of coin. */
     private handleChangeCoin(): void {
         this.character.onChangeCoin = (coins) => {
             this.statusbars[2].value = coins;
         }
     }
+
+    /** Handlaes change of bottle */
+    private handleChangeBottle(): void {
+        this.character.onChangeBottle = (count) => {
+            this.statusbars[3].value = count * 12.5;
+        }
+    }
+
+    // #endregion
 
     // #region Drawing
     /** Draws all drawings */
