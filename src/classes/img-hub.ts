@@ -189,6 +189,14 @@ export class ImgHub {
             'assets/img/06_status/03_coin/60.png',
             'assets/img/06_status/03_coin/80.png',
             'assets/img/06_status/03_coin/100.png'
+        ],
+        bottle: [
+            'assets/img/06_status/04_bottle/0.png',
+            'assets/img/06_status/04_bottle/20.png',
+            'assets/img/06_status/04_bottle/40.png',
+            'assets/img/06_status/04_bottle/60.png',
+            'assets/img/06_status/04_bottle/80.png',
+            'assets/img/06_status/04_bottle/100.png'
         ]
     }
 
