@@ -46,6 +46,7 @@ export abstract class Collectable<TState extends BaseState> extends TouchingObje
     /** Will be execurted, if this object was been collected. */
     collect(character: Character): void {
         this._state = 'collected' as TState;
+        this._visible = false;
         this.onCollect(character);
     }
 

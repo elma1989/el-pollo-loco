@@ -4,18 +4,15 @@ import { IntervalHub } from "../interval-hub.js";
 
 export class Splash extends AnimatedObject {
     private _viewed: boolean = false;
-    private _active: boolean = false;
 
     constructor() {
         const width = 524 * 0.3;
         const height = 400 * 0.3;
-        super(0, 0, width, height); // 524 x 400
+        super(0, 0, width, height, false); // 524 x 400
     }
 
     // #region Methods
     get viewed(): boolean { return this._viewed; }
-
-    get active(): boolean { return this._active; }
 
     get x(): number { return super.x }
 
@@ -31,7 +28,7 @@ export class Splash extends AnimatedObject {
     }
 
     protected customAni(): void {
-        if(this.active && !this.viewed) {
+        if(this.visible && !this.viewed) {
             this.playAnmation('splash');
             if(this.imgIndex == 6) 
                 this._viewed = true;
@@ -40,11 +37,6 @@ export class Splash extends AnimatedObject {
 
     animate(): void {
         IntervalHub.start(this.customAni.bind(this), 1000 / 4);
-    }
-
-    /** Activates splash. */
-    activate(): void {
-        this._active = true;
     }
     // #endregion
 }
