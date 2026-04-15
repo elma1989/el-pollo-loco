@@ -7,6 +7,7 @@ export abstract class DrawableObject {
     private _width: number;
     private _height: number;
     protected img: HTMLImageElement | null = null;
+    protected _visible: boolean;
     // #endregion
 
     /**
@@ -16,11 +17,12 @@ export abstract class DrawableObject {
      * @param width - Width of object.
      * @param height - Height of object.
      */
-    constructor(x: number, y: number, width: number, height:number) {
+    constructor(x: number, y: number, width: number, height:number, visible: boolean = true) {
         this._width = width;
         this._height = height;
         this._x = x;
         this._y = y;
+        this._visible = visible;
     }
 
     // #region Methods
@@ -45,6 +47,8 @@ export abstract class DrawableObject {
             this._y = newPos <= maxY ? newPos : maxY;
         }
     }
+
+    get visible(): boolean { return this._visible; }
     // #endregion
 
     // #region Loading
@@ -93,6 +97,9 @@ export abstract class DrawableObject {
         this._width *= factor;
         this._height *= factor;
     }
+
+    /** Shows an hidden Object. */
+    show(): void { this._visible = true; }
     // #endregion
     // #endregion
 }
