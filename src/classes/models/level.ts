@@ -6,6 +6,7 @@ import { Game } from "../game.js";
 import { HealthyObject } from "../healthy-object.js";
 import { IntervalHub } from "../interval-hub.js";
 import { MovableObject } from "../movable-object.js";
+import { Screen } from "../screen.js";
 import { Statusbar } from "../statusbar.js";
 import { TouchingObject } from "../touching-object.js";
 import { BossHealthbar } from "./boss-healthbar.js";
@@ -24,10 +25,11 @@ import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
 import { Sky } from "./sky.js";
 import { Splash } from "./splash.js";
+import { WinScreen } from "./win-screen.js";
 
 export class Level {
     private drawnObjects: DrawableObject[] = [];
-    static cameraX: number = 0;
+    private cameraX: number = 0;
     private character: Character = new Character();
     private boss: Boss = new Boss();
     private chickens: Chicken[] = [];
@@ -38,6 +40,9 @@ export class Level {
     private statusbars: Statusbar[] = [
         new CharacterHealthbar(), new BossHealthbar(), new CoinBar(), new BottleBar()
     ];
+    private screens: Screen[] = [
+        new WinScreen()
+    ]
     private coins: number = 0;
 
     constructor() {
@@ -69,6 +74,7 @@ export class Level {
             this.character
         ]
         this.drawnObjects.push(...this.statusbars);
+        this.drawnObjects.push(...this.screens);
 
         this.sepparateLists();
         this.assignSplashToBottle();
@@ -119,10 +125,9 @@ export class Level {
 
         this.character.onMove = (x) => {
             if (x <= canvas.width) {
-                this.statusbars[0].x = x;
-                this.statusbars[1].x = x + canvas.width - Statusbar.statusWidth;
-                this.statusbars[2].x = x;
-                this.statusbars[3].x = x;
+                this.cameraX = -x;
+                this.statusbars.forEach ((bar, i) => bar.x = i == 1 ? x + canvas.width - Statusbar.statusWidth : x);
+                this.screens.forEach (screen => screen.x = x);
             }
         }
     }
@@ -148,12 +153,12 @@ export class Level {
     private drawAll(): void {
         if (Game.ctx) {
             this.clearCanvas();
-            Game.ctx.translate(Level.cameraX, 0);
+            Game.ctx.translate(this.cameraX, 0);
             this.drawnObjects.forEach(drawing => {
                 if (drawing instanceof TouchingObject) drawing.calcRealRect();
                 this.drawObject(drawing);
             });
-            Game.ctx.translate(-Level.cameraX, 0);
+            Game.ctx.translate(-this.cameraX, 0);
 
             const self = this;
             requestAnimationFrame(() => self.drawAll());
@@ -332,6 +337,7 @@ export class Level {
 
     /** Removes creatures, which already died. */
     private removeDeaths(): void {
+        if (this.boss.dead) this.screens[0].show();
         this.creatures.forEach(creature => {
             if (creature.dead) this.remove(creature)
         });
