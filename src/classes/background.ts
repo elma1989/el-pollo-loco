@@ -9,12 +9,13 @@ export abstract class Background extends MovableObject {
     private _offset: number;
     // #endregion
 
-    constructor(offset: number, y: number, height: number) {
+    constructor(offset: number, y: number, height: number, visible: boolean = true) {
         super(
             Background.calcX(offset),
             y,
             Game.canvas ? Game.canvas.width : 0,
-            height
+            height,
+            visible
         );
         this._offset = offset;
     }
