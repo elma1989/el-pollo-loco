@@ -11,9 +11,10 @@ export abstract class MovableObject extends DrawableObject {
      * @param y - Y-Positon of object.
      * @param width - Width of object.
      * @param height - Height of object
+     * @param visible - visibility, default: true
      */
-    constructor(x: number, y: number, width: number, height: number) {
-        super(x, y, width, height);
+    constructor(x: number, y: number, width: number, height: number, visible: boolean = true) {
+        super(x, y, width, height, visible);
     }
 
     /** Will be repeated 60 times per second. */

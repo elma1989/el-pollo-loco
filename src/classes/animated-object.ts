@@ -13,9 +13,10 @@ export abstract class AnimatedObject extends MovableObject {
      * @param y - Y-Pos of oject.
      * @param width - Width of object
      * @param height - Height of object.
+     * @param visible - Visibility of object. Default true
      */
-    constructor(x: number, y: number, width: number, height: number) {
-        super(x, y, width, height);
+    constructor(x: number, y: number, width: number, height: number, visible: boolean = true) {
+        super(x, y, width, height, visible);
     }
 
     // #region Methods

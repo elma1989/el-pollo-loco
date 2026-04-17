@@ -3,7 +3,6 @@ import { AnimatedObject } from "./animated-object.js";
 /** It is used for representation of a status bar. */
 export abstract class Statusbar extends AnimatedObject {
     private _value: number;
-    private visible: boolean;
     private _name: string;
     static statusWidth: number = 300;
 
@@ -16,10 +15,9 @@ export abstract class Statusbar extends AnimatedObject {
      * @param visible - Viesibilty: Default true;
      */
     constructor(x: number, y: number, name: string, value: number, visible: boolean = true) {
-        super(x, y, Statusbar.statusWidth, 80);
+        super(x, y, Statusbar.statusWidth, 80, visible);
         this._name = name;
         this._value = value;
-        this.visible = visible;
     }
 
     // #region Methods
@@ -41,8 +39,5 @@ export abstract class Statusbar extends AnimatedObject {
     }
 
     /** Activates vilibility. */
-    setVisible(): void {
-        this.visible = true;
-    }
     // #endregion
 }

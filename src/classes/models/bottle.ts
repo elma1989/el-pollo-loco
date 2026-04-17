@@ -69,6 +69,7 @@ export class Bottle extends Collectable<BaseState> {
     throw(direction: Direction): void {
         this.direction = direction;
         this.jump(30);
+        this._visible = true;
         this.state = 'thrown';
     }
 
@@ -85,7 +86,7 @@ export class Bottle extends Collectable<BaseState> {
         if (this.splash) {
             this.splash.x = this.x + this.width / 2;
             this.splash.y = this.y + this.height / 2;
-            this.splash.activate();
+            this.splash.show();
             this._splash = null;
         }
     }
