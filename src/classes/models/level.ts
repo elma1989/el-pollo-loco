@@ -114,7 +114,7 @@ export class Level {
 
         this.character.onRunOut = () => {
             this.boss.activate();
-            this.statusbars[1].setVisible();
+            this.statusbars[1].show();
         }
 
         this.character.onMove = (x) => {
@@ -167,14 +167,7 @@ export class Level {
     private drawObject(drawing: DrawableObject) {
         if(this.isPepeFacingLeft(drawing)) this.mirrorHorizontally(drawing)
         else {
-            if (drawing instanceof Collectable) {
-                if(drawing.state != 'collected') drawing.draw();
-            }
-            else if (drawing instanceof Splash) {
-                if(drawing.active) drawing.draw();
-            } else if (drawing instanceof Statusbar) {
-                if(drawing.view) drawing.draw();
-            } else drawing.draw();
+            if (drawing.visible) drawing.draw();
         }
     }
 
