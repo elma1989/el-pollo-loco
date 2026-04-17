@@ -775,7 +775,7 @@
           <mxGeometry height="26" width="240" y="868" as="geometry" />
         </mxCell>
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-1" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=default;" value="Boss" vertex="1">
-          <mxGeometry height="294" width="240" x="577" y="2920" as="geometry" />
+          <mxGeometry height="320" width="240" x="577" y="2920" as="geometry" />
         </mxCell>
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-2" parent="Zx_vuJrZ7o1lyIESsDJ0-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- state:&amp;nbsp; BossState" vertex="1">
           <mxGeometry height="26" width="240" y="26" as="geometry" />
@@ -810,6 +810,9 @@
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-9" parent="Zx_vuJrZ7o1lyIESsDJ0-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- increaseAttackTimer()" vertex="1">
           <mxGeometry height="26" width="240" y="268" as="geometry" />
         </mxCell>
+        <mxCell id="qnE7RHeVZbXhtmPgvefs-13" parent="Zx_vuJrZ7o1lyIESsDJ0-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontColor=default;" value="- reset()" vertex="1">
+          <mxGeometry height="26" width="240" y="294" as="geometry" />
+        </mxCell>
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-11" edge="1" parent="1" source="Zx_vuJrZ7o1lyIESsDJ0-1" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeColor=default;" target="v2lNAig5Y-Qp2Au6d_sx-1" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <mxPoint x="586" y="2250" as="sourcePoint" />
@@ -817,7 +820,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-12" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;strokeColor=default;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumeration&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;BossState&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; idle,&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; walk,&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; alert,&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; attack,&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; hurt&lt;/p&gt;" vertex="1">
-          <mxGeometry height="119" width="240" x="577" y="3241" as="geometry" />
+          <mxGeometry height="119" width="240" x="577" y="3260" as="geometry" />
         </mxCell>
         <mxCell id="Zx_vuJrZ7o1lyIESsDJ0-21" edge="1" parent="1" source="Xh9N4Z_1lect-0w78b8I-1" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeColor=default;" target="JToP-f8FCcM-2OSFioFG-1" value="">
           <mxGeometry relative="1" width="160" as="geometry">

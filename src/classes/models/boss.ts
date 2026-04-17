@@ -43,6 +43,7 @@ export class Boss extends HealthyObject {
                 if(this.attactTimer == 5) this._state = 'alert'
             }
             if(this.state == 'attack') this.move(-4);
+            this.reset();
         }
     }
 
@@ -114,6 +115,12 @@ export class Boss extends HealthyObject {
     /** Increases attack-timer. */
     private increaseAttackTimer = () => {
         this.attactTimer++;
+    }
+
+    /** Resets x-Pos of boss, if he walks out. */
+    private reset(): void {
+        const canvas = Game.canvas;
+        if (canvas && this.x < -this.width) this.x = 2 * canvas.width - this.width;
     }
 
     // #endretion
