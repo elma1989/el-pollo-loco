@@ -10,6 +10,6 @@ export abstract class Screen extends Background {
      */
     constructor(visible: boolean = false) {
         const canvas = Game.canvas;
-        super(0, canvas ? canvas.width : 0, canvas ? canvas.height : 0, visible);
+        super(0, 0, canvas ? canvas.height : 0, visible);
     }
 }

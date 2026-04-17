@@ -138,9 +138,6 @@ export class Character extends HealthyObject {
             this.move(this.speed);
             this._facingLeft = false;
         }
-        if(canvas && this.x <= canvas.width) {
-            Level.cameraX = -this.x;
-        }
     }
     // #endregion
     
