@@ -954,10 +954,10 @@
             <mxPoint x="367.2047244094488" y="1199" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7abm3esiqI-nhZOq6XKm-9" parent="1" style="html=1;whiteSpace=wrap;fontStyle=1;strokeColor=light-dark(#008000,#80FF80);" value="LoseScreen" vertex="1">
+        <mxCell id="7abm3esiqI-nhZOq6XKm-9" parent="1" style="html=1;whiteSpace=wrap;fontStyle=1;strokeColor=default;" value="LoseScreen" vertex="1">
           <mxGeometry height="50" width="110" x="435" y="1308" as="geometry" />
         </mxCell>
-        <mxCell id="7abm3esiqI-nhZOq6XKm-10" edge="1" parent="1" source="7abm3esiqI-nhZOq6XKm-9" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontStyle=1;strokeColor=light-dark(#008000,#80FF80);" target="TA4B1nX8l3TpHENB5z6k-1" value="">
+        <mxCell id="7abm3esiqI-nhZOq6XKm-10" edge="1" parent="1" source="7abm3esiqI-nhZOq6XKm-9" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontStyle=1;strokeColor=default;" target="TA4B1nX8l3TpHENB5z6k-1" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <mxPoint x="367" y="1242" as="sourcePoint" />
             <mxPoint x="432.1397058823529" y="1190" as="targetPoint" />

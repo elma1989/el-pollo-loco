@@ -16,6 +16,7 @@ export abstract class HealthyObject extends TouchingObject {
 
     act(): void {
         this.falling();
+        if (this.imgIndex == this.imgs['dead'].length) this.dieingAnimationPlayed();
     }
 
     get dieing(): boolean { return this._dieing; }
@@ -37,7 +38,10 @@ export abstract class HealthyObject extends TouchingObject {
             this._injured = true;
             this._health -= damage;
             this.onInjure?.(this.health);
-            if(this.health <= 0) this._dieing = true;
+            if(this.health <= 0) {
+                this._dieing = true;
+                this.imgIndex = 0;
+            }
             setTimeout(() => {this._injured = false}, HealthyObject.inuaralbleTime);
         }
     }

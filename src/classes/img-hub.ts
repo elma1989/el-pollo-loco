@@ -201,7 +201,8 @@ export class ImgHub {
     }
 
     static SCREEN = {
-        win: 'assets/img/07_screen/win.png'
+        win: 'assets/img/07_screen/win.png',
+        lose: 'assets/img/07_screen/lose.png'
     }
 
     private constructor() {}
