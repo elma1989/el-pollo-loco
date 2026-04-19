@@ -23,6 +23,7 @@ import { Coin } from "./coin.js";
 import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
+import { LoseScreen } from "./lose-screen.js";
 import { Sky } from "./sky.js";
 import { Splash } from "./splash.js";
 import { WinScreen } from "./win-screen.js";
@@ -41,7 +42,7 @@ export class Level {
         new CharacterHealthbar(), new BossHealthbar(), new CoinBar(), new BottleBar()
     ];
     private screens: Screen[] = [
-        new WinScreen()
+        new WinScreen(), new LoseScreen()
     ]
     private coins: number = 0;
 
@@ -217,10 +218,12 @@ export class Level {
     // #region Update
     /** Updates all objects. */
     private update: () => void = () => {
-        this.drawnObjects.forEach(dO => {
-            if (dO instanceof MovableObject)
-                dO.act();
-        });
+        if (Game.run) {
+            this.drawnObjects.forEach(dO => {
+                if (dO instanceof MovableObject)
+                    dO.act();
+            });
+        }
     }
 
     /** Starts all animations. */
@@ -337,7 +340,11 @@ export class Level {
 
     /** Removes creatures, which already died. */
     private removeDeaths(): void {
-        if (this.boss.dead) this.screens[0].show();
+        if (this.character.dead || this.boss.dead) {
+            Game.run = false;
+            if (this.boss.dead) this.screens[0].show();
+            if (this.character.dead) this.screens[1].show();
+        }
         this.creatures.forEach(creature => {
             if (creature.dead) this.remove(creature)
         });
