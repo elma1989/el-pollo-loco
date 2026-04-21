@@ -13,10 +13,7 @@ export abstract class Chicken extends HealthyObject {
     // #region Methods
 
     protected customAni(): void {
-        if(this.dieing) {
-            this.playAnmation('dead');
-            setTimeout(() => { this.dieingAnimationPlayed(); }, 1000)
-        }
+        if (this.state == 'dieing') this.playAnmation('dead');
         else this.playAnimationLoop('walk');
     }
 

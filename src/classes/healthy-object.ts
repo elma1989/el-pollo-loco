@@ -5,7 +5,7 @@ type HealthState = 'idle' | 'longidle' | 'walk' | 'alert' | 'attack' | 'injured'
 export abstract class HealthyObject extends TouchingObject {
     static inuaralbleTime: number = 700;
     private _health: number = 100;
-    public state: HealthState = 'idle';
+    private _state: HealthState = 'idle';
     onInjure?: (health: number) => void;
     onDead?: () => void;
 
@@ -13,12 +13,20 @@ export abstract class HealthyObject extends TouchingObject {
         super(x, y, width, height);
     }
     
+    get state(): HealthState { return this._state; }
+
+    set state(state: HealthState) {this._state = state; }
+
     get health(): number {return this._health; }
+
+    get dead(): boolean { return this.state == 'dieing'; }
 
     act(): void {
         this.falling();
         if (this.state == 'dieing') {
-            if (this.imgIndex == this.imgs['dead'].length) this.onDead?.();
+            if (this.imgIndex == this.imgs['dead'].length) {
+                setTimeout(() => this.onDead?.(), 700);
+            }
         } else this.healthyAct();
     }
 
@@ -31,15 +39,20 @@ export abstract class HealthyObject extends TouchingObject {
      */
     injure(damage: number) {
         if (this.state != 'attack' && this.state != 'injured' && damage > 0 && damage <= 100) {
-            this.state = 'injured';
             this._health -= damage;
-            this.onInjure?.(this.health);
             if(this.health <= 0) {
                 this.state = 'dieing'
             } else {
+                this.state = 'injured';
+                this.onInjure?.(this.health);
                 setTimeout(() => {this.state = 'walk'}, HealthyObject.inuaralbleTime);
             }
         }
+    }
+
+    /** It's used for attack. */
+    hit(): void {
+        this.state = 'attack';
     }
 
     /** Brings a creature to life. */
