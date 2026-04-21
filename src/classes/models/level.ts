@@ -100,6 +100,7 @@ export class Level {
     private handleEvents(): void {
         this.handleCharatermovment();
         this.handleInjureEvents();
+        this.handleDeathEvents();
         this.handleChangeCoin();
         this.handleChangeBottle();
     }
@@ -114,13 +115,25 @@ export class Level {
             this.statusbars[1].value = health;
         }
     }
+
+    /** Handles death events. */
+    private handleDeathEvents() {
+        this.chickens.forEach(chicken => {
+            chicken.onDead = () => {
+                this.remove(chicken);
+            }
+        });
+        this.character.onDead = () => this.endGame(false);
+        this.boss.onDead = () => this.endGame(true);
+    }
+
     /** Handles movment of character. */
     private handleCharatermovment() {
         const canvas = Game.canvas;
         if (!canvas) return;
 
         this.character.onRunOut = () => {
-            this.boss.activate();
+            this.boss.bringToLife();
             this.statusbars[1].show();
         }
 
@@ -204,7 +217,7 @@ export class Level {
      */
     private mirrorHorizontally(dO: DrawableObject): void {
         const ctx = Game.ctx;
-        if (dO instanceof HealthyObject && !dO.dead && ctx) {
+        if (ctx) {
             ctx.save();
             ctx.scale(-1, 1);
             dO.x = -dO.x -dO.width;
@@ -251,10 +264,10 @@ export class Level {
         this.chickens.forEach(chicken => {
             if (this.character.isTouching(chicken)) {
                 if (this.character.wasFalling) {
-                    this.character.hit();
                     chicken.injure(100);
+                    this.character.hit();
                     this.character.resetFalling();
-                } else {
+                } else if(!chicken.dead) {
                     this.character.injure(33);
                 }
             } 
@@ -337,18 +350,6 @@ export class Level {
             if(splash.viewed) this.remove(splash);
         });
     }
-
-    /** Removes creatures, which already died. */
-    private removeDeaths(): void {
-        if (this.character.dead || this.boss.dead) {
-            Game.run = false;
-            if (this.boss.dead) this.screens[0].show();
-            if (this.character.dead) this.screens[1].show();
-        }
-        this.creatures.forEach(creature => {
-            if (creature.dead) this.remove(creature)
-        });
-    }
     // #endregion
 
     // #region Game-Loop.
@@ -361,14 +362,22 @@ export class Level {
     /** Includes all method, which can be executed slowly. */
     slowLoop(): void {
         this.removeFullSplashes();
-        this.removeDeaths();
+        // this.removeDeaths();
     }
     /** Starts the game. */
     startGame(): void {
         Game.run = true;
+        this.chickens.forEach(chicken => chicken.bringToLife());
         IntervalHub.start(this.update, 1000 / MovableObject.fps);
         IntervalHub.start(this.fastLoop.bind(this), 1000 / 100);
         IntervalHub.start(this.slowLoop.bind(this), 1000 / 4);
+    }
+
+    /** Finishes the game. */
+    private endGame(win: boolean): void {
+        Game.run = false;
+        this.screens[win ? 0 : 1].show();
+        IntervalHub.stopAll();
     }
     // #endregion
     // #endregion

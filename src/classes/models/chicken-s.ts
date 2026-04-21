@@ -18,9 +18,8 @@ export class ChickenS extends Chicken {
         this.imgs['dead'] = await this.addAnimation(ImgHub.CHICKENS.dead);
     }
 
-    act(): void {
-        super.act();
-        if(!this.dieing) {
+    healthyAct(): void {
+        if(this.state != 'idle') {
             this.jump(15);
             this.move(-3);
         }

@@ -19,9 +19,8 @@ export class ChickenM extends Chicken {
         this.imgs['dead'] = await this.addAnimation(ImgHub.CHICKENM.dead);
     }
 
-    act() {
-        super.act();
-        if(!this.dieing) this.move(-3);
+    healthyAct() {
+        if(this.state != 'idle') this.move(-3);
     }
     // #endregion
 }

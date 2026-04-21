@@ -1,63 +1,62 @@
 import { TouchingObject } from "./touching-object.js";
 
+type HealthState = 'idle' | 'longidle' | 'walk' | 'alert' | 'attack' | 'injured' | 'dieing';
+
 export abstract class HealthyObject extends TouchingObject {
     static inuaralbleTime: number = 700;
     private _health: number = 100;
-    private _dieing: boolean = false;
-    private _dead: boolean = false;
-    private _injured: boolean = false;
-    private hitProcess: boolean = false;
+    private _state: HealthState = 'idle';
     onInjure?: (health: number) => void;
     onDead?: () => void;
 
     constructor(x:number, y: number, width:number, height:number) {
         super(x, y, width, height);
     }
+    
+    get state(): HealthState { return this._state; }
 
-    act(): void {
-        this.falling();
-        if (this.imgIndex == this.imgs['dead'].length) this.dieingAnimationPlayed();
-    }
-
-    get dieing(): boolean { return this._dieing; }
-
-    get injdured(): boolean { return this._injured; }
-
-    get dead(): boolean { return this._dead; }
+    set state(state: HealthState) {this._state = state; }
 
     get health(): number {return this._health; }
 
-    get protected(): boolean { return this.hitProcess; }
+    get dead(): boolean { return this.state == 'dieing'; }
+
+    act(): void {
+        this.falling();
+        if (this.state == 'dieing') {
+            if (this.imgIndex == this.imgs['dead'].length) {
+                setTimeout(() => this.onDead?.(), 700);
+            }
+        } else this.healthyAct();
+    }
+
+    /** Act-method for objects are alive. */
+    protected abstract healthyAct(): void;
 
     /**
      * Will be excueted, if an healthy object has injured.
      * @param damage - 0..100 - percent of health, which injure coast.
      */
     injure(damage: number) {
-        if (!this.hitProcess && !this.dead && !this._injured && damage > 0 && damage <= 100) {
-            this._injured = true;
+        if (this.state != 'attack' && this.state != 'injured' && damage > 0 && damage <= 100) {
             this._health -= damage;
-            this.onInjure?.(this.health);
             if(this.health <= 0) {
-                this._dieing = true;
-                this.imgIndex = 0;
+                this.state = 'dieing'
+            } else {
+                this.state = 'injured';
+                this.onInjure?.(this.health);
+                setTimeout(() => {this.state = 'walk'}, HealthyObject.inuaralbleTime);
             }
-            setTimeout(() => {this._injured = false}, HealthyObject.inuaralbleTime);
         }
     }
 
-    /** Will be executed, if dieing-animation completly played. */
-    protected dieingAnimationPlayed() {
-        if(this.dieing) {
-            this._dieing = false;
-            this._dead = true;
-            this.onDead?.();
-        }
-    }
-
-    /** Will be executed character for enemy. */
+    /** It's used for attack. */
     hit(): void {
-        this.hitProcess = true;
-        setTimeout(() => {this.hitProcess = false}, 700)
+        this.state = 'attack';
+    }
+
+    /** Brings a creature to life. */
+    bringToLife(): void {
+        this.state = 'walk';
     }
 }

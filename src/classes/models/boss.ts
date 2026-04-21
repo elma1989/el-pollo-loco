@@ -4,10 +4,7 @@ import { HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 
-type BossState = 'idle' | 'walk' | 'alert' | 'attack' | 'hurt';
-
 export class Boss extends HealthyObject {
-    private _state: BossState = 'idle';
     private attactTimer: number = 0;
     
     constructor() {
@@ -25,8 +22,6 @@ export class Boss extends HealthyObject {
     }
 
     // #region Methods
-    get state(): BossState { return this._state; }
-
     async load(): Promise<void> {
         this.img = await this.loadImage(ImgHub.BOSS.walk[0]);
         this.imgs['walk'] = await this.addAnimation(ImgHub.BOSS.walk);
@@ -36,11 +31,12 @@ export class Boss extends HealthyObject {
         this.imgs['dead'] = await this.addAnimation(ImgHub.BOSS.dead);
     }
 
-    act(): void {
-        if (!this.dead) {
-            if(this.state == 'walk') {
+    healthyAct(): void {
+        if (this.state != 'idle') {
+            if(this.state == 'walk' || this.state == 'attack') {
                 this.move(-3);
-                if(this.attactTimer == 5) this._state = 'alert'
+                this.attactTimer++;
+                if(this.attactTimer == 5) this.state = 'alert'
             }
             if(this.state == 'attack') this.move(-4);
             this.reset();
@@ -49,54 +45,53 @@ export class Boss extends HealthyObject {
 
     // #region Animation
     protected customAni(): void {
-        if (this.state != 'idle') {
-            if(this.dieing) {
-                this.playAnmation('dead');
-                if (this.imgIndex == this.imgs['dead'].length) this.dieingAnimationPlayed();
-            } else {
-                this.playAnmation(this.state);
-                switch(this.state) {
-                    case 'hurt':
-                        this.finshHurtAnimation();
-                        break;
+        if (this.state == 'idle') return
 
-                    case 'alert':
-                        this.finishAlertAnimation();
-                        break;
+        if (this.state == 'dieing') this.playAnmation('dead');
+        else switch(this.state) {
+            case 'injured':
+                this.finshHurtAnimation();
+                break;
 
-                    case 'attack':
-                        this.finishAttackAnimation();
-                        break;
+            case 'alert':
+                this.finishAlertAnimation();
+                break;
 
-                    case 'walk':
-                        this.repeatWalkAnimation();
-                }
-            }
+            case 'attack':
+                this.finishAttackAnimation();
+                break;
+
+            case 'walk':
+                this.repeatWalkAnimation();
         }
     }
 
     /** Sequence to finish hurt-animation. */
     private finshHurtAnimation() {
+        this.playAnmation('hurt');
         if (this.imgIndex == this.imgs['hurt'].length) {
             this.attactTimer = 0;
-            this._state = 'walk';
+            this.state = 'walk';
         }
     }
 
     /** Sequence to finish alert-animation. */
     private finishAlertAnimation() {
-        if (this.imgIndex == this.imgs['alert'].length) this._state = 'attack';
+        this.playAnmation('alert');
+        if (this.imgIndex == this.imgs['alert'].length) this.state = 'attack';
     }
 
     private finishAttackAnimation() {
+        this.playAnmation('attack');
         if (this.imgIndex == this.imgs['attack'].length) {
-            this._state = 'walk';
+            this.state = 'walk';
             this.attactTimer = 0;
         }
     }
 
     /** Repeats walk-animation. */
     private repeatWalkAnimation() {
+        this.playAnmation('walk');
         if (this.imgIndex == this.imgs['walk'].length) this.imgIndex = 0;
     }
 
@@ -106,23 +101,11 @@ export class Boss extends HealthyObject {
     // #endregion
     
     // #region Attack
-    /** Will be executed to start boss walking */
-    activate(): void {
-        this._state = 'walk';
-        IntervalHub.start(this.increaseAttackTimer, 1000);
-    }
-
-    /** Increases attack-timer. */
-    private increaseAttackTimer = () => {
-        this.attactTimer++;
-    }
-
     /** Resets x-Pos of boss, if he walks out. */
     private reset(): void {
         const canvas = Game.canvas;
         if (canvas && this.x < -this.width) this.x = 2 * canvas.width - this.width;
     }
-
     // #endretion
     // #endregion
 }

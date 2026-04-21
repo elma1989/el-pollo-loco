@@ -6,7 +6,6 @@ import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
 import { Bottle } from "./bottle.js";
-import { Level } from "./level.js";
 
 /** Represents the main character Pepe. */
 export class Character extends HealthyObject {
@@ -48,10 +47,9 @@ export class Character extends HealthyObject {
         this.imgs['dead'] = await this.addAnimation(ImgHub.CHARACTER.dead);
     }
 
-    act(): void {
+    healthyAct(): void {
         const canvas = Game.canvas;
         this.movement();
-        this.falling();
         if(KeyListener.KEY.space) {
             this.idleCounter = 0;
             this.jump(25);
@@ -59,16 +57,12 @@ export class Character extends HealthyObject {
         if (KeyListener.KEY.ctrl) {
             this.throwBottle();
         }
+        if (this.state == 'attack') setTimeout(() => this.state = 'idle', 700);
         if (!this.runOutEmmited && canvas && this.x >= canvas.width) {
             this.onRunOut?.();
             this.runOutEmmited = true;
         }
-    }
-
-    injure(damage: number): void {
-        super.injure(damage);
-        if(this.protected) return;
-        this.isHurtPlaying = true;
+        if (this.idleCounter >= 5) this.state = 'longidle';
     }
 
     // #region Animation
@@ -85,21 +79,22 @@ export class Character extends HealthyObject {
 
     /** Special aninmation for Pape. */
     protected customAni(): void {
-        if (this.dieing) {
-            this.playAnmation('dead');
-            if (this.imgIndex == 7) this.dieingAnimationPlayed();
+        switch(this.state) {
+            case 'dieing':
+                this.playAnmation('dead');
+                break;
+            case 'injured':
+                this.playAnmation('hurt');
+                break;
+            case 'walk':
+                this.playAnimationLoop('walk');
+                break;
+            case 'idle':
+                this.playAnimationLoop('idle');
+                break;
+            case 'longidle':
+                this.playAnimationLoop('longidle');
         }
-        else if (this.isHurtPlaying) {   
-            this.playAnmation('hurt');
-            if (this.imgIndex == 3) this.isHurtPlaying = false;
-        } else if (this.jumping || this.fallingJump) 
-            this.playAnmation('jump');
-        else if (this.isWalking())
-            this.playAnimationLoop('walk');
-        else if (this.idle && this.idleCounter >= 5)
-            this.playAnimationLoop('longidle');
-        else if (this.idle) 
-            this.playAnimationLoop('idle');
     }
 
     animate(): void {
@@ -127,9 +122,13 @@ export class Character extends HealthyObject {
     /** Manages the movment of Pepe. */
     private movement():void {
         const canvas = Game.canvas;
-        if (this.dead) return;
-        if (this.isWalking()) this.disableIdle()
-        else this.idle = true;
+        if (this.state == 'dieing') return;
+        if (this.state != 'injured') {
+            if (this.isWalking()) {
+                this.state = 'walk';
+                this.disableIdle();
+            } else this.state = 'idle'
+        }
         if (this.isWalkingLeft()) {
             this._facingLeft = true;
             this.move(-this.speed);
@@ -178,6 +177,5 @@ export class Character extends HealthyObject {
         }
     }
     // #endregion
-
     // #endregion
 }
