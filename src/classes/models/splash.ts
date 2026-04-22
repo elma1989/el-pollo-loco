@@ -3,7 +3,8 @@ import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 
 export class Splash extends AnimatedObject {
-    private _viewed: boolean = false;
+    private viewed: boolean = false;
+    afterAnimation?: () => void;
 
     constructor() {
         const width = 524 * 0.3;
@@ -12,8 +13,6 @@ export class Splash extends AnimatedObject {
     }
 
     // #region Methods
-    get viewed(): boolean { return this._viewed; }
-
     get x(): number { return super.x }
 
     set x(newValue: number) { super.x = newValue - this.width / 2};
@@ -30,8 +29,10 @@ export class Splash extends AnimatedObject {
     protected customAni(): void {
         if(this.visible && !this.viewed) {
             this.playAnmation('splash');
-            if(this.imgIndex == 6) 
-                this._viewed = true;
+            if(this.imgIndex == 6) {
+                this.viewed = true;
+                this.afterAnimation?.();
+            }
         }
     }
 
