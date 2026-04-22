@@ -1016,10 +1016,10 @@
         <mxCell id="Bd-V2rYKSSFcR55jPYZV-18" parent="Bd-V2rYKSSFcR55jPYZV-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0;fontColor=default;" value="+ bringToLife()" vertex="1">
           <mxGeometry height="26" width="240" y="392" as="geometry" />
         </mxCell>
-        <mxCell id="Bd-V2rYKSSFcR55jPYZV-20" parent="1" style="html=1;whiteSpace=wrap;fontStyle=1;strokeColor=light-dark(#008000,#80FF80);" value="MainScrren" vertex="1">
+        <mxCell id="Bd-V2rYKSSFcR55jPYZV-20" parent="1" style="html=1;whiteSpace=wrap;fontStyle=1;strokeColor=default;" value="MainScrren" vertex="1">
           <mxGeometry height="50" width="110" x="370" y="1574" as="geometry" />
         </mxCell>
-        <mxCell id="Bd-V2rYKSSFcR55jPYZV-21" edge="1" parent="1" source="Bd-V2rYKSSFcR55jPYZV-20" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontStyle=1;strokeColor=light-dark(#008000,#80FF80);" target="TA4B1nX8l3TpHENB5z6k-1" value="">
+        <mxCell id="Bd-V2rYKSSFcR55jPYZV-21" edge="1" parent="1" source="Bd-V2rYKSSFcR55jPYZV-20" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;fontStyle=1;strokeColor=default;" target="TA4B1nX8l3TpHENB5z6k-1" value="">
           <mxGeometry relative="1" width="160" as="geometry">
             <mxPoint x="502" y="1517" as="sourcePoint" />
             <mxPoint x="457" y="1432" as="targetPoint" />
