@@ -24,6 +24,7 @@ import { Layer0 } from "./layer0.js";
 import { Layer1 } from "./layer1.js";
 import { Layer2 } from "./layer2.js";
 import { LoseScreen } from "./lose-screen.js";
+import { MainScreen } from "./main-screen.js";
 import { Sky } from "./sky.js";
 import { Splash } from "./splash.js";
 import { WinScreen } from "./win-screen.js";
@@ -42,7 +43,7 @@ export class Level {
         new CharacterHealthbar(), new BossHealthbar(), new CoinBar(), new BottleBar()
     ];
     private screens: Screen[] = [
-        new WinScreen(), new LoseScreen()
+        new WinScreen(), new LoseScreen(), new MainScreen()
     ]
     private coins: number = 0;
 
