@@ -103,6 +103,7 @@ export class Level {
         this.handleDeathEvents();
         this.handleChangeCoin();
         this.handleChangeBottle();
+        this.handleSplashAnimation();
     }
 
     /** Handles all events with injury. */
@@ -146,18 +147,25 @@ export class Level {
         }
     }
 
-    /** Handles change of coin. */
+    /** Transferres nubmer of coins to statusbar.*/
     private handleChangeCoin(): void {
         this.character.onChangeCoin = (coins) => {
             this.statusbars[2].value = coins;
         }
     }
 
-    /** Handlaes change of bottle */
+    /** Trasferres number of botteles to statusbar. */
     private handleChangeBottle(): void {
         this.character.onChangeBottle = (count) => {
             this.statusbars[3].value = count * 12.5;
         }
+    }
+
+    /** Removes splashes after animation */
+    private handleSplashAnimation(): void {
+        this.splashes.forEach(splash => {
+            splash.afterAnimation = () => this.remove(splash);
+        });
     }
 
     // #endregion
@@ -343,13 +351,6 @@ export class Level {
             bottle.addSplash(this.splashes[i]);
         });
     }
-
-    /** Removes complete viewed splashes. */
-    private removeFullSplashes(): void {
-        this.splashes.forEach(splash => {
-            if(splash.viewed) this.remove(splash);
-        });
-    }
     // #endregion
 
     // #region Game-Loop.
@@ -359,18 +360,12 @@ export class Level {
         this.handleBottleCollision();
     }
 
-    /** Includes all method, which can be executed slowly. */
-    slowLoop(): void {
-        this.removeFullSplashes();
-        // this.removeDeaths();
-    }
     /** Starts the game. */
     startGame(): void {
         Game.run = true;
         this.chickens.forEach(chicken => chicken.bringToLife());
         IntervalHub.start(this.update, 1000 / MovableObject.fps);
         IntervalHub.start(this.fastLoop.bind(this), 1000 / 100);
-        IntervalHub.start(this.slowLoop.bind(this), 1000 / 4);
     }
 
     /** Finishes the game. */
