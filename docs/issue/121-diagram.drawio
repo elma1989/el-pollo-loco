@@ -5,19 +5,22 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="LqEGcJNVZL5_lNXpNkab-1" parent="1" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="HTMLCustomElement" vertex="1">
-          <mxGeometry height="126" width="250" x="289" y="100" as="geometry" />
+          <mxGeometry height="152" width="250" x="289" y="100" as="geometry" />
         </mxCell>
-        <mxCell id="LqEGcJNVZL5_lNXpNkab-2" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- elment: HTMLElement | null" vertex="1">
+        <mxCell id="LqEGcJNVZL5_lNXpNkab-2" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- _elment: HTMLElement | null = null" vertex="1">
           <mxGeometry height="26" width="250" y="26" as="geometry" />
         </mxCell>
-        <mxCell id="LqEGcJNVZL5_lNXpNkab-3" parent="LqEGcJNVZL5_lNXpNkab-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="250" y="52" as="geometry" />
+        <mxCell id="oKVpqh8yWya8HCV3GG_F-1" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- _visible: boolean = false" vertex="1">
+          <mxGeometry height="26" width="250" y="52" as="geometry" />
         </mxCell>
-        <mxCell id="LqEGcJNVZL5_lNXpNkab-4" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="HTMLCustomElement(id: string, visible:boolen&amp;nbsp; = true)" vertex="1">
-          <mxGeometry height="40" width="250" y="60" as="geometry" />
+        <mxCell id="LqEGcJNVZL5_lNXpNkab-3" parent="LqEGcJNVZL5_lNXpNkab-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="250" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="LqEGcJNVZL5_lNXpNkab-4" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ HTMLCustomElement(id: string, visible:boolen&amp;nbsp; = true)" vertex="1">
+          <mxGeometry height="40" width="250" y="86" as="geometry" />
         </mxCell>
         <mxCell id="LqEGcJNVZL5_lNXpNkab-5" parent="LqEGcJNVZL5_lNXpNkab-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ getter / setter" vertex="1">
-          <mxGeometry height="26" width="250" y="100" as="geometry" />
+          <mxGeometry height="26" width="250" y="126" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
