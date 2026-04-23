@@ -1,0 +1,19 @@
+button {
+    cursor: pointer;
+}
+
+.btn-text {
+    width: 80%;
+    height: 80%;
+    font-size: 2rem;
+    background: #ffc040;
+    border-radius: 8px;
+}
+
+.btn-text:hover {
+    background: #ffd060;
+}
+
+#btn-run {
+    grid-area: 2 / 1 / 3 / 5;
+}
