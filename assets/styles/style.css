@@ -15,6 +15,10 @@ body {
     background: url(../img/00_Background/bg.jpg);
 }
 
+.d-none {
+    display: none;
+}
+
 header {
     height: 10dvh;
     display: flex;

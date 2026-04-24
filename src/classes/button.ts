@@ -3,7 +3,7 @@ import { HTMLCustomElement } from "./html-custom-elment.js";
 /** Represents a button form UI. */
 export abstract class Button extends HTMLCustomElement {
     private _disabled: boolean = false;
-    onPointerEnter?: () => void;
+    onPointerDown?: () => void;
 
     /**
      * Creates a Button-Object.
@@ -14,7 +14,7 @@ export abstract class Button extends HTMLCustomElement {
     constructor(id: string, visible: boolean = true, disabled: boolean = false) {
         super(id, visible);
         this.disabled = disabled;
-        this.addPointerEnterEvent();
+        this.addPointerDownEvent();
     }
 
     get btnElement(): HTMLButtonElement | null {
@@ -29,10 +29,10 @@ export abstract class Button extends HTMLCustomElement {
     }
 
     /** Adds pointer-enter-event-listener for this button. */
-    private addPointerEnterEvent(): void {
+    private addPointerDownEvent(): void {
         if (this.btnElement) {
-            this.btnElement.addEventListener('pointerenter', () => {
-                this.onPointerEnter?.()
+            this.btnElement.addEventListener('pointerdown', () => {
+                this.onPointerDown?.()
             });
         }
     }

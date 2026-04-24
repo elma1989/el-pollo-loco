@@ -46,6 +46,7 @@ export class Level {
         new WinScreen(), new LoseScreen(), new MainScreen()
     ]
     private coins: number = 0;
+    onEndGame?: () => void
 
     constructor() {
         this.createObjects();
@@ -85,6 +86,9 @@ export class Level {
 
     /** Loads all drawn objects in cache. */
     async loadObjects(): Promise<void> {
+        await this.screens[2].load();
+        this.screens[2].draw();
+
         await Promise.all(
             this.drawnObjects.map(async (object) => 
                 await object.load()
@@ -92,7 +96,6 @@ export class Level {
         );
         this.animateAll();
         this.character.startIdleCounterInterval();
-        this.drawAll();
     }
     // #endregion
     
@@ -173,7 +176,7 @@ export class Level {
 
     // #region Drawing
     /** Draws all drawings */
-    private drawAll(): void {
+    public drawAll(): void {
         if (Game.ctx) {
             this.clearCanvas();
             Game.ctx.translate(this.cameraX, 0);
@@ -337,6 +340,17 @@ export class Level {
         }
     }
 
+    /** Removes title screen. */
+    removeTitleScreen(): void {
+        this.remove(this.screens[2]);
+    }
+
+    /** Resets all static attributes. */
+    private resetStaticAttributes(): void {
+        Chicken.offset = 500;
+        Collectable.offset = 100;
+    }
+
     /** Seppartes main object list to diffrent lists. */
     private sepparateLists(): void {
         this.creatures = this.drawnObjects.filter(dO => dO instanceof HealthyObject);
@@ -344,6 +358,7 @@ export class Level {
         this.collectables = this.drawnObjects.filter(dO => dO instanceof Collectable);
         this.bottles = this.collectables.filter(collect => collect instanceof Bottle);
         this.splashes = this.drawnObjects.filter(dO => dO instanceof Splash);
+        this.screens = this.drawnObjects.filter(dO => dO instanceof Screen);
     }
 
     /** Assigns a splash for each bottle. */
@@ -374,6 +389,8 @@ export class Level {
         Game.run = false;
         this.screens[win ? 0 : 1].show();
         IntervalHub.stopAll();
+        this.resetStaticAttributes();
+        this.onEndGame?.();
     }
     // #endregion
     // #endregion
