@@ -1,13 +1,9 @@
-import { KeyListener } from "./classes/key-listener.js";
-import { Level } from "./classes/models/level.js";
-
-const level = new Level();
+import { Game } from "./classes/game.js";
 
 /** Will be executed on load. */
-async function init(): Promise<void> {
-    new KeyListener();
-    await level.loadObjects();
-    level.startGame();
+function init(): void {
+    const game = new Game();
+    game.init();
 }
 
 init();
