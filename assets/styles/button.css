@@ -17,3 +17,7 @@ button {
 #btn-run {
     grid-area: 2 / 1 / 3 / 5;
 }
+
+#btn-run:disabled {
+    cursor: wait;
+}
