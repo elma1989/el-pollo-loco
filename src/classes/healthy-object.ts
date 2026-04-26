@@ -19,6 +19,10 @@ export abstract class HealthyObject extends TouchingObject {
 
     get health(): number {return this._health; }
 
+    set health(value: number) {
+        this._health = value < 0 ? 0 : (value > 100 ? 100 : value);
+    }
+
     get dead(): boolean { return this.state == 'dieing'; }
 
     act(): void {
@@ -38,13 +42,13 @@ export abstract class HealthyObject extends TouchingObject {
      * @param damage - 0..100 - percent of health, which injure coast.
      */
     injure(damage: number) {
-        if (this.state != 'attack' && this.state != 'injured' && damage > 0 && damage <= 100) {
+        if (this.state != 'injured' && damage > 0 && damage <= 100) {
             this._health -= damage;
+            this.onInjure?.(this.health);
             if(this.health <= 0) {
-                this.state = 'dieing'
+                this.state = 'dieing';
             } else {
                 this.state = 'injured';
-                this.onInjure?.(this.health);
                 setTimeout(() => {this.state = 'walk'}, HealthyObject.inuaralbleTime);
             }
         }
