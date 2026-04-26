@@ -65,6 +65,21 @@ export class Character extends HealthyObject {
         if (this.idleCounter >= 5) this.state = 'longidle';
     }
 
+    injure(damage: number): void {
+        if (this.state != 'attack') {
+            if (this.state != 'injured' && damage > 0 && damage <= 100) {
+                this.health -= damage;
+                this.onInjure?.(this.health);
+                if(this.health <= 0) {
+                    this.state = 'dieing';
+                } else {
+                    this.state = 'injured';
+                    setTimeout(() => {this.state = 'idle'}, HealthyObject.inuaralbleTime * 2);
+                }
+            }
+        }
+    }
+
     // #region Animation
     /** Increases idle counter. */
     private increaseIdleCounter = () => {
