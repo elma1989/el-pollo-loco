@@ -16,18 +16,25 @@ body {
     background: url(../img/00_Background/bg.jpg);
 }
 
+main {
+    width: 100%;
+    max-width: 1920px;
+}
+
 .d-none {
     display: none;
 }
 
 header {
+    width: 100%;
     height: 10dvh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-main {
+.main-container {
+    width: 100%;
     height: 90dvh;
     display: flex;
     justify-content: center;
