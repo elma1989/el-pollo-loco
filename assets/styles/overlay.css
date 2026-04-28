@@ -1,0 +1,10 @@
+@import url(./const.css);
+.overlay {
+    grid-area: var(--full-canvas);
+    background: var(--bg);
+    transition: opacity 300ms ease-in-out;
+}
+
+.overlay.transparent {
+    opacity: 0;
+}
