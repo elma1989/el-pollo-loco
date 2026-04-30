@@ -20,7 +20,9 @@ export abstract class Overlay extends HTMLCustomElement {
     /** Opens the overlay. */
     open(): void {
         this.visible = true;
-        this.transparent = false;
+        this.transparent = true;
+
+        requestAnimationFrame(() => this.transparent = false );
     }
 
     /** Closes the overlay. */
