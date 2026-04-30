@@ -42,8 +42,12 @@ header {
 }
 
 h1 {
-    font: 3rem Cowboy;
+    font-size: 3rem;
     color: #c10000;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 .canvas-container {
@@ -57,5 +61,4 @@ h1 {
 
 canvas {
     background: black;
-    grid-area: 1 / 1 / 4 / 13;
 }

@@ -4,6 +4,23 @@ button {
     cursor: pointer;
 }
 
+/* #region close-btn */
+.btn-close {
+    width: 2rem;
+    height: 2rem;
+    background: #c00000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.btn-close:hover {
+    background: #e00000;
+}
+/* #endregion */
+
+/* #region text-btn */
 .btn-text {
     width: 80%;
     height: 80%;
@@ -23,3 +40,8 @@ button {
 #btn-run:disabled {
     cursor: wait;
 }
+
+#btn-controls {
+    grid-area: 2 / 5 / 3 / 9;
+}
+/* #endregion */

@@ -1,4 +1,19 @@
 :root {
     --bg: #ffc040;
-    --full-canvas: 1 / 1 / 13 / 4;
+}
+
+.full-canvas {
+    grid-area: 1 / 1 / 4 / 13;
+}
+
+.round {
+    border-radius: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.w-full {
+    width: 100%;
 }
