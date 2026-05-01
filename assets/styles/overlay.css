@@ -1,10 +1,56 @@
 @import url(./const.css);
+/* #region overlay */
 .overlay {
-    grid-area: var(--full-canvas);
+    height: 100%;
+    flex-direction: column;
     background: var(--bg);
     transition: opacity 300ms ease-in-out;
+    padding: 2rem;
 }
 
 .overlay.transparent {
     opacity: 0;
 }
+
+.overlay header {
+    height: auto;
+    justify-content: flex-end;
+}
+
+.overlay-body {
+    flex: 1;
+    align-items: center;
+}
+/* #endregion */
+
+/* #region Control */
+#control-container {
+    justify-content: space-between;
+}
+
+.control-item {
+    width: 12rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.control-img-wrapper {
+    height: 16rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.key-wrapper {
+    justify-content: center;
+    gap: 1rem;
+}
+
+.control-key {
+    background: #e0e0e0;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+    cursor: default;
+}
+/* #endregion */

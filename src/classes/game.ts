@@ -36,22 +36,36 @@ export class Game {
     // #region Events
     private handlePointerEvents(): void {
         this.handleRunButton();
+        this.handleControlsButton();
+        this.handleControlsCloseButton();
     }
 
     private handleRunButton(): void {
         this.ui.btns.text.run.onPointerDown = () => {
             if (this.loaded) {
                 this.level.removeTitleScreen();
-                this.ui.btns.text.run.visible = false;
+                this.hideTextButtons();
                 this.level.startGame();
             }
+        }
+    }
+
+    private handleControlsButton(): void {
+        this.ui.btns.text.controls.onPointerDown = () => {
+            this.ui.overlays.control.open();
+        }
+    }
+
+    private handleControlsCloseButton(): void {
+        this.ui.btns.close.controls.onPointerDown = () => {
+            this.ui.overlays.control.close();
         }
     }
 
     private handleEndGame(): void {
         this.level.onEndGame = async () => {
             this.disableRunButton();
-            this.ui.btns.text.run.visible = true;
+            this.showTextButtons();
             this.level = new Level();
             this.init();
         }
@@ -69,6 +83,14 @@ export class Game {
         this.ui.btns.text.run.disabled = true;
         this.ui.btns.text.run.description = 'LOADING';
         this.loaded = false;
+    }
+
+    private showTextButtons(): void {
+        Object.keys(this.ui.btns.text).forEach((key) => this.ui.btns.text[key].visible = true)
+    }
+
+    private hideTextButtons(): void {
+        Object.keys(this.ui.btns.text).forEach((key) => this.ui.btns.text[key].visible = false)
     }
     // #endregion
     // #endregion

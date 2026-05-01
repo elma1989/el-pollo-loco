@@ -13,3 +13,7 @@
     font-weight: bold;
     src: url(../fonts/Roboto-Bold.ttf);
 }
+
+.font-cowboy {
+    font-family: Cowboy;
+}

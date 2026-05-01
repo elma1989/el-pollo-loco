@@ -1,7 +1,11 @@
 import { HTMLCustomElement } from "./html-custom-elment.js";
 
-export abstract class Oberlay extends HTMLCustomElement {
+export abstract class Overlay extends HTMLCustomElement {
 
+    /**
+     * Creates an Ovelay.
+     * @param id - Id of element.
+     */
     constructor(id: string) {
         super(id, false);
         this.transparent = true;
@@ -16,7 +20,9 @@ export abstract class Oberlay extends HTMLCustomElement {
     /** Opens the overlay. */
     open(): void {
         this.visible = true;
-        this.transparent = false;
+        this.transparent = true;
+
+        requestAnimationFrame(() => this.transparent = false );
     }
 
     /** Closes the overlay. */
@@ -43,4 +49,6 @@ export abstract class Oberlay extends HTMLCustomElement {
             this.transparent = true;
         });
     }
+
+    abstract create(): void
 }
