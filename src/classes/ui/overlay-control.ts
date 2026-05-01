@@ -29,22 +29,26 @@ export class ControlOverlay extends Overlay {
         if (this.element) {
             this.element.innerHTML = Template.overlay('control');
             this.createControlContainer();
-            this.renderControlItems();
         }
+    }
+
+    private createControlItems(): string {
+        let result = '';
+        this.controls.forEach((ctrl, i) => {
+            result += Template.controlItem(ctrl, this.createKeys(i));
+        })
+        return result
     }
 
     private createControlContainer(): void {
         const body = document.getElementById('overlay-control-body');
-        if (body) body.innerHTML = Template.controlContainer();
-    }
-
-    private renderControlItems(): void {
-        const el = document.getElementById('control-container');
-        if (el) {
-            el.innerHTML = '';
-            this.controls.forEach((ctrl, i) => {
-                el.innerHTML += Template.controlItem(ctrl, this.createKeys(i));
-            })
+        if (body) {
+            const controlContainer = document.createElement('div');
+            controlContainer.id = 'control-container';
+            controlContainer.classList.add('w-full');
+            controlContainer.classList.add('flex');
+            controlContainer.innerHTML = this.createControlItems();
+            body.appendChild(controlContainer);
         }
     }
 

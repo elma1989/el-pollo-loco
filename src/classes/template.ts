@@ -12,10 +12,6 @@ export class Template {
         `
     }
 
-    static controlContainer(): string {
-        return `<div id="control-container" class="w-full flex"></div>`;
-    }
-
     static controlKey(key: string): string {
         return `
             <div class="control-key">${key}</div>
