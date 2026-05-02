@@ -29,4 +29,17 @@ export class Template {
             </div>
             `
     }
+
+    static impressum(): string {
+        return `
+            <div class="impressum-container"
+                <p>Marco Elste</p>
+                <p>Karl-Marx-Ring 5</p>
+                <p>06317 Seegebiet Mansfelder Land</p>
+                <h2>Contact</h2>
+                <p>Tel.: 0151 22281638</p>
+                <p>E-Mail: <a href="mailto:marco.elste@web.de">marco.elste@web.de</a></p>
+            </div>
+        `
+    }
 }
