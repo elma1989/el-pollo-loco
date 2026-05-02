@@ -45,3 +45,7 @@ button {
     grid-area: 2 / 5 / 3 / 9;
 }
 /* #endregion */
+
+#btn-impressum {
+    grid-area: 2 / 9 / 3 / 13;
+}
