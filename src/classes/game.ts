@@ -2,6 +2,8 @@ import { KeyListener } from "./key-listener.js";
 import { Level } from "./models/level.js";
 import { UI } from "./ui/ui.js";
 
+type OverlayType = 'control' | 'impressum';
+
 export class Game {
 
     static run: boolean = false;
@@ -36,8 +38,7 @@ export class Game {
     // #region Events
     private handlePointerEvents(): void {
         this.handleRunButton();
-        this.handleControlsButton();
-        this.handleControlsCloseButton();
+        this.handleOverlayButtons();
     }
 
     private handleRunButton(): void {
@@ -50,15 +51,22 @@ export class Game {
         }
     }
 
-    private handleControlsButton(): void {
-        this.ui.btns.text.controls.onPointerDown = () => {
-            this.ui.overlays.control.open();
+    private handleOverlayButtons(): void {
+        this.handleOverlayButton('control');
+        this.handleOverlayButton('impressum');
+        this.handleOverlayCloseButton('control');
+        this.handleOverlayCloseButton('impressum');
+    }
+
+    private handleOverlayButton(type: OverlayType): void {
+        this.ui.btns.text[type].onPointerDown = () => {
+            this.ui.overlays[type].open();
         }
     }
 
-    private handleControlsCloseButton(): void {
-        this.ui.btns.close.controls.onPointerDown = () => {
-            this.ui.overlays.control.close();
+    private handleOverlayCloseButton(type: OverlayType): void {
+        this.ui.btns.close[type].onPointerDown = () => {
+            this.ui.overlays[type].close();
         }
     }
 

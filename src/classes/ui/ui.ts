@@ -23,11 +23,11 @@ export class UI {
         this.btns = {
             text: {
                 run: new RunButton(),
-                controls: new ControlOverlayButton(),
+                control: new ControlOverlayButton(),
                 impressum: new ImpressumButton()
             },
             close: {
-                controls: new CloseControlButton(),
+                control: new CloseControlButton(),
                 impressum: new CloeseImpressumButton()
             }
         }
