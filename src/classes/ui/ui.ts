@@ -1,6 +1,7 @@
 import { CloseControlButton } from "./btn-close-ctrl.js";
 import { ControlOverlayButton } from "./btn-ctrl-overlay.js";
 import { RunButton } from "./btn-run.js";
+import { Impressum } from "./impressum.js";
 import { ControlOverlay } from "./overlay-control.js";
 
 export class UI {
@@ -13,7 +14,8 @@ export class UI {
 
     private createElements(): void {
         this.overlays = {
-            control: new ControlOverlay()
+            control: new ControlOverlay(),
+            impressum: new Impressum()
         }
 
         this.btns = {
