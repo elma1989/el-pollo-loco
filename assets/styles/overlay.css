@@ -54,3 +54,21 @@
     cursor: default;
 }
 /* #endregion */
+
+#overlay-impressum-body {
+    font-size: 1.5rem;
+
+    h2 {
+        font-size: 2rem;
+        margin-top: 1rem;
+    }
+
+    a:link, a:visited {
+        color: #c10000;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
