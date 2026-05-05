@@ -1,5 +1,6 @@
 import { KeyListener } from "./key-listener.js";
 import { Level } from "./models/level.js";
+import { SoundManager } from "./sound/snd-mgr.js";
 import { SoundPathManager } from "./sound/snd-path-mgr.js";
 import { UI } from "./ui/ui.js";
 
@@ -21,6 +22,7 @@ export class Game {
     // #region Methods
     async init(): Promise<void> {
         SoundPathManager.init();
+        SoundManager.init();
         this.handlePointerEvents();
         this.handleEndGame();
         await this.level.loadObjects();
