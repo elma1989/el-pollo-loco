@@ -1234,7 +1234,7 @@
           <mxGeometry height="50" width="110" x="80" y="4830" as="geometry" />
         </mxCell>
         <mxCell id="cy1pWu6iDP6VGi2zR3qW-8" parent="1" style="html=1;whiteSpace=wrap;strokeColor=default;fontStyle=1" value="ImpressumButton" vertex="1">
-          <mxGeometry height="50" width="110" x="80" y="4916" as="geometry" />
+          <mxGeometry height="50" width="110" x="75" y="4916" as="geometry" />
         </mxCell>
         <mxCell id="cy1pWu6iDP6VGi2zR3qW-9" edge="1" parent="1" source="cy1pWu6iDP6VGi2zR3qW-7" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;strokeColor=default;" target="8ft7jHyh8wamH299ev8K-8" value="">
           <mxGeometry relative="1" width="160" as="geometry">
@@ -1285,32 +1285,8 @@
         <mxCell id="cy1pWu6iDP6VGi2zR3qW-20" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Enumartion&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;OverlayType&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&amp;nbsp; &amp;nbsp;control&lt;br&gt;&amp;nbsp; &amp;nbsp;impressum&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" vertex="1">
           <mxGeometry height="110" width="240" x="570" y="5139" as="geometry" />
         </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-1" parent="1" style="swimlane;fontStyle=5;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#008000,#80FF80);" value="SndPathMgr" vertex="1">
-          <mxGeometry height="190" width="240" x="10" y="5014" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-2" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- prefix: string&amp;nbsp; = &#39;&#39;&quot;" vertex="1">
-          <mxGeometry height="26" width="240" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-3" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ CHARACTER: Map&amp;lt;string, string&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="240" y="52" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-4" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ ENEMY: Map&amp;lt;string, string&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="240" y="78" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-5" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ COLLECTABLE: Map&amp;lt;string, string&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="240" y="104" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-6" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ GAME: Map&amp;lt;string, string&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="240" y="130" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-7" parent="wEeXiyrEm1kgVcm5Imv6-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="240" y="156" as="geometry" />
-        </mxCell>
-        <mxCell id="wEeXiyrEm1kgVcm5Imv6-8" parent="wEeXiyrEm1kgVcm5Imv6-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ setPrefix()" vertex="1">
-          <mxGeometry height="26" width="240" y="164" as="geometry" />
-        </mxCell>
         <mxCell id="wEeXiyrEm1kgVcm5Imv6-9" parent="1" style="swimlane;fontStyle=5;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;strokeColor=light-dark(#008000,#80FF80);" value="SoundManager" vertex="1">
-          <mxGeometry height="446" width="240" x="10" y="5234" as="geometry" />
+          <mxGeometry height="446" width="240" x="10" y="5320" as="geometry" />
         </mxCell>
         <mxCell id="wEeXiyrEm1kgVcm5Imv6-10" parent="wEeXiyrEm1kgVcm5Imv6-9" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- ctx: AudioContext" vertex="1">
           <mxGeometry height="26" width="240" y="26" as="geometry" />
@@ -1499,6 +1475,36 @@
         </mxCell>
         <mxCell id="FRCQ6mO6uaKCZdMkpmqk-29" parent="FRCQ6mO6uaKCZdMkpmqk-4" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=0;fontColor=light-dark(#008000,#80FF80);" value="- toggleSound()" vertex="1">
           <mxGeometry height="30" width="240" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-1" parent="1" style="swimlane;fontStyle=5;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SndPathMgr" vertex="1">
+          <mxGeometry height="242" width="240" x="10" y="5020" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-2" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- prefix: string&amp;nbsp; = &#39;&#39;&quot;" vertex="1">
+          <mxGeometry height="26" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-3" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- CHARACTER: Map&amp;lt;string, string&amp;gt;" vertex="1">
+          <mxGeometry height="26" width="240" y="52" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-4" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- ENEMY: Map&amp;lt;string, string&amp;gt;" vertex="1">
+          <mxGeometry height="26" width="240" y="78" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-5" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- COLLECTABLE: Map&amp;lt;string, string&amp;gt;" vertex="1">
+          <mxGeometry height="26" width="240" y="104" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-6" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- GAME: Map&amp;lt;string, string&amp;gt;" vertex="1">
+          <mxGeometry height="26" width="240" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-7" parent="fbROnMdYsBbNGFCGOP6z-1" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="8" width="240" y="156" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-8" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ init():" vertex="1">
+          <mxGeometry height="26" width="240" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-9" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ getter" vertex="1">
+          <mxGeometry height="26" width="240" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="fbROnMdYsBbNGFCGOP6z-10" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="+ setPrefix()" vertex="1">
+          <mxGeometry height="26" width="240" y="216" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
