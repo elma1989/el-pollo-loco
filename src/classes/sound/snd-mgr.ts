@@ -82,7 +82,12 @@ export class SoundManager {
         
         const source = this.ctx.createBufferSource();
         source.buffer = buffer;
-        source.connect(this.ctx.destination);
+        
+        if (name == 'game/music' && this.musicGain)  {
+            this.musicGain.gain.value = 0.5;
+            source.connect(this.musicGain);
+        } else if (this.masterGain) source.connect(this.masterGain);
+        else source.connect(this.ctx.destination);
         source.start(0);
         return {
             stop: () => source.stop(0)
