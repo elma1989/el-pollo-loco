@@ -1,6 +1,7 @@
 import { KeyListener } from "./key-listener.js";
 import { Level } from "./models/level.js";
-import { SoundPathManager } from "./sound/snd-path-mgr.js";
+import { SoundManager } from "./sound/snd-mgr.js";
+import { soundData } from "./sound/sound-data.js";
 import { UI } from "./ui/ui.js";
 
 type OverlayType = 'control' | 'impressum';
@@ -20,11 +21,12 @@ export class Game {
 
     // #region Methods
     async init(): Promise<void> {
-        SoundPathManager.init();
+        SoundManager.init();
         this.handlePointerEvents();
         this.handleEndGame();
         await this.level.loadObjects();
-        this.level.drawAll();   
+        this.level.drawAll();
+        await SoundManager.preLoadAll(soundData);
         this.enableRunButton();
     }
 
@@ -44,10 +46,14 @@ export class Game {
     }
 
     private handleRunButton(): void {
-        this.ui.btns.text.run.onPointerDown = () => {
+        this.ui.btns.text.run.onPointerDown = async () => {
             if (this.loaded) {
+                SoundManager.createContext();
+                await SoundManager.decodeAll();
                 this.level.removeTitleScreen();
                 this.hideTextButtons();
+                SoundManager.play('game/start');
+                SoundManager.playMusic();
                 this.level.startGame();
             }
         }
@@ -74,6 +80,7 @@ export class Game {
 
     private handleEndGame(): void {
         this.level.onEndGame = async () => {
+            SoundManager.stopMusic();
             this.disableRunButton();
             this.showTextButtons();
             this.level = new Level();

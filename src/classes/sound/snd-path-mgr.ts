@@ -7,7 +7,10 @@ export class SoundPathManager {
 
     static init(): void {
         this.setPrefix();
+        this.createGame();
     }
+
+    static get game(): Record<string, string> { return this.GAME; }
 
 
     private static setPrefix(): void {
@@ -18,4 +21,12 @@ export class SoundPathManager {
         SoundPathManager.prefix = (local ? '' : daServer ? '/el-pollo-loco' : '/projects/el-pollo-loco') + '/assets/sounds';
     }
 
+    // #region Create Sounds
+    private static createGame(): void {
+        this.GAME = {
+            music: `${this.prefix}/music.mp3`,
+            start: `${this.prefix}/start.mp3`
+        }
+    }
+    // #endregion
 }
