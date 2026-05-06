@@ -9,7 +9,7 @@ export class SoundManager {
 
     private static masterGain: GainNode | null = null;
     private static musicGain: GainNode | null = null;
-    private static musicSource: AudioBufferSourceNode | null = null;
+    private static music: { stop: () => void} | null = null;
 
     private constructor() {}
 
@@ -60,6 +60,49 @@ export class SoundManager {
 
     static toggleMusic(): void {
         this.musicEnabled = !this.musicEnabled;
+        if (this.musicEnabled) {
+            if(!this.music) this.playMusic();
+        } else {
+            if (this.music) this.stopMusic();
+        }
+    }
+
+    /**
+     * Plays a sound
+     * @param name - Name of sound.
+     * @returns Sorce-Node or null if not avilable.
+     */
+    static play(name: string): { stop: () => void} | null {
+        if (!this.soundEnabled || !this.ctx) return null;
+        const buffer = this.buffers[name];
+        if (!buffer) {
+            console.warn(`Sound "${name}" not decoded`);
+            return null;
+        }
+        
+        const source = this.ctx.createBufferSource();
+        source.buffer = buffer;
+        source.connect(this.ctx.destination);
+        source.start(0);
+        return {
+            stop: () => source.stop(0)
+        }
+    }
+
+    /** Starts the background music. */
+    static playMusic(): void {
+        if (this.musicEnabled) {
+            const music = this.play('game/music');
+            if (music) this.music = music;
+        }
+    }
+
+    static stopMusic(): void {
+        const music = this.music;
+        if (music) {
+            music.stop();
+            this.music = null;
+        }
     }
     // #endregion
 
@@ -116,10 +159,7 @@ export class SoundManager {
             console.warn(`Sound "${name}" is not loaded.`);
             return
         }
-        if (this.buffers[name]) {
-            console.warn(`Sound "${name}" allready decoded.`);
-            return;
-        }
+        if (this.buffers[name]) return;
         const buffer = await this.ctx.decodeAudioData(this.rawBuffers[name]);
         this.buffers[name] = buffer;
     }
