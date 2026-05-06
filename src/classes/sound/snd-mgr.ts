@@ -1,13 +1,14 @@
 type SoundMap = Record<string, AudioBuffer>;
 
 export class SoundManager {
-    private static ctx: AudioContext = new AudioContext();
+    private static ctx: AudioContext | null = null;
     private static _soundEnabled: boolean = true;
     private static _musicEnabled: boolean = true;
+    private static rawBuffers: Record<string, ArrayBuffer> = {};
     private static buffers: SoundMap = {};
 
-    private static masterGain = this.ctx.createGain();
-    private static musicGain = this.ctx.createGain();
+    private static masterGain: GainNode | null = null;
+    private static musicGain: GainNode | null = null;
     private static musicSource: AudioBufferSourceNode | null = null;
 
     private constructor() {}
@@ -15,8 +16,6 @@ export class SoundManager {
     // #region Methods
     static init(): void {
         this.loadStorage();
-        this.masterGain.connect(this.ctx.destination);
-        this.musicGain.connect(this.masterGain);
     }
 
     static get soundEnabled(): boolean { return this._soundEnabled; }
@@ -61,6 +60,73 @@ export class SoundManager {
 
     static toggleMusic(): void {
         this.musicEnabled = !this.musicEnabled;
+    }
+    // #endregion
+
+    // #region Sever-Management
+    /**
+     * Gets an ArrayBuffer for a sound.
+     * @param url - Url from sound.
+     * @returns null if url not found.
+     */
+    private static async preloadSound(url: string): Promise<ArrayBuffer | null> {
+        const response = await fetch(url);
+        if (!response.ok) return null;
+        return response.arrayBuffer();
+    }
+
+    /**
+     * Adds an ArrayBuffer to the map.
+     * @param name - Name of ArrayBuffer.
+     * @param url - Url of sound.
+     */
+    private static async addArrayBuffer(name: string, url: string): Promise<void> {
+        if (this.rawBuffers[name]) return;
+        const raw = await this.preloadSound(url);
+        if (raw) this.rawBuffers[name] = raw;
+    }
+
+    /**
+     * Preloads all sounds from a map.
+     * @param sounds - Map of names and url
+     */
+    static async preLoadAll(sounds: Record<string, string>): Promise<void> {
+        await Promise.all(Object.entries(sounds).map(([name, url]) => this.addArrayBuffer(name, url)));
+    }
+
+    /** Creates context after user-input. */
+    static createContext(): void {
+        this.ctx = new AudioContext();
+        this.masterGain = this.ctx.createGain();
+        this.musicGain = this.ctx.createGain();
+        this.masterGain.connect(this.ctx.destination);
+        this.musicGain.connect(this.masterGain);
+    }
+
+    /**
+     * Decodes a preloaded sound from raw-data.
+     * @param name Name of Sound.
+     */
+    private static async decode(name: string): Promise<void> {
+        if (!this.ctx) {
+            console.warn('Context is not active.');
+            return
+        }
+        if (!this.rawBuffers[name]) {
+            console.warn(`Sound "${name}" is not loaded.`);
+            return
+        }
+        if (this.buffers[name]) {
+            console.warn(`Sound "${name}" allready decoded.`);
+            return;
+        }
+        const buffer = await this.ctx.decodeAudioData(this.rawBuffers[name]);
+        this.buffers[name] = buffer;
+    }
+
+    /** Decodes all raw datas. */
+    static async decodeAll(): Promise<void> {
+        await Promise.all(Object.keys(this.rawBuffers).map(name => this.decode(name)));
     }
     // #endregion
     // #endregion

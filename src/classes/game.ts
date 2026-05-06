@@ -46,8 +46,10 @@ export class Game {
     }
 
     private handleRunButton(): void {
-        this.ui.btns.text.run.onPointerDown = () => {
+        this.ui.btns.text.run.onPointerDown = async () => {
             if (this.loaded) {
+                SoundManager.createContext();
+                await SoundManager.decodeAll();
                 this.level.removeTitleScreen();
                 this.hideTextButtons();
                 this.level.startGame();
