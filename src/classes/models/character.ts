@@ -1,7 +1,7 @@
 import { BaseState, Collectable } from "../collectable.js";
 import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
-import { HealthyObject } from "../healthy-object.js";
+import { HealthState, HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
@@ -12,7 +12,6 @@ export class Character extends HealthyObject {
     private idleCounter: number = 0;
     private speed: number = 10;
     private _facingLeft: boolean = false;
-    private isHurtPlaying: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
     onChangeBottle?: (count: number) => void;
@@ -32,6 +31,14 @@ export class Character extends HealthyObject {
     }
 
     // #region Methods
+    get state(): HealthState { return super.state; }
+
+    set state(state: HealthState) {
+        if (state != this.state && this.state != 'dieing') {
+            super.state = state;
+        }
+    }
+
     get facingLeft(): boolean { return this._facingLeft; }
 
     get numberBottles(): number { return this.bottles.length; }
@@ -60,7 +67,14 @@ export class Character extends HealthyObject {
             this.onRunOut?.();
             this.runOutEmmited = true;
         }
+        if (this.state == 'jump' && !this.jumping && this.isOnGround()) this.state = 'idle';
         if (this.idleCounter >= 5) this.state = 'longidle';
+    }
+
+    protected jump(speed: number): void {
+        super.jump(speed);
+        this.disableIdle();
+        this.state = 'jump';
     }
 
     injure(damage: number): void {
