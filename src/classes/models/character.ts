@@ -1,7 +1,7 @@
 import { BaseState, Collectable } from "../collectable.js";
 import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
-import { HealthyObject } from "../healthy-object.js";
+import { HealthState, HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
@@ -10,10 +10,8 @@ import { Bottle } from "./bottle.js";
 /** Represents the main character Pepe. */
 export class Character extends HealthyObject {
     private idleCounter: number = 0;
-    private idle: boolean = true;
     private speed: number = 10;
     private _facingLeft: boolean = false;
-    private isHurtPlaying: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
     onChangeBottle?: (count: number) => void;
@@ -33,6 +31,14 @@ export class Character extends HealthyObject {
     }
 
     // #region Methods
+    get state(): HealthState { return super.state; }
+
+    set state(state: HealthState) {
+        if (state != this.state && this.state != 'dieing') {
+            super.state = state;
+        }
+    }
+
     get facingLeft(): boolean { return this._facingLeft; }
 
     get numberBottles(): number { return this.bottles.length; }
@@ -51,7 +57,6 @@ export class Character extends HealthyObject {
         const canvas = Game.canvas;
         this.movement();
         if(KeyListener.KEY.space) {
-            this.idleCounter = 0;
             this.jump(25);
         }
         if (KeyListener.KEY.ctrl) {
@@ -62,7 +67,14 @@ export class Character extends HealthyObject {
             this.onRunOut?.();
             this.runOutEmmited = true;
         }
+        if (this.state == 'jump' && !this.jumping && this.isOnGround()) this.state = 'idle';
         if (this.idleCounter >= 5) this.state = 'longidle';
+    }
+
+    protected jump(speed: number): void {
+        super.jump(speed);
+        this.disableIdle();
+        this.state = 'jump';
     }
 
     injure(damage: number): void {
@@ -83,7 +95,7 @@ export class Character extends HealthyObject {
     // #region Animation
     /** Increases idle counter. */
     private increaseIdleCounter = () => {
-        if(this.idle)
+        if(this.state == 'idle')
             this.idleCounter++;
     }
 
@@ -118,8 +130,10 @@ export class Character extends HealthyObject {
 
     /** Disables the idle state */
     private disableIdle(): void {
-        this.idle = false;
-        this.idleCounter = 0;
+        if (this.state == 'longidle') {
+            this.idleCounter = 0;
+            this.state = 'idle';
+        }
     }
     // #endregion
 
@@ -142,7 +156,7 @@ export class Character extends HealthyObject {
             if (this.isWalking()) {
                 this.state = 'walk';
                 this.disableIdle();
-            } else this.state = 'idle'
+            } else if (this.state == 'walk') this.state = 'idle';
         }
         if (this.isWalkingLeft()) {
             this._facingLeft = true;
@@ -165,7 +179,7 @@ export class Character extends HealthyObject {
     /** Will be exetuted to throw a bottle. */
     private throwBottle(): void {
         if (this.numberBottles > 0 && !this.hasBottleThrown) {
-            this.idleCounter = 0;
+            this.disableIdle();
             const bottle = this.bottles.splice(0, 1)[0];
             this.onChangeBottle?.(this.bottles.length);
             bottle.x = this._facingLeft ? this.x : this.x + this.width - this.offset.right;

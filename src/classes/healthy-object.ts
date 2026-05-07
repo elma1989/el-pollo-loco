@@ -1,6 +1,6 @@
 import { TouchingObject } from "./touching-object.js";
 
-type HealthState = 'idle' | 'longidle' | 'walk' | 'alert' | 'attack' | 'injured' | 'dieing';
+export type HealthState = 'idle' | 'longidle' | 'walk' | 'jump' | 'alert' | 'attack' | 'injured' | 'dieing';
 
 export abstract class HealthyObject extends TouchingObject {
     static inuaralbleTime: number = 700;
@@ -15,7 +15,7 @@ export abstract class HealthyObject extends TouchingObject {
     
     get state(): HealthState { return this._state; }
 
-    set state(state: HealthState) {this._state = state; }
+    set state(state: HealthState) { if (this.state != state) this._state = state; }
 
     get health(): number {return this._health; }
 
