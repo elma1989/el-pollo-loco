@@ -10,7 +10,6 @@ import { Bottle } from "./bottle.js";
 /** Represents the main character Pepe. */
 export class Character extends HealthyObject {
     private idleCounter: number = 0;
-    private idle: boolean = true;
     private speed: number = 10;
     private _facingLeft: boolean = false;
     private isHurtPlaying: boolean = false;
@@ -51,7 +50,6 @@ export class Character extends HealthyObject {
         const canvas = Game.canvas;
         this.movement();
         if(KeyListener.KEY.space) {
-            this.idleCounter = 0;
             this.jump(25);
         }
         if (KeyListener.KEY.ctrl) {
@@ -83,7 +81,7 @@ export class Character extends HealthyObject {
     // #region Animation
     /** Increases idle counter. */
     private increaseIdleCounter = () => {
-        if(this.idle)
+        if(this.state == 'idle')
             this.idleCounter++;
     }
 
@@ -118,8 +116,10 @@ export class Character extends HealthyObject {
 
     /** Disables the idle state */
     private disableIdle(): void {
-        this.idle = false;
-        this.idleCounter = 0;
+        if (this.state == 'longidle') {
+            this.idleCounter = 0;
+            this.state = 'idle';
+        }
     }
     // #endregion
 
@@ -142,7 +142,7 @@ export class Character extends HealthyObject {
             if (this.isWalking()) {
                 this.state = 'walk';
                 this.disableIdle();
-            } else this.state = 'idle'
+            } else if (this.state == 'walk') this.state = 'idle';
         }
         if (this.isWalkingLeft()) {
             this._facingLeft = true;
@@ -165,7 +165,7 @@ export class Character extends HealthyObject {
     /** Will be exetuted to throw a bottle. */
     private throwBottle(): void {
         if (this.numberBottles > 0 && !this.hasBottleThrown) {
-            this.idleCounter = 0;
+            this.disableIdle();
             const bottle = this.bottles.splice(0, 1)[0];
             this.onChangeBottle?.(this.bottles.length);
             bottle.x = this._facingLeft ? this.x : this.x + this.width - this.offset.right;
