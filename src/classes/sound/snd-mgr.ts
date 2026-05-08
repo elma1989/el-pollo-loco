@@ -72,7 +72,7 @@ export class SoundManager {
      * @param name - Name of sound.
      * @returns Sorce-Node or null if not avilable.
      */
-    static play(name: string): { stop: () => void} | null {
+    static play(name: string, loop: boolean = false): { stop: () => void} | null {
         if (!this.soundEnabled || !this.ctx) return null;
         const buffer = this.buffers[name];
         if (!buffer) {
@@ -82,6 +82,7 @@ export class SoundManager {
         
         const source = this.ctx.createBufferSource();
         source.buffer = buffer;
+        source.loop = loop;
         
         if (name == 'game/music' && this.musicGain)  {
             this.musicGain.gain.value = 0.5;

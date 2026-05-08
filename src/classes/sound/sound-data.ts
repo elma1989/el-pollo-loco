@@ -4,5 +4,10 @@ SoundPathManager.init();
 
 export const soundData = {
     'game/music': SoundPathManager.game.music,
-    'game/start': SoundPathManager.game.start
+    'game/start': SoundPathManager.game.start,
+    'character/sleep': SoundPathManager.character.sleep,
+    'character/walk': SoundPathManager.character.walk,
+    'character/jump': SoundPathManager.character.jump,
+    'character/hurt': SoundPathManager.character.hurt,
+    'character/dead': SoundPathManager.character.dead
 }
