@@ -145,10 +145,10 @@ export class Character extends HealthyObject {
         IntervalHub.start(this.customAni.bind(this), 1000 / this.frequency);
     }
 
-    /** Disables the idle state */
-    private disableIdle(): void {
+    /** Let Pepe wake up. */
+    private wakeUp() {
         if (this.state == 'longidle') {
-            this.idleCounter = 0;
+            this.idleCounter = 0
             this.state = 'idle';
         }
     }
@@ -167,12 +167,11 @@ export class Character extends HealthyObject {
 
     /** Manages the movment of Pepe. */
     private movement():void {
-        const canvas = Game.canvas;
         if (this.state == 'dieing') return;
         if (this.state == 'idle' || this.state == 'longidle' || this.state == 'walk') {
             if (this.isWalking()) {
+                this.wakeUp();
                 this.state = 'walk';
-                this.disableIdle();
             } else if (this.state == 'walk') this.state = 'idle';
         }
         if (this.isWalkingLeft()) {
@@ -196,7 +195,7 @@ export class Character extends HealthyObject {
     /** Will be exetuted to throw a bottle. */
     private throwBottle(): void {
         if (this.numberBottles > 0 && !this.hasBottleThrown) {
-            this.disableIdle();
+            this.wakeUp();
             const bottle = this.bottles.splice(0, 1)[0];
             this.onChangeBottle?.(this.bottles.length);
             bottle.x = this._facingLeft ? this.x : this.x + this.width - this.offset.right;
