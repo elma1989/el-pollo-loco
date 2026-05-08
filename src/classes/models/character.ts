@@ -5,6 +5,7 @@ import { HealthState, HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
 import { KeyListener } from "../key-listener.js";
+import { SoundManager } from "../sound/snd-mgr.js";
 import { Bottle } from "./bottle.js";
 
 /** Represents the main character Pepe. */
@@ -14,11 +15,15 @@ export class Character extends HealthyObject {
     private _facingLeft: boolean = false;
     private bottles: Bottle[] = [];
     private hasBottleThrown: boolean = false;
+    private isInvulerable: boolean = false;
     onChangeBottle?: (count: number) => void;
     private coins: number = 0;
     onChangeCoin?: (count: number) => void;
     onRunOut?: () => void;
     private runOutEmmited: boolean = false;
+    private walkSound: {stop: () => void} | null = null;
+    private snorSound: {stop: () => void} | null = null;
+    private deadSoundPlayed: boolean = false;
 
     constructor() {
         super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
@@ -34,7 +39,11 @@ export class Character extends HealthyObject {
     get state(): HealthState { return super.state; }
 
     set state(state: HealthState) {
-        if (state != this.state && this.state != 'dieing') {
+        if(this.state != state) {
+            if (state == 'walk') this.playWalkSound();
+            else this.stopWalkSound();
+            if (state == 'longidle') this.playSnor();
+            else this.stopSnor();
             super.state = state;
         }
     }
@@ -72,23 +81,31 @@ export class Character extends HealthyObject {
     }
 
     protected jump(speed: number): void {
-        super.jump(speed);
-        this.disableIdle();
+        this.wakeUp();
         this.state = 'jump';
+        this.playJump();
+        super.jump(speed);
     }
 
     injure(damage: number): void {
-        if (this.state != 'attack') {
-            if (this.state != 'injured' && damage > 0 && damage <= 100) {
-                this.health -= damage;
-                this.onInjure?.(this.health);
-                if(this.health <= 0) {
-                    this.state = 'dieing';
-                } else {
-                    this.state = 'injured';
-                    setTimeout(() => {this.state = 'idle'}, HealthyObject.inuaralbleTime * 2);
-                }
+        if (this.state == 'attack' || this.isInvulerable || damage < 1 || damage > 100) return;
+        this.health -= damage;
+        this.onInjure?.(this.health);
+        if(this.health <= 0) {
+            this.state = 'dieing';
+            if (!this.deadSoundPlayed) {
+                SoundManager.play('character/dead');
+                this.deadSoundPlayed = true;
             }
+        } else {
+            this.state = 'injured';
+            SoundManager.play('character/hurt');
+            this.isInvulerable = true;
+            setTimeout(() => {
+                this.state = 'idle',
+                this.idleCounter = 0;
+                this.isInvulerable = false;
+            }, 1400);
         }
     }
 
@@ -152,7 +169,7 @@ export class Character extends HealthyObject {
     private movement():void {
         const canvas = Game.canvas;
         if (this.state == 'dieing') return;
-        if (this.state != 'injured') {
+        if (this.state == 'idle' || this.state == 'longidle' || this.state == 'walk') {
             if (this.isWalking()) {
                 this.state = 'walk';
                 this.disableIdle();
@@ -203,6 +220,34 @@ export class Character extends HealthyObject {
     collect(item: Collectable<BaseState>) {
         if (item.state == 'idle') {
             item.collect(this);
+        }
+    }
+    // #endregion
+    
+    // #region Sound
+    private playWalkSound(): void {
+        if (!this.walkSound) this.walkSound = SoundManager.play('character/walk');
+    }
+
+    private stopWalkSound(): void {
+        if (this.walkSound) {
+            this.walkSound.stop();
+            this.walkSound = null;
+        }
+    }
+
+    private playJump(): void {
+        if (this.isOnGround()) SoundManager.play('character/jump');
+    }
+
+    private playSnor(): void {
+        if (!this.snorSound) this.snorSound = SoundManager.play('character/sleep', true);
+    }
+
+    private stopSnor(): void {
+        if (this.snorSound) {
+            this.snorSound.stop();
+            this.snorSound = null;
         }
     }
     // #endregion
