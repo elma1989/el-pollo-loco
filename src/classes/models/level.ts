@@ -144,9 +144,12 @@ export class Level {
 
         this.character.onMove = (x) => {
             if (x <= canvas.width) {
-                this.cameraX = -x;
-                this.statusbars.forEach ((bar, i) => bar.x = i == 1 ? x + canvas.width - Statusbar.statusWidth : x);
-                this.screens.forEach (screen => screen.x = x);
+                this.cameraX = x < Character.offsetX ? 0 : -x + Character.offsetX;
+                this.statusbars.forEach ((bar, i) => 
+                    bar.x = i == 1 
+                ? (x < Character.offsetX ? canvas.width - Statusbar.statusWidth : x + canvas.width - Statusbar.statusWidth - Character.offsetX)
+                : (x < Character.offsetX) ? 0 : x - Character.offsetX);
+                this.screens.forEach (screen => screen.x = x < Character.offsetX ? x : x - Character.offsetX);
             }
         }
     }

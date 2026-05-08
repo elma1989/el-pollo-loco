@@ -10,6 +10,7 @@ import { Bottle } from "./bottle.js";
 
 /** Represents the main character Pepe. */
 export class Character extends HealthyObject {
+    static readonly offsetX: number = 100;
     private idleCounter: number = 0;
     private speed: number = 10;
     private _facingLeft: boolean = false;
@@ -26,7 +27,7 @@ export class Character extends HealthyObject {
     private deadSoundPlayed: boolean = false;
 
     constructor() {
-        super(0, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
+        super(Character.offsetX, GravitalObject.toGround(240), 122, 240);  // 610 x 1200 * 0.2
         this.offset = {
             top: 130,
             right: 50,
