@@ -9,5 +9,10 @@ export const soundData = {
     'character/walk': SoundPathManager.character.walk,
     'character/jump': SoundPathManager.character.jump,
     'character/hurt': SoundPathManager.character.hurt,
-    'character/dead': SoundPathManager.character.dead
+    'character/dead': SoundPathManager.character.dead,
+    'enemy/s/dead': SoundPathManager.enemy.deadS,
+    'enemy/m/dead': SoundPathManager.enemy.deadM,
+    'boss/approach': SoundPathManager.enemy.bossApproach,
+    'boss/hurt': SoundPathManager.enemy.deadM,
+    'boss/dead': SoundPathManager.enemy.deadM
 }

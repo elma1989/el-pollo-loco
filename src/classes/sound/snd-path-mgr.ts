@@ -3,6 +3,7 @@ export class SoundPathManager {
 
     private static GAME: Record<string, string> = {};
     private static CHARACTER: Record<string, string> = {};
+    private static ENEMY: Record<string, string> = {};
 
     private constructor() {}
 
@@ -10,11 +11,14 @@ export class SoundPathManager {
         this.setPrefix();
         this.createGame();
         this.createCharactersSounds();
+        this.createEnemeySounds();
     }
 
     static get game(): Record<string, string> { return this.GAME; }
 
     static get character(): Record<string, string> { return this.CHARACTER; }
+
+    static get enemy(): Record<string, string> { return this.ENEMY; }
 
     private static setPrefix(): void {
         const host = location.hostname;
@@ -39,6 +43,14 @@ export class SoundPathManager {
             jump: `${this.prefix}/character/jump.wav`,
             hurt: `${this.prefix}/character/hurt.mp3`,
             dead: `${this.prefix}/character/dead.wav`
+        }
+    }
+
+    private static createEnemeySounds(): void {
+        this.ENEMY = {
+            deadS: `${this.prefix}/enemy/dead-s.mp3`,
+            deadM: `${this.prefix}/enemy/dead-m.mp3`,
+            bossApproach: `${this.prefix}/enemy/boss-approach.wav`
         }
     }
     // #endregion
