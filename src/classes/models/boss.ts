@@ -3,6 +3,7 @@ import { GravitalObject } from "../gravital-object.js";
 import { HealthyObject } from "../healthy-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
+import { SoundManager } from "../sound/snd-mgr.js";
 
 export class Boss extends HealthyObject {
     private attactTimer: number = 0;
@@ -41,6 +42,17 @@ export class Boss extends HealthyObject {
             if(this.state == 'attack') this.move(-4);
             this.reset();
         }
+    }
+
+    bringToLife(): void {
+        SoundManager.play('boss/approach');
+        super.bringToLife();
+    }
+
+    injure(damage: number): void {
+        super.injure(damage);
+        if (this.health > 0) SoundManager.play('boss/hurt');
+        else SoundManager.play('boss/dead');
     }
 
     // #region Animation

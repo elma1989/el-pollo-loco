@@ -1,5 +1,6 @@
 import { Chicken } from "../chicken.js";
 import { ImgHub } from "../img-hub.js";
+import { SoundManager } from "../sound/snd-mgr.js";
 
 export class ChickenM extends Chicken {
     constructor() {
@@ -21,6 +22,11 @@ export class ChickenM extends Chicken {
 
     healthyAct() {
         if(this.state != 'idle') this.move(-3);
+    }
+
+    injure(damage: number): void {
+        super.injure(damage);
+        if (this.health <= 0) SoundManager.play('enemy/m/dead');
     }
     // #endregion
 }
