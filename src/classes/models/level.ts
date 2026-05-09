@@ -389,6 +389,7 @@ export class Level {
 
     /** Finishes the game. */
     private endGame(win: boolean): void {
+        this.character.stopSnor();
         Game.run = false;
         this.screens[win ? 0 : 1].show();
         IntervalHub.stopAll();

@@ -244,7 +244,7 @@ export class Character extends HealthyObject {
         if (!this.snorSound) this.snorSound = SoundManager.play('character/sleep', true);
     }
 
-    private stopSnor(): void {
+    public stopSnor(): void {
         if (this.snorSound) {
             this.snorSound.stop();
             this.snorSound = null;
