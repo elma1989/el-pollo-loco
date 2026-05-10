@@ -3,6 +3,7 @@ import { Game } from "../game.js";
 import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
+import { SoundManager } from "../sound/snd-mgr.js";
 import { Character } from "./character.js";
 
 export class Coin extends Collectable<BaseState> {
@@ -24,6 +25,7 @@ export class Coin extends Collectable<BaseState> {
 
     protected onCollect(character: Character): void {
         character.addCoin();
+        SoundManager.play('collectable/coin/collect');
     }
 
     static randomY(height: number): number {

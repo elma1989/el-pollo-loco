@@ -14,5 +14,8 @@ export const soundData = {
     'enemy/m/dead': SoundPathManager.enemy.deadM,
     'boss/approach': SoundPathManager.enemy.bossApproach,
     'boss/hurt': SoundPathManager.enemy.deadM,
-    'boss/dead': SoundPathManager.enemy.deadM
+    'boss/dead': SoundPathManager.enemy.deadM,
+    'collectable/coin/collect': SoundPathManager.collectable.collectCoin,
+    'collectable/bottle/collect': SoundPathManager.collectable.collectBottle,
+    'collectable/bottle/break': SoundPathManager.collectable.breakBottle
 }

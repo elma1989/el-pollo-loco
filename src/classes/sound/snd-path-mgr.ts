@@ -4,6 +4,7 @@ export class SoundPathManager {
     private static GAME: Record<string, string> = {};
     private static CHARACTER: Record<string, string> = {};
     private static ENEMY: Record<string, string> = {};
+    private static COLLECTABLE: Record<string, string> = {};
 
     private constructor() {}
 
@@ -12,6 +13,7 @@ export class SoundPathManager {
         this.createGame();
         this.createCharactersSounds();
         this.createEnemeySounds();
+        this.createCollectableSounds();
     }
 
     static get game(): Record<string, string> { return this.GAME; }
@@ -19,6 +21,8 @@ export class SoundPathManager {
     static get character(): Record<string, string> { return this.CHARACTER; }
 
     static get enemy(): Record<string, string> { return this.ENEMY; }
+
+    static get collectable(): Record<string, string> { return this.COLLECTABLE; }
 
     private static setPrefix(): void {
         const host = location.hostname;
@@ -51,6 +55,14 @@ export class SoundPathManager {
             deadS: `${this.prefix}/enemy/dead-s.mp3`,
             deadM: `${this.prefix}/enemy/dead-m.mp3`,
             bossApproach: `${this.prefix}/enemy/boss-approach.wav`
+        }
+    }
+
+    private static createCollectableSounds(): void  {
+        this.COLLECTABLE = {
+            collectCoin: `${this.prefix}/collectable/collect-coin.wav`,
+            collectBottle: `${this.prefix}/collectable/collect-bottle.wav`,
+            breakBottle: `${this.prefix}/collectable/break-bottle.mp3`
         }
     }
     // #endregion
