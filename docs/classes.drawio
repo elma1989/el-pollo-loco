@@ -1332,7 +1332,7 @@
           <mxGeometry height="30" width="240" y="590" as="geometry" />
         </mxCell>
         <mxCell id="fbROnMdYsBbNGFCGOP6z-1" parent="1" style="swimlane;fontStyle=5;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SndPathMgr" vertex="1">
-          <mxGeometry height="320" width="240" x="10" y="5020" as="geometry" />
+          <mxGeometry height="346" width="240" x="10" y="5020" as="geometry" />
         </mxCell>
         <mxCell id="fbROnMdYsBbNGFCGOP6z-2" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- prefix: string&amp;nbsp; = &#39;&#39;&quot;" vertex="1">
           <mxGeometry height="26" width="240" y="26" as="geometry" />
@@ -1370,8 +1370,11 @@
         <mxCell id="ovd0Gp39HicpLWaLqKz9-3" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4;fontColor=default;" value="- createEnemySounds()" vertex="1">
           <mxGeometry height="26" width="240" y="294" as="geometry" />
         </mxCell>
+        <mxCell id="OsE1rI-0Be_5m15Og9Nh-1" parent="fbROnMdYsBbNGFCGOP6z-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4;fontColor=default;" value="- createCollectableSounds()" vertex="1">
+          <mxGeometry height="26" width="240" y="320" as="geometry" />
+        </mxCell>
         <mxCell id="Y8120Hv04KzjN5TIfdGc-1" parent="1" style="swimlane;fontStyle=5;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SoundManager" vertex="1">
-          <mxGeometry height="656" width="240" x="10" y="5380" as="geometry" />
+          <mxGeometry height="656" width="240" x="10" y="5390" as="geometry" />
         </mxCell>
         <mxCell id="Y8120Hv04KzjN5TIfdGc-2" parent="Y8120Hv04KzjN5TIfdGc-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontStyle=4" value="- ctx: AudioContext" vertex="1">
           <mxGeometry height="26" width="240" y="26" as="geometry" />
