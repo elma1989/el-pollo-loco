@@ -2,6 +2,7 @@ import { BaseState, Collectable } from "../collectable.js";
 import { GravitalObject } from "../gravital-object.js";
 import { ImgHub } from "../img-hub.js";
 import { IntervalHub } from "../interval-hub.js";
+import { SoundManager } from "../sound/snd-mgr.js";
 import { Character } from "./character.js";
 import { Splash } from "./splash.js";
 
@@ -36,6 +37,7 @@ export class Bottle extends Collectable<BaseState> {
 
     protected onCollect(character: Character): void {
         character.addBottle(this);
+        SoundManager.play('collectable/bottle/collect');
     }
 
     animate(): void {
@@ -89,6 +91,7 @@ export class Bottle extends Collectable<BaseState> {
             this.splash.show();
             this._splash = null;
         }
+        SoundManager.play('collectable/bottle/break');
     }
     // #endregion
 }
