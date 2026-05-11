@@ -28,4 +28,14 @@ export abstract class HTMLCustomElement {
             this._visible = state;
         } else this._visible = false;
     }
+
+    /** Shows element. */
+    show(): void {
+        this.visible = true;
+    }
+    
+    /** Hides element. */
+    hide(): void {
+        this.visible = false;
+    }
 }

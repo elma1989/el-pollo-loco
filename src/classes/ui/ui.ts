@@ -15,7 +15,7 @@ export class UI {
     btns: {
         text: Record<string, TextButton>,
         close: Record<string, Button>
-        icon: Record<string, IconButton>
+        icon: Record<string, Record<string, IconButton>>
     } = {
             text: {
                 run: new RunButton(),
@@ -27,7 +27,9 @@ export class UI {
                 impressum: new CloeseImpressumButton()
             },
             icon: {
-                music: new MusicButton()
+                sound: {
+                    music: new MusicButton()
+                }
             }
         }
 
