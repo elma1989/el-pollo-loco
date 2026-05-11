@@ -29,6 +29,8 @@ export abstract class IconButton extends Button {
         }
     }
 
+    abstract load(): Promise<void>;
+
     // #region Load / Decode
     /**
      * Loads an icon from url.
@@ -51,6 +53,16 @@ export abstract class IconButton extends Button {
         await Promise.all(Object.entries(this.paths).map(([name, url]) => {
             return this.loadIcon(name, url);
         }));
+    }
+
+    /** Shows icon on on-state. */
+    showOn(): void {
+        this.icon = 'on';
+    }
+
+    /** Show icon on off-state. */
+    showOff(): void {
+        this.icon = 'off';
     }
     // #endregion
 }

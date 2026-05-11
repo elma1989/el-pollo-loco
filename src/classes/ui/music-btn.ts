@@ -11,4 +11,8 @@ export class MusicButton extends IconButton {
         }
     }
 
+    async load(): Promise<void> {
+        await this.loadAllIcons();
+        this.icon = SoundManager.musicEnabled ? 'on': 'off';
+    }
 }
