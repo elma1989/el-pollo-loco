@@ -208,5 +208,12 @@ export class ImgHub {
         jump: 'assets/img/07_screen/jump.png'
     }
 
+    static BUTTON = {
+        music: {
+            on: 'assets/icons/music-on.svg',
+            off: 'assets/icons/music-off.svg'
+        }
+    }
+
     private constructor() {}
 }
