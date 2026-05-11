@@ -34,7 +34,7 @@ button {
 }
 
 #btn-run {
-    grid-area: 2 / 1 / 3 / 5;
+    grid-area: 4 / 1 / 5 / 5;
 }
 
 #btn-run:disabled {
@@ -42,10 +42,35 @@ button {
 }
 
 #btn-controls {
-    grid-area: 2 / 5 / 3 / 9;
+    grid-area: 4 / 5 / 5 / 9;
 }
-/* #endregion */
 
 #btn-impressum {
-    grid-area: 2 / 9 / 3 / 13;
+    grid-area: 4 / 9 / 5 / 13;
 }
+
+/* #endregion */
+
+/* #region Icon Button */
+.btn-icon {
+    background: transparent;
+    border: none;
+}
+
+.btn-icon:focus {
+    outline: none;
+}
+
+.snd-control {
+    width: 2rem;
+    height: 2rem;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#btn-music {
+    grid-area: 2 / 6 / 3 / 7;
+}
+/* #endregion */

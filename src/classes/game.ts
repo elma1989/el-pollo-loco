@@ -5,6 +5,7 @@ import { soundData } from "./sound/sound-data.js";
 import { UI } from "./ui/ui.js";
 
 type OverlayType = 'control' | 'impressum';
+type SoundControlType = 'sound' | 'music';
 
 export class Game {
 
@@ -27,6 +28,7 @@ export class Game {
         await this.level.loadObjects();
         this.level.drawAll();
         await SoundManager.preLoadAll(soundData);
+        await this.loadIconButtons();
         this.enableRunButton();
     }
 
@@ -52,6 +54,7 @@ export class Game {
                 await SoundManager.decodeAll();
                 this.level.removeTitleScreen();
                 this.hideTextButtons();
+                this.showSoundButtons();
                 SoundManager.play('game/start');
                 SoundManager.playMusic();
                 this.level.startGame();
@@ -64,6 +67,7 @@ export class Game {
         this.handleOverlayButton('impressum');
         this.handleOverlayCloseButton('control');
         this.handleOverlayCloseButton('impressum');
+        this.handleSoundControlButton('music');
     }
 
     private handleOverlayButton(type: OverlayType): void {
@@ -78,10 +82,17 @@ export class Game {
         }
     }
 
+    private handleSoundControlButton(control: SoundControlType) {
+        this.ui.btns.icon.sound[control].onPointerDown = () => {
+            this.togleSound(control);
+        }
+    }
+
     private handleEndGame(): void {
         this.level.onEndGame = async () => {
             SoundManager.stopMusic();
             this.disableRunButton();
+            this.hideSoundButtons();
             this.showTextButtons();
             this.level = new Level();
             this.init();
@@ -109,6 +120,28 @@ export class Game {
     private hideTextButtons(): void {
         Object.keys(this.ui.btns.text).forEach((key) => this.ui.btns.text[key].visible = false)
     }
+
+
+    private showSoundButtons() {
+        Object.values(this.ui.btns.icon.sound).forEach(btn => btn.show());
+    }
+
+    private hideSoundButtons() {
+        Object.values(this.ui.btns.icon.sound).forEach(btn => btn.hide());
+    }
+
+    private async loadIconButtons(): Promise<void> {
+        await Promise.all(Object.values(this.ui.btns.icon).map(group => 
+            Object.values(group).map(btn => btn.load())));
+    }
     // #endregion
+
+    private togleSound(control: SoundControlType) {
+        const music = this.ui.btns.icon.sound.music;
+        if (control == 'music') SoundManager.toggleMusic();
+        else SoundManager.toggleSound;
+        if (SoundManager.musicEnabled) music.showOn();
+        else music.showOff();
+    }
     // #endregion
 }

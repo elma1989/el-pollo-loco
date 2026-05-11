@@ -1,14 +1,37 @@
+import { Button } from "../button.js";
+import { TextButton } from "../text-button.js";
 import { CloseControlButton } from "./btn-close-ctrl.js";
 import { CloeseImpressumButton } from "./btn-close-impressum.js";
 import { ControlOverlayButton } from "./btn-ctrl-overlay.js";
 import { ImpressumButton } from "./btn-impressum.js";
 import { RunButton } from "./btn-run.js";
+import { IconButton } from "./icon-button.js";
 import { Impressum } from "./impressum.js";
+import { MusicButton } from "./music-btn.js";
 import { ControlOverlay } from "./overlay-control.js";
 
 export class UI {
-    btns: Record<string,any> = {};
     overlays: Record<string, any> = {};
+    btns: {
+        text: Record<string, TextButton>,
+        close: Record<string, Button>
+        icon: Record<string, Record<string, IconButton>>
+    } = {
+            text: {
+                run: new RunButton(),
+                control: new ControlOverlayButton(),
+                impressum: new ImpressumButton()
+            },
+            close: {
+                control: new CloseControlButton(),
+                impressum: new CloeseImpressumButton()
+            },
+            icon: {
+                sound: {
+                    music: new MusicButton()
+                }
+            }
+        }
 
     constructor() {
         this.createElements();
@@ -18,18 +41,6 @@ export class UI {
         this.overlays = {
             control: new ControlOverlay(),
             impressum: new Impressum()
-        }
-
-        this.btns = {
-            text: {
-                run: new RunButton(),
-                control: new ControlOverlayButton(),
-                impressum: new ImpressumButton()
-            },
-            close: {
-                control: new CloseControlButton(),
-                impressum: new CloeseImpressumButton()
-            }
         }
     }
 }
