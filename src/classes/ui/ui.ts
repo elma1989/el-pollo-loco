@@ -9,6 +9,7 @@ import { IconButton } from "./icon-button.js";
 import { Impressum } from "./impressum.js";
 import { MusicButton } from "./music-btn.js";
 import { ControlOverlay } from "./overlay-control.js";
+import { SfxButton } from "./sfx-btn.js";
 
 export class UI {
     overlays: Record<string, any> = {};
@@ -28,7 +29,8 @@ export class UI {
             },
             icon: {
                 sound: {
-                    music: new MusicButton()
+                    music: new MusicButton(),
+                    sfx: new SfxButton()
                 }
             }
         }

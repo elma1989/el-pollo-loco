@@ -5,7 +5,7 @@ import { soundData } from "./sound/sound-data.js";
 import { UI } from "./ui/ui.js";
 
 type OverlayType = 'control' | 'impressum';
-type SoundControlType = 'sound' | 'music';
+type SoundControlType = 'music' | 'sfx';
 
 export class Game {
 
@@ -68,6 +68,7 @@ export class Game {
         this.handleOverlayCloseButton('control');
         this.handleOverlayCloseButton('impressum');
         this.handleSoundControlButton('music');
+        this.handleSoundControlButton('sfx');
     }
 
     private handleOverlayButton(type: OverlayType): void {
@@ -138,10 +139,13 @@ export class Game {
 
     private togleSound(control: SoundControlType) {
         const music = this.ui.btns.icon.sound.music;
+        const sfx = this.ui.btns.icon.sound.sfx;
         if (control == 'music') SoundManager.toggleMusic();
-        else SoundManager.toggleSound;
+        else SoundManager.toggleSound();
         if (SoundManager.musicEnabled) music.showOn();
         else music.showOff();
+        if (SoundManager.soundEnabled) sfx.showOn();
+        else sfx.showOff();
     }
     // #endregion
 }

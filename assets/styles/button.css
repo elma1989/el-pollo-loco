@@ -73,4 +73,8 @@ button {
 #btn-music {
     grid-area: 2 / 6 / 3 / 7;
 }
+
+#btn-sfx {
+    grid-area: 2 / 7 / 3 / 8;
+}
 /* #endregion */
