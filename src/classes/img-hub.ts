@@ -212,6 +212,10 @@ export class ImgHub {
         music: {
             on: 'assets/icons/music-on.svg',
             off: 'assets/icons/music-off.svg'
+        }, 
+        sfx: {
+            on: 'assets/icons/sfx-on.svg',
+            off: 'assets/icons/sfx-off.svg'
         }
     }
 
