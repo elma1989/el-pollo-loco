@@ -12,7 +12,10 @@ import { ControlOverlay } from "./overlay-control.js";
 import { SfxButton } from "./sfx-btn.js";
 
 export class UI {
-    overlays: Record<string, any> = {};
+    overlays: Record<string, any> = {
+        control: new ControlOverlay(),
+        impressum: new Impressum()
+    };
     btns: {
         text: Record<string, TextButton>,
         close: Record<string, Button>
@@ -34,15 +37,4 @@ export class UI {
                 }
             }
         }
-
-    constructor() {
-        this.createElements();
-    }
-
-    private createElements(): void {
-        this.overlays = {
-            control: new ControlOverlay(),
-            impressum: new Impressum()
-        }
-    }
 }
