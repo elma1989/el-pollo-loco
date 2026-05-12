@@ -18,17 +18,28 @@ export class SoundManager {
         this.loadStorage();
     }
 
-    static get soundEnabled(): boolean { return this._soundEnabled; }
-
-    static set soundEnabled(state: boolean) {
-        this._soundEnabled = state;
-        this.save();
-    }
-
     static get musicEnabled(): boolean { return this._musicEnabled; }
 
     static set musicEnabled(state: boolean) {
         this._musicEnabled = state;
+        this.save();
+    }
+    
+    static get soundEnabled(): boolean { return this._soundEnabled; }
+    
+    static set soundEnabled(state: boolean) {
+        this._soundEnabled = state;
+        if (state) {
+            if (!this.musicEnabled) {
+                this.musicEnabled = true;
+            }
+            this.playMusic();
+        } else {
+            if (this.musicEnabled) {
+                this.stopMusic();
+                this.musicEnabled = false;
+            }
+        }
         this.save();
     }
 
