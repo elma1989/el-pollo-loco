@@ -1,3 +1,4 @@
+import { DisplayDetector } from "./display-detactor.js";
 import { KeyListener } from "./key-listener.js";
 import { Level } from "./models/level.js";
 import { SoundManager } from "./sound/snd-mgr.js";
@@ -13,11 +14,13 @@ export class Game {
     loaded: boolean = false;
     level: Level;
     ui: UI;
+    display: DisplayDetector;
     
     constructor() {
         new KeyListener();
         this.level = new Level();
         this.ui = new UI();
+        this.display = new DisplayDetector();
     }
 
     // #region Methods
