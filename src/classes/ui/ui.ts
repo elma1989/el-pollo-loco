@@ -5,6 +5,7 @@ import { CloeseImpressumButton } from "./btn-close-impressum.js";
 import { ControlOverlayButton } from "./btn-ctrl-overlay.js";
 import { ImpressumButton } from "./btn-impressum.js";
 import { RunButton } from "./btn-run.js";
+import { FullscreenButton } from "./fullscreen-btn.js";
 import { IconButton } from "./icon-button.js";
 import { Impressum } from "./impressum.js";
 import { MusicButton } from "./music-btn.js";
@@ -36,6 +37,9 @@ export class UI {
                 sound: {
                     music: new MusicButton(),
                     sfx: new SfxButton()
+                },
+                screen: {
+                    full: new FullscreenButton()
                 }
             }
         }

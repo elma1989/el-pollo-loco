@@ -217,6 +217,10 @@ export class ImgHub {
         sfx: {
             on: 'assets/icons/sfx-on.svg',
             off: 'assets/icons/sfx-off.svg'
+        },
+        full: {
+            on: 'assets/icons/full-on.svg',
+            off: 'assets/icons/full-off.svg'
         }
     }
 
