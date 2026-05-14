@@ -19,6 +19,7 @@
 
 .overlay-body {
     flex: 1;
+    justify-content: center;
     align-items: center;
 }
 /* #endregion */
@@ -70,5 +71,39 @@
 
     a:hover {
         text-decoration: underline;
+    }
+}
+
+#overlay-landscape-wrapper {
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media(max-width: 400px) {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+    }
+}
+
+#overlay-landscape-img {
+    height: 100%;
+    display: block;
+    transform-origin: center;
+    animation: turnLandscape 1s linear infinite;
+}
+
+@keyframes turnLandscape {
+    0% {
+        transform: rotate(0);
+    }
+    66% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
     }
 }

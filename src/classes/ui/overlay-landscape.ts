@@ -9,13 +9,14 @@ export class SwitchLandscape extends Overlay {
     }
 
     create(): void {
-        if (this.element) this.element.innerHTML = Template.overlay('landscape', '', false);
+        const content = '<div id="overlay-landscape-wrapper"></div>';
+        if (this.element) this.element.innerHTML = Template.overlay('landscape', content , false);
         this.createImage();
     }
 
     /** Inserts the smartphone image. */
     createImage(): void {
-        const parent = document.getElementById('overlay-landscape-body');
+        const parent = document.getElementById('overlay-landscape-wrapper');
         const img = new Image();
         if (parent) {
             img.src = ImgHub.SCREEN.landscape;
