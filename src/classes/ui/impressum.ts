@@ -14,8 +14,7 @@ export class Impressum extends Overlay {
 
     create(): void {
         if (this.element) {
-            this.element.innerHTML = Template.overlay('impressum');
-            this.addImpressumContent();
+            this.element.innerHTML = Template.overlay('impressum', Template.impressum());
         }
     }
 }

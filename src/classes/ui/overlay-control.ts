@@ -27,8 +27,7 @@ export class ControlOverlay extends Overlay {
 
     create(): void {
         if (this.element) {
-            this.element.innerHTML = Template.overlay('control');
-            this.createControlContainer();
+            this.element.innerHTML = Template.overlay('control', this.createControlContainer());
         }
     }
 
@@ -40,16 +39,8 @@ export class ControlOverlay extends Overlay {
         return result
     }
 
-    private createControlContainer(): void {
-        const body = document.getElementById('overlay-control-body');
-        if (body) {
-            const controlContainer = document.createElement('div');
-            controlContainer.id = 'control-container';
-            controlContainer.classList.add('w-full');
-            controlContainer.classList.add('flex');
-            controlContainer.innerHTML = this.createControlItems();
-            body.appendChild(controlContainer);
-        }
+    private createControlContainer(): string {
+        return Template.controlContainer(this.createControlItems());
     }
 
     /**
