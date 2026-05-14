@@ -66,6 +66,28 @@ export class DisplayDetector {
         }
     }
 
+
+    private resizeCanvase(): void {
+        const canvas = Game.canvas;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+
+        if (!canvas) return;
+        if (vw < canvas.width || vh < canvas.height) {
+            const scale = Math.min(vw / canvas.width, vh / canvas.height);
+            canvas.style.width = `${canvas.width * scale}px`;
+            canvas.style.height = `${canvas.height * scale}px`;
+        } else {
+            canvas.style.removeProperty('width');
+            canvas.style.removeProperty('height');
+        }
+    }
+
+    private onResize(): void {
+        this.checkDisplay();
+        this.resizeCanvase();
+    }
+
     private debounce(fn: () => void, delay: number): () => void {
         let timeout: undefined | number;
         return () => {
@@ -79,7 +101,7 @@ export class DisplayDetector {
     private addReziseEvent(): void  {
         window.addEventListener(
             'resize',
-            this.debounce(() => this.checkDisplay(), 500)
+            this.debounce(() => this.onResize(), 500)
         );
     }
     // #endregion
