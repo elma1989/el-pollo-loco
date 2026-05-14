@@ -3,18 +3,25 @@ import { ControlItem } from "../interfaces/control-item.js";
 export class Template {
     private constructor() {};
 
-    static overlay(name:string) {
+    static overlay(name:string, content: string, closeBtn: boolean = true) {
+        const button = closeBtn ? `<button id="btn-close-${name}" class="btn-close">X</button>` : '';
         return `
             <header class="w-full flex"> 
-                <button id="btn-close-${name}" class="btn-close">X</button>
+                ${button}
             </header>
-            <div class="overlay-body w-full flex" id="overlay-${name}-body"></div>
+            <div class="overlay-body w-full flex" id="overlay-${name}-body">${content}</div>
         `
     }
 
     static controlKey(key: string): string {
         return `
             <div class="control-key">${key}</div>
+        `
+    }
+
+    static controlContainer(items: string): string {
+        return `
+            <div id="control-container" class="w-full flex">${items}</div>
         `
     }
 

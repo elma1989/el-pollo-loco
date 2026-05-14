@@ -9,12 +9,14 @@ import { IconButton } from "./icon-button.js";
 import { Impressum } from "./impressum.js";
 import { MusicButton } from "./music-btn.js";
 import { ControlOverlay } from "./overlay-control.js";
+import { SwitchLandscape } from "./overlay-landscape.js";
 import { SfxButton } from "./sfx-btn.js";
 
 export class UI {
     overlays: Record<string, any> = {
         control: new ControlOverlay(),
-        impressum: new Impressum()
+        impressum: new Impressum(),
+        landscape: new SwitchLandscape()
     };
     btns: {
         text: Record<string, TextButton>,

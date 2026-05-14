@@ -27,6 +27,7 @@ export class Game {
     async init(): Promise<void> {
         SoundManager.init();
         this.handlePointerEvents();
+        this.handleDisplayEvents();
         this.handleEndGame();
         await this.level.loadObjects();
         this.level.drawAll();
@@ -90,6 +91,18 @@ export class Game {
         this.ui.btns.icon.sound[control].onPointerDown = () => {
             this.togleSound(control);
         }
+    }
+
+    private handleDisplayEvents() {
+        this.display.onSwitchPortrait = () => {
+            this.ui.overlays.landscape.open();
+            this.hideTextButtons();
+        }
+        this.display.onSwitchLandscape = () => {
+            this.ui.overlays.landscape.close();
+            if (!Game.run) this.showTextButtons();
+        }
+        this.display.emitStartEvent();
     }
 
     private handleEndGame(): void {

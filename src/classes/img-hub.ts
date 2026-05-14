@@ -205,7 +205,8 @@ export class ImgHub {
         lose: 'assets/img/07_screen/lose.png',
         start: 'assets/img/07_screen/start.png',
         walk: 'assets/img/07_screen/walk.png',
-        jump: 'assets/img/07_screen/jump.png'
+        jump: 'assets/img/07_screen/jump.png',
+        landscape: 'assets/img/smartphone.png'
     }
 
     static BUTTON = {
