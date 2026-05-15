@@ -10,4 +10,8 @@ export class MobileRightButton extends MobileControlButton {
         }
     }
 
+    async load(): Promise<void> {
+        await this.loadAllIcons();
+        this.showOff();
+    }
 }

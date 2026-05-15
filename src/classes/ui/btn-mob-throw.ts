@@ -9,4 +9,9 @@ export class MobileThrowButton extends MobileControlButton {
             off: ImgHub.BUTTON.bottle.off
         }
     }
+
+    async load(): Promise<void> {
+        await this.loadAllIcons();
+        this.showOff();
+    }
 }

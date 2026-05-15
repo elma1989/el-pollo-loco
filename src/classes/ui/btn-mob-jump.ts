@@ -9,4 +9,9 @@ export class MobileJumpButton extends MobileControlButton {
             off: ImgHub.BUTTON.up.off
         }
     }
+
+    async load(): Promise<void> {
+        await this.loadAllIcons();
+        this.showOff();
+    }
 }

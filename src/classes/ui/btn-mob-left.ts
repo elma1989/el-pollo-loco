@@ -9,4 +9,9 @@ export class MobileLeftButton extends MobileControlButton {
             off: ImgHub.BUTTON.left.off
         }
     }
+
+    async load(): Promise<void> {
+        await this.loadAllIcons();
+        this.showOff();
+    }
 }
