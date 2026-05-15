@@ -77,4 +77,49 @@ button {
 #btn-sfx {
     grid-area: 2 / 7 / 3 / 8;
 }
+
+.btn-mob-ctrl {
+    width: 4rem;
+    height: 4rem;
+    img {
+        height: 4rem;
+    }
+    @media (max-height: 400px) {
+        width: 3rem;
+        height: 3rem;
+        img {
+            height: 3rem;
+        }
+    }
+}
+
+#btn-mob-left {
+    grid-area: 4 / 2 / 5 / 3;
+}
+
+#btn-mob-right {
+    grid-area: 4 / 4 / 5 / 5;
+}
+
+#btn-mob-jump {
+    grid-area: 4 / 9 / 5 / 10;
+}
+
+#btn-mob-throw {
+    grid-area: 4 / 11 / 5 / 12;
+}
+
+@media (max-height: 450px) {
+    .btn-text {
+        font-size: 1rem;
+    }
+
+    .btn-mob-ctrl {
+        width: 3rem;
+        height: 3rem;
+        img {
+            height: 3rem;
+        }
+    }
+}
 /* #endregion */
