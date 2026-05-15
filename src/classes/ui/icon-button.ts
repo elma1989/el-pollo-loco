@@ -4,7 +4,13 @@ import { Button } from "../button.js";
 export abstract class IconButton extends Button {
 
     protected paths: Record<string, string> = {};
-    private _icons: Record<string, HTMLImageElement> = {};
+    private _icons: {
+        on: HTMLImageElement,
+        off: HTMLImageElement
+    } = {
+        on: new Image(),
+        off: new Image()
+    }
     private currentIcon: string = ''
     
     /**
@@ -37,11 +43,11 @@ export abstract class IconButton extends Button {
      * @param url - Url to load.
      * @returns HTMLElement form image if url found
      */
-    private async loadIcon(name: string, url: string): Promise<void> {
+    private async loadIcon(name: 'on' | 'off', url: string): Promise<void> {
         try {
             const img = new Image();
             img.src = url;
-            await img.decode()
+            await img.decode();
             this._icons[name] = img
         } catch {
             throw new Error(`Image "${url} could not load`);
@@ -51,7 +57,7 @@ export abstract class IconButton extends Button {
     /** Loads all Icons form object. */
     protected async loadAllIcons(): Promise<void> {
         await Promise.all(Object.entries(this.paths).map(([name, url]) => {
-            return this.loadIcon(name, url);
+            return this.loadIcon(name == 'on' ? 'on' : 'off', url);
         }));
     }
 
