@@ -217,6 +217,22 @@ export class ImgHub {
         sfx: {
             on: 'assets/icons/sfx-on.svg',
             off: 'assets/icons/sfx-off.svg'
+        },
+        left: {
+            on: 'assets/icons/left-on.svg',
+            off: 'assets/icons/left-off.svg'
+        },
+        right: {
+            on: 'assets/icons/right-on.svg',
+            off: 'assets/icons/right-off.svg'
+        },
+        up: {
+            on: 'assets/icons/up-on.svg',
+            off: 'assets/icons/up-off.svg'
+        },
+        bottle: {
+            on: 'assets/icons/bottle-on.png',
+            off: 'assets/icons/bottle-off.png'
         }
     }
 

@@ -68,16 +68,20 @@ export class DisplayDetector {
 
 
     private resizeCanvase(): void {
+        const container = document.getElementById('canvas-container');
         const canvas = Game.canvas;
         const vw = window.innerWidth;
         const vh = window.innerHeight;
 
-        if (!canvas) return;
-        if (vw < canvas.width || vh < canvas.height) {
+        if (!container || !canvas) return;
+        if (vw < canvas.width || vh <= 670) {
             const scale = Math.min(vw / canvas.width, vh / canvas.height);
-            canvas.style.width = `${canvas.width * scale}px`;
+            const width = canvas.width * scale;
+            container.style.width = `${width}px`
+            canvas.style.width = `${width}px`;
             canvas.style.height = `${canvas.height * scale}px`;
         } else {
+            container.style.removeProperty('width');
             canvas.style.removeProperty('width');
             canvas.style.removeProperty('height');
         }
