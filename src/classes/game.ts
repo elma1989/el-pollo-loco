@@ -7,6 +7,7 @@ import { UI } from "./ui/ui.js";
 
 type OverlayType = 'control' | 'impressum';
 type SoundControlType = 'music' | 'sfx';
+type MobControlType = 'left' | 'right' | 'jump' | 'throw';
 
 export class Game {
 
@@ -28,6 +29,7 @@ export class Game {
         SoundManager.init();
         this.handlePointerEvents();
         this.handleDisplayEvents();
+        this.handleMobileControl();
         this.handleEndGame();
         await this.level.loadObjects();
         this.level.drawAll();
@@ -61,6 +63,7 @@ export class Game {
                 this.showSoundButtons();
                 SoundManager.play('game/start');
                 SoundManager.playMusic();
+                if(this.display.isMobile) this.showMobilControl();
                 this.level.startGame();
             }
         }
@@ -94,21 +97,86 @@ export class Game {
     }
 
     private handleDisplayEvents() {
+        this.handleLandscapeEvents();
+        this.handleMobileEvents();
+        this.display.emitStartEvent();
+    }
+
+    private handleLandscapeEvents() {
         this.display.onSwitchPortrait = () => {
             this.ui.overlays.landscape.open();
             this.hideTextButtons();
+            this.hideMobileControl();
+            this.hideCanvas();
         }
         this.display.onSwitchLandscape = () => {
             this.ui.overlays.landscape.close();
+            this.showCanvas();
             if (!Game.run) this.showTextButtons();
+            else if (this.display.isMobile) this.showMobilControl();
         }
-        this.display.emitStartEvent();
+    }
+
+    private handleMobileEvents(): void {
+        this.display.onSwitchMobile = () => {
+            if (Game.run) this.showMobilControl();
+        }
+        this.display.onSwitchDesktop = () => this.hideMobileControl();
+    }
+
+    private handleMobileControl(): void {
+        const btnTypes: MobControlType[] = ['left', 'right', 'jump', 'throw'];
+        btnTypes.forEach(type => {
+            this.handleMobEnter(type);
+            this.handleMobLeave(type);
+        });
+    }
+
+    private handleMobEnter(ctrl: MobControlType) {
+        const btn = this.ui.btns.icon.mobileControl[ctrl];
+        btn.onPointerDown = () => {
+            btn.showOn();
+            switch(ctrl) {
+                case 'left':
+                    KeyListener.KEY.left = true;
+                    break;
+                case 'right':
+                    KeyListener.KEY.right = true;
+                    break;
+                case 'jump':
+                    KeyListener.KEY.space = true;
+                    break;
+                case 'throw':
+                    KeyListener.KEY.ctrl = true;
+            }
+        }
+    }
+
+    private handleMobLeave(ctrl: MobControlType) {
+        const btn = this.ui.btns.icon.mobileControl[ctrl]
+        btn.onPointerUp = () => {
+            btn.showOff();
+            switch(ctrl) {
+                case 'left':
+                    KeyListener.KEY.left = false;
+                    break;
+                case 'right':
+                    KeyListener.KEY.right = false;
+                    break;
+                case 'jump':
+                    KeyListener.KEY.space = false;
+                    break;
+                case 'throw':
+                    KeyListener.KEY.ctrl = false;
+            }
+        }
     }
 
     private handleEndGame(): void {
         this.level.onEndGame = async () => {
             SoundManager.stopMusic();
             this.disableRunButton();
+            this.hideMobileControl();
             this.hideSoundButtons();
             this.showTextButtons();
             this.level = new Level();
@@ -130,6 +198,16 @@ export class Game {
         this.loaded = false;
     }
 
+    private showCanvas(): void {
+        const canvas = Game.canvas;
+        if (canvas) canvas.classList.remove('d-none');
+    }
+
+    private hideCanvas(): void {
+        const canvas = Game.canvas;
+        if (canvas) canvas.classList.add('d-none');
+    }
+
     private showTextButtons(): void {
         Object.keys(this.ui.btns.text).forEach((key) => this.ui.btns.text[key].visible = true)
     }
@@ -145,6 +223,14 @@ export class Game {
 
     private hideSoundButtons() {
         Object.values(this.ui.btns.icon.sound).forEach(btn => btn.hide());
+    }
+
+    private showMobilControl() {
+        Object.values(this.ui.btns.icon.mobileControl).forEach(btn => btn.show());
+    }
+
+    private hideMobileControl() {
+        Object.values(this.ui.btns.icon.mobileControl).forEach(btn => btn.hide());
     }
 
     private async loadIconButtons(): Promise<void> {
