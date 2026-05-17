@@ -121,7 +121,7 @@
     }
 }
 
-@media (max-width: 500px) {
+@media (max-height: 500px) or (max-width: 500px) {
     .overlay {
         padding: 1rem;
     }
@@ -139,12 +139,23 @@
 }
 
 @media (max-height: 450px) {
+    .control-item {
+        width: 9rem;
+    }
+
+    .control-img-wrapper {
+        height: 12rem;
+    }
+
     .img-ctrl {
         width: 66%;
     }
 
-    .control-img-wrapper {
-        height: 6rem;
+    #overlay-impressum-body {
+        font-size: 1rem;
+        h2 {
+            font-size: 1.5rem;
+        }
     }
 }
 
