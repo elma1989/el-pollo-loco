@@ -12,6 +12,7 @@ export class DisplayDetector {
         this.mobile = this.isDisplayMobile();
         this.landscape = this.isDisplayLandscape();
         this.addReziseEvent();
+        this.resizeCanvase();
     }
 
     // #region Methods
@@ -27,7 +28,7 @@ export class DisplayDetector {
     private isDisplayMobile(): boolean {
         const canvas = Game.canvas;
         if (!canvas) return false;
-        return window.innerWidth <= canvas.width;
+        return window.innerWidth <= 1366 && window.innerHeight <= 1024;
     }
 
     /**
@@ -77,9 +78,9 @@ export class DisplayDetector {
         if (vw < canvas.width || vh <= 670) {
             const scale = Math.min(vw / canvas.width, vh / canvas.height);
             const width = canvas.width * scale;
-            container.style.width = `${width}px`
-            canvas.style.width = `${width}px`;
-            canvas.style.height = `${canvas.height * scale}px`;
+            container.style.width = this.isLandscape ? `${width}px` : '';
+            canvas.style.width = this.isLandscape ? `${width}px` : '';
+            canvas.style.height = this.isLandscape ? `${canvas.height * scale}px` : '';
         } else {
             container.style.removeProperty('width');
             canvas.style.removeProperty('width');
