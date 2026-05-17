@@ -80,12 +80,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    @media(max-width: 400px) {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1 / 1;
-    }
 }
 
 #overlay-landscape-img {
@@ -93,6 +87,65 @@
     display: block;
     transform-origin: center;
     animation: turnLandscape 1s linear infinite;
+}
+
+@media (min-height: 1600px) {
+    .overlay {
+        padding: 4rem;
+    }
+
+    .control-item {
+        width: 24rem;
+        gap: 3rem;
+    }
+
+    .control-img-wrapper {
+        height: 32rem;
+    }
+
+    .key-wrapper {
+        gap: 2rem;
+    }
+
+    .control-key {
+        font-size: 3rem;
+        padding: 1rem 2rem;
+    }
+
+    .impressum-container {
+        font-size: 4rem;
+    }
+
+    #overlay-impressum-body h2 {
+        font-size: 6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .overlay {
+        padding: 1rem;
+    }
+
+    #overlay-landscape-wrapper {
+        width: 250px;
+        height: 250px;
+    }
+}
+
+@media (max-height: 667px) {
+    .key-wrapper {
+        display: none;
+    }
+}
+
+@media (max-height: 450px) {
+    .img-ctrl {
+        width: 66%;
+    }
+
+    .control-img-wrapper {
+        height: 6rem;
+    }
 }
 
 @keyframes turnLandscape {

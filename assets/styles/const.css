@@ -8,6 +8,9 @@
 
 .round {
     border-radius: 1rem;
+    @media(min-height: 1600px) {
+        border-radius: 3rem;
+    }
 }
 
 .flex {
